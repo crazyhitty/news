@@ -1,7 +1,8 @@
-package com.crazyhitty.chdev.ks.news
+package com.crazyhitty.chdev.ks.news.news
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.crazyhitty.chdev.ks.news.R
 
 class NewsActivity : AppCompatActivity() {
 
