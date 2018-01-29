@@ -1,4 +1,4 @@
-package com.crazyhitty.chdev.ks.news.news.model
+package com.crazyhitty.chdev.ks.news.data.model.news
 
 data class News(
         val totalResults: Int? = null,

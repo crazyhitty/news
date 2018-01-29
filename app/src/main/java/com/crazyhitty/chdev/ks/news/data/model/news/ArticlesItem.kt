@@ -1,4 +1,4 @@
-package com.crazyhitty.chdev.ks.news.news.model
+package com.crazyhitty.chdev.ks.news.data.model.news
 
 data class ArticlesItem(
         val publishedAt: String? = null,

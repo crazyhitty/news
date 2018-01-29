@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.crazyhitty.chdev.ks.news.R
-import com.crazyhitty.chdev.ks.news.news.model.News
+import com.crazyhitty.chdev.ks.news.data.model.news.News
 import org.jetbrains.anko.find
 
 /**
