@@ -10,10 +10,9 @@ import com.crazyhitty.chdev.ks.news.data.model.news.News
 import org.jetbrains.anko.find
 
 /**
- * Author:      Kartik Sharma
- * Email Id:    cr42yh17m4n@gmail.com
- * Created:     1/23/18 10:46 PM
- * Description: Unavailable
+ * This recycler adapter is responsible for displaying news.
+ *
+ * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHolder>() {
     var news: News? = null

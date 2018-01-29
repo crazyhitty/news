@@ -6,6 +6,11 @@ import android.support.v7.widget.LinearLayoutManager
 import com.crazyhitty.chdev.ks.news.R
 import kotlinx.android.synthetic.main.activity_news.*
 
+/**
+ * This activity will display the list of news.
+ *
+ * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
+ */
 class NewsActivity : AppCompatActivity() {
     private val newsRecyclerAdapter: NewsRecyclerAdapter = NewsRecyclerAdapter()
 
