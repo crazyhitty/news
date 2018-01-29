@@ -16,7 +16,7 @@ import org.jetbrains.anko.find
  * Description: Unavailable
  */
 class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHolder>() {
-    private var news: News? = null
+    var news: News? = null
     set(value) {
         notifyDataSetChanged()
     }
