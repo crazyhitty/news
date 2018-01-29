@@ -55,7 +55,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.5.0'
 
     // Anko Commons
-    compile "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+
+    // Calligraphy
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 }
