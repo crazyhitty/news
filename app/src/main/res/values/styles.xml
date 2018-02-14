@@ -6,6 +6,29 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textAppearanceLarge">@style/TextAppearanceLarge</item>
+        <item name="android:textAppearanceMedium">@style/TextAppearanceMedium</item>
+        <item name="android:textAppearanceSmall">@style/TextAppearanceSmall</item>
+        <item name="colorNewsItem">@color/colorNewsItem</item>
+    </style>
+
+    <style name="TextAppearanceLarge" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">@dimen/textSizeLarge</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearanceMedium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearanceSmall" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearanceNewsItem" parent="TextAppearanceMedium">
+        <item name="android:textColor">?attr/colorNewsItem</item>
     </style>
 
 </resources>
