@@ -28,6 +28,8 @@ import javax.inject.Singleton
 
 
 /**
+ * Application level module for providing application specific objects.
+ *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 @Module
