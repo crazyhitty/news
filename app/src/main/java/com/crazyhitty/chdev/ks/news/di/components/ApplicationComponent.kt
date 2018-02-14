@@ -17,11 +17,6 @@ import javax.inject.Singleton
 interface ApplicationComponent {
     fun inject(newsApplication: NewsApplication)
 
-    /*@ApplicationContext
-    fun context(): Context
-
-    fun application(): Application*/
-
     fun getCompositeDisposable(): CompositeDisposable
 
     fun getSchedulerProvider(): SchedulerProvider
