@@ -1,13 +1,10 @@
 package com.crazyhitty.chdev.ks.news.news
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.crazyhitty.chdev.ks.news.NewsApplication
 import com.crazyhitty.chdev.ks.news.R
+import com.crazyhitty.chdev.ks.news.base.BaseAppCompatActivity
 import com.crazyhitty.chdev.ks.news.data.model.news.News
-import com.crazyhitty.chdev.ks.news.di.components.DaggerActivityComponent
-import com.crazyhitty.chdev.ks.news.di.modules.ActivityModule
 import kotlinx.android.synthetic.main.activity_news.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -17,14 +14,7 @@ import javax.inject.Inject
  *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
-class NewsActivity : AppCompatActivity(), NewsContract.View {
-    private val activityComponent by lazy {
-        DaggerActivityComponent.builder()
-                .activityModule(ActivityModule(this))
-                .applicationComponent((application as NewsApplication).applicationComponent)
-                .build()
-    }
-
+class NewsActivity : BaseAppCompatActivity(), NewsContract.View {
     @Inject
     lateinit var newsPresenter: NewsContract.Presenter
 
