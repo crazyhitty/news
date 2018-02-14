@@ -1,6 +1,6 @@
 package com.crazyhitty.chdev.ks.news.di.components
 
-import com.crazyhitty.chdev.ks.news.di.PerActivity
+import com.crazyhitty.chdev.ks.news.di.scopes.PerActivity
 import com.crazyhitty.chdev.ks.news.di.modules.ActivityModule
 import com.crazyhitty.chdev.ks.news.news.NewsActivity
 import dagger.Component

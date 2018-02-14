@@ -1,4 +1,4 @@
-package com.crazyhitty.chdev.ks.news.di
+package com.crazyhitty.chdev.ks.news.di.scopes
 
 import javax.inject.Scope
 
