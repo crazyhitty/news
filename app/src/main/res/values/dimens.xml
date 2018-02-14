@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="textSizeLarge">28sp</dimen>
-    <dimen name="textSizeMedium">22sp</dimen>
-    <dimen name="textSizeSmall">16sp</dimen>
+    <dimen name="textSizeLarge">26sp</dimen>
+    <dimen name="textSizeMedium">20sp</dimen>
+    <dimen name="textSizeSmall">14sp</dimen>
 
     <dimen name="marginLarge">32dp</dimen>
     <dimen name="marginMedium">16dp</dimen>

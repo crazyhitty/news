@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#e7e5df</color>
+    <color name="colorPrimaryDark">#d3d0cb</color>
+    <color name="colorAccent">#e7bb41</color>
 
-    <color name="colorNewsItem">#212121</color>
-    <color name="colorNewsItemInverse">#F5F5F5</color>
+    <color name="textColorPrimary">#393e41</color>
+    <color name="textColorSecondary">#393e41</color>
+    <color name="textColorTertiary">#393e41</color>
+    <color name="textColorPrimaryInverse">#44bba4</color>
+    <color name="textColorSecondaryInverse">#44bba4</color>
+    <color name="textColorTertiaryInverse">#44bba4</color>
+
+    <color name="colorNewsItem">#393e41</color>
 
 </resources>
