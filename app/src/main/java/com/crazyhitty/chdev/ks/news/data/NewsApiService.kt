@@ -3,6 +3,7 @@ package com.crazyhitty.chdev.ks.news.data
 import com.crazyhitty.chdev.ks.news.data.model.news.News
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * Contains all of the API endpoints for news.
@@ -18,5 +19,6 @@ interface NewsApiService {
      * [Single] observable containing [News].
      */
     @GET("/v2/top-headlines")
-    fun topHeadlines(): Single<News>
+    fun topHeadlines(@Query("country") country: String,
+                     @Query("pageNumber") pageNumber: Int): Single<News>
 }

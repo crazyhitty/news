@@ -17,6 +17,7 @@ import org.jetbrains.anko.find
 class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHolder>() {
     var news: News? = null
     set(value) {
+        field = value
         notifyDataSetChanged()
     }
 
