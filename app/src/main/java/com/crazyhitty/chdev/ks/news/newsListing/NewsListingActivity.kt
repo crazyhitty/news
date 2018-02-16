@@ -59,6 +59,22 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
         newsListingPresenter.onViewDestroyed()
     }
 
+    override fun enableRefresh() {
+        swipeRefreshLayout.isEnabled = true
+    }
+
+    override fun disableRefresh() {
+        swipeRefreshLayout.isEnabled = false
+    }
+
+    override fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        progressBar.visibility = View.GONE
+    }
+
     override fun showNews(news: News) {
         newsRecyclerAdapter.news = news
     }

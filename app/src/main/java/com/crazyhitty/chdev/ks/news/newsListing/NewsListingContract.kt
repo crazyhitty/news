@@ -13,6 +13,26 @@ interface NewsListingContract {
 
     interface View {
         /**
+         * Enable refresh UI, so that user can refresh the news.
+         */
+        fun enableRefresh()
+
+        /**
+         * Disallow the refresh UI to trigger.
+         */
+        fun disableRefresh()
+
+        /**
+         * Show the progress indicating loading of news.
+         */
+        fun showProgress()
+
+        /**
+         * Hide the progress indicating loading of news.
+         */
+        fun hideProgress()
+
+        /**
          * Show news on the UI.
          *
          * @param news  Contains all of the news available

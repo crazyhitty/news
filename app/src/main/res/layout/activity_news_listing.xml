@@ -25,6 +25,7 @@
         android:id="@+id/frame_layout_dashboard_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -44,7 +45,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:text="No news available, swipe down to refresh"/>
+            android:visibility="gone"
+            tools:text="No news available, swipe down to refresh"
+            tools:visibility="visible"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone"
+            style="?android:attr/progressBarStyleHorizontal"
+            tools:visibility="visible"/>
 
     </FrameLayout>
 

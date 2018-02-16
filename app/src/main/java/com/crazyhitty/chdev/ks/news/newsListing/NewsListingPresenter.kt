@@ -28,14 +28,19 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
     override fun onViewCreated(view: NewsListingContract.View) {
         this.view = view
 
+
         // Check if internet is available or not.
         if (internetHelper.isAvailable()) {
+            this.view?.showProgress()
+            this.view?.disableRefresh()
             compositeDisposable.add(newsApiService.topHeadlines("us", 0)
                     .subscribeOn(schedulerProvider.io())
                     .observeOn(schedulerProvider.ui())
                     .doOnSuccess {
                         log.info { "News loaded from remote server" }
+                        this.view?.hideProgress()
                         this.view?.showNews(it)
+                        this.view?.enableRefresh()
                     }
                     .doOnError {
                         log.error {
