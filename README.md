@@ -2,6 +2,8 @@
 
 Minimal news app for android using MVP/Dagger2/RxJava2.
 
+This app uses [NewsApi](https://newsapi.org/) for fetching news.
+
 ## Build Instructions
 
 1. Clone this project.
@@ -14,6 +16,12 @@ ext.config = [
 ```
 
 3. Build project and you are good to go.
+
+## TODO
+
+* Add refresh functionality.
+* Integrate pagination.
+* Allow 
 
 ## Screenshots
 
