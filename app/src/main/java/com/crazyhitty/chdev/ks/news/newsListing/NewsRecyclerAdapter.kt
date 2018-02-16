@@ -1,4 +1,4 @@
-package com.crazyhitty.chdev.ks.news.news
+package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

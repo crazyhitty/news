@@ -1,4 +1,4 @@
-package com.crazyhitty.chdev.ks.news.news
+package com.crazyhitty.chdev.ks.news.newsListing
 
 import com.crazyhitty.chdev.ks.news.data.NewsApiService
 import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
@@ -11,19 +11,19 @@ import org.jetbrains.anko.info
 import javax.inject.Inject
 
 /**
- * Implementation of [NewsContract.Presenter].
+ * Implementation of [NewsListingContract.Presenter].
  *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
-class NewsPresenter @Inject constructor(private val internetHelper: InternetHelper,
-                                        private val schedulerProvider: SchedulerProvider,
-                                        private val compositeDisposable: CompositeDisposable,
-                                        private val newsApiService: NewsApiService) : NewsContract.Presenter {
+class NewsListingPresenter @Inject constructor(private val internetHelper: InternetHelper,
+                                               private val schedulerProvider: SchedulerProvider,
+                                               private val compositeDisposable: CompositeDisposable,
+                                               private val newsApiService: NewsApiService) : NewsListingContract.Presenter {
     private val log = AnkoLogger(this::class.java)
 
-    private var view: NewsContract.View? = null
+    private var view: NewsListingContract.View? = null
 
-    override fun onViewCreated(view: NewsContract.View) {
+    override fun onViewCreated(view: NewsListingContract.View) {
         this.view = view
 
         // Check if internet is available or not.

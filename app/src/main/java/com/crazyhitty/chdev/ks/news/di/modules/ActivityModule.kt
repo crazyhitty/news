@@ -5,9 +5,9 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.crazyhitty.chdev.ks.news.di.ActivityContext
-import com.crazyhitty.chdev.ks.news.news.NewsContract
-import com.crazyhitty.chdev.ks.news.news.NewsPresenter
-import com.crazyhitty.chdev.ks.news.news.NewsRecyclerAdapter
+import com.crazyhitty.chdev.ks.news.newsListing.NewsListingContract
+import com.crazyhitty.chdev.ks.news.newsListing.NewsListingPresenter
+import com.crazyhitty.chdev.ks.news.newsListing.NewsRecyclerAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -30,8 +30,8 @@ class ActivityModule(private val appCompatActivity: AppCompatActivity) {
     }
 
     @Provides
-    fun provideNewsPresenter(newsPresenter: NewsPresenter): NewsContract.Presenter {
-        return newsPresenter
+    fun provideNewsPresenter(newsListingPresenter: NewsListingPresenter): NewsListingContract.Presenter {
+        return newsListingPresenter
     }
 
     @Provides

@@ -2,7 +2,7 @@ package com.crazyhitty.chdev.ks.news.di.components
 
 import com.crazyhitty.chdev.ks.news.di.scopes.PerActivity
 import com.crazyhitty.chdev.ks.news.di.modules.ActivityModule
-import com.crazyhitty.chdev.ks.news.news.NewsActivity
+import com.crazyhitty.chdev.ks.news.newsListing.NewsListingActivity
 import dagger.Component
 
 /**
@@ -11,5 +11,5 @@ import dagger.Component
 @PerActivity
 @Component(dependencies = [ApplicationComponent::class], modules = [ActivityModule::class])
 interface ActivityComponent {
-    fun inject(newsActivity: NewsActivity)
+    fun inject(newsListingActivity: NewsListingActivity)
 }

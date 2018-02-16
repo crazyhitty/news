@@ -1,11 +1,11 @@
-package com.crazyhitty.chdev.ks.news.news
+package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.base.BaseAppCompatActivity
 import com.crazyhitty.chdev.ks.news.data.model.news.News
-import kotlinx.android.synthetic.main.activity_news.*
+import kotlinx.android.synthetic.main.activity_news_listing.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -14,9 +14,9 @@ import javax.inject.Inject
  *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
-class NewsActivity : BaseAppCompatActivity(), NewsContract.View {
+class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     @Inject
-    lateinit var newsPresenter: NewsContract.Presenter
+    lateinit var newsListingPresenter: NewsListingContract.Presenter
 
     @Inject
     lateinit var newsRecyclerAdapter: NewsRecyclerAdapter
@@ -26,7 +26,7 @@ class NewsActivity : BaseAppCompatActivity(), NewsContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_news)
+        setContentView(R.layout.activity_news_listing)
 
         // Initialize dependency.
         activityComponent.inject(this)
@@ -34,7 +34,7 @@ class NewsActivity : BaseAppCompatActivity(), NewsContract.View {
         setupNewsRecyclerView()
 
         // Setup presenter.
-        newsPresenter.onViewCreated(this)
+        newsListingPresenter.onViewCreated(this)
     }
 
     private fun setupNewsRecyclerView() {
@@ -44,7 +44,7 @@ class NewsActivity : BaseAppCompatActivity(), NewsContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        newsPresenter.onViewDestroyed()
+        newsListingPresenter.onViewDestroyed()
     }
 
     override fun showNews(news: News) {

@@ -1,4 +1,4 @@
-package com.crazyhitty.chdev.ks.news.news
+package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
 import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
@@ -9,7 +9,7 @@ import com.crazyhitty.chdev.ks.news.data.model.news.News
  *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
-interface NewsContract {
+interface NewsListingContract {
 
     interface View {
         /**
@@ -42,7 +42,7 @@ interface NewsContract {
         /**
          * Should be called when view is created.
          */
-        fun onViewCreated(view: NewsContract.View)
+        fun onViewCreated(view: NewsListingContract.View)
 
         /**
          * Should be called when view is destroyed.
