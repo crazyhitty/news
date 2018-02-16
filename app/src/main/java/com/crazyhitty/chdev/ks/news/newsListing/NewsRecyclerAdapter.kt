@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.crazyhitty.chdev.ks.news.R
+import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
 import com.crazyhitty.chdev.ks.news.data.model.news.News
 import org.jetbrains.anko.find
 
@@ -20,6 +21,14 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHol
         field = value
         notifyDataSetChanged()
     }
+
+
+    fun clear() {
+        news = null
+        notifyDataSetChanged()
+    }
+
+    var onItemClickListener: ((ArticlesItem?) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent?.context)
@@ -38,5 +47,10 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHol
 
     inner class NewsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         val textViewTitle = itemView?.find<TextView>(R.id.text_view_title)
+        init {
+            itemView?.setOnClickListener {
+                onItemClickListener?.invoke(news?.articles?.get(adapterPosition))
+            }
+        }
     }
 }
