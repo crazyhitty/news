@@ -11,4 +11,8 @@ object Constants {
         const val HEADER_X_API_KEY = "X-Api-Key"
         const val API_KEY = BuildConfig.API_KEY
     }
+
+    object NewsListing {
+        const val EXTRA_ARTICLES_ITEM = "extra_articles_item"
+    }
 }

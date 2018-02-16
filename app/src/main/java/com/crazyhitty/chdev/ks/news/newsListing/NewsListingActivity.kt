@@ -2,6 +2,7 @@ package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.base.BaseAppCompatActivity
 import com.crazyhitty.chdev.ks.news.data.model.news.News
@@ -33,6 +34,8 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
 
         setupNewsRecyclerView()
 
+        setupRefreshLayout()
+
         // Setup presenter.
         newsListingPresenter.onViewCreated(this)
     }
@@ -40,6 +43,15 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     private fun setupNewsRecyclerView() {
         recyclerViewNews.layoutManager = linearLayoutManager
         recyclerViewNews.adapter = newsRecyclerAdapter
+        newsRecyclerAdapter.onItemClickListener = {
+            newsListingPresenter.redirectToNewsDetailsScreen(it)
+        }
+    }
+
+    private fun setupRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener {
+            newsListingPresenter.refresh()
+        }
     }
 
     override fun onDestroy() {
@@ -52,14 +64,27 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     }
 
     override fun openNewsDetailsActivity(bundle: Bundle) {
-
+        toast("Not yet implemented!!")
     }
 
     override fun clearNews() {
+        newsRecyclerAdapter.clear()
+    }
 
+    override fun stopRefreshing() {
+        swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun hideError() {
+        textViewNewsUnavailable.visibility = View.GONE
     }
 
     override fun showError(message: String) {
+        textViewNewsUnavailable.text = message
+        textViewNewsUnavailable.visibility = View.VISIBLE
+    }
+
+    override fun showErrorToast(message: String) {
         toast(message)
     }
 }

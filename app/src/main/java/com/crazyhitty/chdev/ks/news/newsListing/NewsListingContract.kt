@@ -33,9 +33,24 @@ interface NewsListingContract {
         fun clearNews()
 
         /**
+         * Stop refreshing.
+         */
+        fun stopRefreshing()
+
+        /**
+         * Hide error message being shown on the screen.
+         */
+        fun hideError()
+
+        /**
          * Show error message if something goes wrong.
          */
         fun showError(message: String)
+
+        /**
+         * Show error toast if something goes wrong.
+         */
+        fun showErrorToast(message: String)
     }
 
     interface Presenter {
@@ -59,6 +74,6 @@ interface NewsListingContract {
          *
          * @param articlesItem  Extra news information
          */
-        fun redirectToNewsDetailsScreen(articlesItem: ArticlesItem)
+        fun redirectToNewsDetailsScreen(articlesItem: ArticlesItem?)
     }
 }

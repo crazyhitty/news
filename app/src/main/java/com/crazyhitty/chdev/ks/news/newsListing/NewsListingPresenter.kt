@@ -1,5 +1,7 @@
 package com.crazyhitty.chdev.ks.news.newsListing
 
+import android.os.Bundle
+import com.crazyhitty.chdev.ks.news.data.Constants
 import com.crazyhitty.chdev.ks.news.data.NewsApiService
 import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
@@ -57,10 +59,36 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
     }
 
     override fun refresh() {
-
+        // Check if internet is available or not.
+        if (internetHelper.isAvailable()) {
+            compositeDisposable.add(newsApiService.topHeadlines("us", 0)
+                    .subscribeOn(schedulerProvider.io())
+                    .observeOn(schedulerProvider.ui())
+                    .doOnSuccess {
+                        log.info { "News loaded from remote server" }
+                        this.view?.stopRefreshing()
+                        this.view?.clearNews()
+                        this.view?.showNews(it)
+                    }
+                    .doOnError {
+                        log.error {
+                            """
+                                Unable to load news from remote server
+                                Cause:
+                                $it
+                            """.trimIndent()
+                        }
+                        this.view?.showErrorToast(it.message ?: "Unknown error")
+                    }
+                    .subscribe())
+        } else {
+            this.view?.showErrorToast("No internet available")
+        }
     }
 
-    override fun redirectToNewsDetailsScreen(articlesItem: ArticlesItem) {
-
+    override fun redirectToNewsDetailsScreen(articlesItem: ArticlesItem?) {
+        val bundle = Bundle()
+        bundle.putParcelable(Constants.NewsListing.EXTRA_ARTICLES_ITEM, articlesItem)
+        view?.openNewsDetailsActivity(bundle)
     }
 }
