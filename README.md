@@ -21,7 +21,8 @@ ext.config = [
 
 * Add refresh functionality.
 * Integrate pagination.
-* Allow 
+* Create news details page.
+* Add tests.
 
 ## Screenshots
 
