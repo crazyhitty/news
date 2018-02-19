@@ -69,6 +69,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                     .observeOn(schedulerProvider.ui())
                     .doOnSuccess {
                         log.info { "News loaded from remote server" }
+                        this.view.showRefreshingDoneMessage("News refreshed")
                         this.view.stopRefreshing()
                         this.view.clearNews()
                         this.view.showNews(it)

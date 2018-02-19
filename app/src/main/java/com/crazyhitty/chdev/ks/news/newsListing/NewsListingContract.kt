@@ -60,6 +60,11 @@ interface NewsListingContract {
         fun stopRefreshing()
 
         /**
+         * Show message to UI when refreshing is done.
+         */
+        fun showRefreshingDoneMessage(message: String)
+
+        /**
          * Hide error message being shown on the screen.
          */
         fun hideError()

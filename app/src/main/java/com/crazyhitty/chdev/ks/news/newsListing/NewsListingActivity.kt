@@ -91,6 +91,10 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
         swipeRefreshLayout.isRefreshing = false
     }
 
+    override fun showRefreshingDoneMessage(message: String) {
+        toast(message)
+    }
+
     override fun hideError() {
         textViewNewsUnavailable.visibility = View.GONE
     }
