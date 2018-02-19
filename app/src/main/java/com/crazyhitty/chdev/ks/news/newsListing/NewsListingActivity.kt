@@ -37,7 +37,7 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
         setupRefreshLayout()
 
         // Setup presenter.
-        newsListingPresenter.onViewCreated(this)
+        newsListingPresenter.onAttach(this)
     }
 
     private fun setupNewsRecyclerView() {
@@ -56,7 +56,7 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        newsListingPresenter.onViewDestroyed()
+        newsListingPresenter.onDetach()
     }
 
     override fun enableRefresh() {

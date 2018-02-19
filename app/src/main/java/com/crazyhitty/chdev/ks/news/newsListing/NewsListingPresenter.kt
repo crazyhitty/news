@@ -1,6 +1,7 @@
 package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
+import com.crazyhitty.chdev.ks.news.base.Presenter
 import com.crazyhitty.chdev.ks.news.data.Constants
 import com.crazyhitty.chdev.ks.news.data.NewsApiService
 import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
@@ -20,27 +21,24 @@ import javax.inject.Inject
 class NewsListingPresenter @Inject constructor(private val internetHelper: InternetHelper,
                                                private val schedulerProvider: SchedulerProvider,
                                                private val compositeDisposable: CompositeDisposable,
-                                               private val newsApiService: NewsApiService) : NewsListingContract.Presenter {
+                                               private val newsApiService: NewsApiService) :
+        Presenter<NewsListingContract.View>(), NewsListingContract.Presenter {
     private val log = AnkoLogger(this::class.java)
 
-    private var view: NewsListingContract.View? = null
-
-    override fun onViewCreated(view: NewsListingContract.View) {
-        this.view = view
-
-
+    override fun onAttach(view: NewsListingContract.View) {
+        super.onAttach(view)
         // Check if internet is available or not.
         if (internetHelper.isAvailable()) {
-            this.view?.showProgress()
-            this.view?.disableRefresh()
+            this.view.showProgress()
+            this.view.disableRefresh()
             compositeDisposable.add(newsApiService.topHeadlines("us", 0)
                     .subscribeOn(schedulerProvider.io())
                     .observeOn(schedulerProvider.ui())
                     .doOnSuccess {
                         log.info { "News loaded from remote server" }
-                        this.view?.hideProgress()
-                        this.view?.showNews(it)
-                        this.view?.enableRefresh()
+                        this.view.hideProgress()
+                        this.view.showNews(it)
+                        this.view.enableRefresh()
                     }
                     .doOnError {
                         log.error {
@@ -50,17 +48,17 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                                 $it
                             """.trimIndent()
                         }
-                        this.view?.showError(it.message ?: "Unknown error")
+                        this.view.showError(it.message ?: "Unknown error")
                     }
                     .subscribe())
         } else {
-            this.view?.showError("No internet available")
+            this.view.showError("No internet available")
         }
     }
 
-    override fun onViewDestroyed() {
-        view = null
+    override fun onDetach() {
         compositeDisposable.clear()
+        super.onDetach()
     }
 
     override fun refresh() {
@@ -71,9 +69,9 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                     .observeOn(schedulerProvider.ui())
                     .doOnSuccess {
                         log.info { "News loaded from remote server" }
-                        this.view?.stopRefreshing()
-                        this.view?.clearNews()
-                        this.view?.showNews(it)
+                        this.view.stopRefreshing()
+                        this.view.clearNews()
+                        this.view.showNews(it)
                     }
                     .doOnError {
                         log.error {
@@ -83,17 +81,17 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                                 $it
                             """.trimIndent()
                         }
-                        this.view?.showErrorToast(it.message ?: "Unknown error")
+                        this.view.showErrorToast(it.message ?: "Unknown error")
                     }
                     .subscribe())
         } else {
-            this.view?.showErrorToast("No internet available")
+            this.view.showErrorToast("No internet available")
         }
     }
 
     override fun redirectToNewsDetailsScreen(articlesItem: ArticlesItem?) {
         val bundle = Bundle()
         bundle.putParcelable(Constants.NewsListing.EXTRA_ARTICLES_ITEM, articlesItem)
-        view?.openNewsDetailsActivity(bundle)
+        view.openNewsDetailsActivity(bundle)
     }
 }

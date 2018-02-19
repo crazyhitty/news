@@ -1,6 +1,8 @@
 package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
+import com.crazyhitty.chdev.ks.news.base.BasePresenter
+import com.crazyhitty.chdev.ks.news.base.BaseView
 import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
 import com.crazyhitty.chdev.ks.news.data.model.news.News
 
@@ -11,7 +13,7 @@ import com.crazyhitty.chdev.ks.news.data.model.news.News
  */
 interface NewsListingContract {
 
-    interface View {
+    interface View : BaseView {
         /**
          * Enable refresh UI, so that user can refresh the news.
          */
@@ -73,17 +75,7 @@ interface NewsListingContract {
         fun showErrorToast(message: String)
     }
 
-    interface Presenter {
-        /**
-         * Should be called when view is created.
-         */
-        fun onViewCreated(view: NewsListingContract.View)
-
-        /**
-         * Should be called when view is destroyed.
-         */
-        fun onViewDestroyed()
-
+    interface Presenter: BasePresenter<View> {
         /**
          * Refreshes the news.
          */

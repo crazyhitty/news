@@ -30,7 +30,8 @@ class ActivityModule(private val appCompatActivity: AppCompatActivity) {
     }
 
     @Provides
-    fun provideNewsPresenter(newsListingPresenter: NewsListingPresenter): NewsListingContract.Presenter {
+    fun provideNewsPresenter(newsListingPresenter: NewsListingPresenter<NewsListingContract.View>):
+            NewsListingContract.Presenter {
         return newsListingPresenter
     }
 
