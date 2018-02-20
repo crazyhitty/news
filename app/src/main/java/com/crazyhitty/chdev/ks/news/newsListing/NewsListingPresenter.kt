@@ -55,7 +55,9 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                                 $it
                             """.trimIndent()
                         }
+                        this.view.hideProgress()
                         this.view.showError(it.message ?: "Unknown error")
+                        this.view.enableRefresh()
                     }
                     .subscribe())
         } else {
@@ -90,10 +92,12 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                             """.trimIndent()
                         }
                         this.view.showErrorToast(it.message ?: "Unknown error")
+                        this.view.stopRefreshing()
                     }
                     .subscribe())
         } else {
             this.view.showErrorToast("No internet available")
+            this.view.stopRefreshing()
         }
     }
 
