@@ -41,13 +41,14 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
             compositeDisposable.add(newsApiService.topHeadlines("us", 0)
                     .subscribeOn(schedulerProvider.io())
                     .observeOn(schedulerProvider.ui())
-                    .doOnSuccess {
+                    .subscribe( {
+                        // Handle success scenario.
                         log.info { "News loaded from remote server" }
                         this.view.hideProgress()
                         this.view.showNews(it)
                         this.view.enableRefresh()
-                    }
-                    .doOnError {
+                    }, {
+                        // Handle failure scenario.
                         log.error {
                             """
                                 Unable to load news from remote server
@@ -58,8 +59,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                         this.view.hideProgress()
                         this.view.showError(it.message ?: "Unknown error")
                         this.view.enableRefresh()
-                    }
-                    .subscribe())
+                    }))
         } else {
             this.view.showError("No internet available")
         }
@@ -76,14 +76,15 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
             compositeDisposable.add(newsApiService.topHeadlines("us", 0)
                     .subscribeOn(schedulerProvider.io())
                     .observeOn(schedulerProvider.ui())
-                    .doOnSuccess {
+                    .subscribe({
+                        // Handle success scenario.
                         log.info { "News loaded from remote server" }
                         this.view.showRefreshingDoneMessage("News refreshed")
                         this.view.stopRefreshing()
                         this.view.clearNews()
                         this.view.showNews(it)
-                    }
-                    .doOnError {
+                    }, {
+                        // Handle failure scenario.
                         log.error {
                             """
                                 Unable to load news from remote server
@@ -93,8 +94,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                         }
                         this.view.showErrorToast(it.message ?: "Unknown error")
                         this.view.stopRefreshing()
-                    }
-                    .subscribe())
+                    }))
         } else {
             this.view.showErrorToast("No internet available")
             this.view.stopRefreshing()
