@@ -14,7 +14,14 @@ import org.jetbrains.anko.info
 import javax.inject.Inject
 
 /**
- * Implementation of [NewsListingContract.Presenter].
+ * Implementation of [NewsListingContract.Presenter]. The main job of this presenter is to fetch
+ * news from remote server and present it to the UI.
+ *
+ * @param internetHelper        [InternetHelper]'s instance to monitor internet availability.
+ * @param schedulerProvider     [SchedulerProvider]'s instance to run code on appropriate threads.
+ * @param compositeDisposable   [CompositeDisposable]'s instance for managing multiple disposables.
+ * @param newsApiService        [NewsApiService]'s instance for fetching news data from remote
+ *                              server.
  *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
