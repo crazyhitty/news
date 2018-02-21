@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
 import com.crazyhitty.chdev.ks.news.data.model.news.News
+import com.crazyhitty.chdev.ks.news.util.extensions.setImageUriOrHide
 import com.crazyhitty.chdev.ks.news.util.extensions.setTextOrHide
 import com.facebook.drawee.view.SimpleDraweeView
 import org.jetbrains.anko.find
@@ -49,7 +50,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHol
         holder?.textViewDesc?.setTextOrHide(article?.description)
         holder?.textViewSource?.text = article?.source?.name
         holder?.textViewDate?.text = article?.publishedAt
-        holder?.imageViewNews?.setImageURI(article?.urlToImage)
+        holder?.imageViewNews?.setImageUriOrHide(article?.urlToImage)
     }
 
     inner class NewsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
