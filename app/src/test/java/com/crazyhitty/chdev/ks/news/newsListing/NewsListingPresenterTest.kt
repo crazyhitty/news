@@ -1,6 +1,8 @@
 package com.crazyhitty.chdev.ks.news.newsListing
 
+import android.os.Bundle
 import com.crazyhitty.chdev.ks.news.data.NewsApiService
+import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
 import com.crazyhitty.chdev.ks.news.data.model.news.News
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.TestSchedulerProvider
@@ -26,6 +28,8 @@ class NewsListingPresenterTest {
     private lateinit var mockNewsApiService: NewsApiService
     @Mock
     private lateinit var mockNewsListingView: NewsListingContract.View
+    @Mock
+    private lateinit var mockBundle: Bundle
 
     private lateinit var testScheduler: TestScheduler
     private lateinit var newsListingPresenter: NewsListingContract.Presenter
@@ -197,6 +201,22 @@ class NewsListingPresenterTest {
 
         Mockito.verify(mockNewsListingView).showErrorToast("")
         Mockito.verify(mockNewsListingView).stopRefreshing()
+    }
+
+    /**
+     * Test if the [NewsListingPresenter.redirectToNewsDetailsScreen] method is executed
+     * successfully and works as expected in a scenario where everything goes fine.
+     */
+    @Test
+    fun testNewsListingPresenterRedirectToNewsDetailsScreenSuccess() {
+        // Just attach the view to the presenter.
+        newsListingPresenter.onAttach(mockNewsListingView)
+
+        val articlesItem = ArticlesItem()
+
+        newsListingPresenter.redirectToNewsDetailsScreen(mockBundle, articlesItem)
+
+        Mockito.verify(mockNewsListingView).openNewsDetailsActivity(mockBundle)
     }
 
     @After
