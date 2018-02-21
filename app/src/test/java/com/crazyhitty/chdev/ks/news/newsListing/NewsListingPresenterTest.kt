@@ -1,9 +1,9 @@
 package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
-import com.crazyhitty.chdev.ks.news.data.NewsApiService
-import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
-import com.crazyhitty.chdev.ks.news.data.model.news.News
+import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
+import com.crazyhitty.chdev.ks.news.data.api.model.news.News
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.TestSchedulerProvider
 import io.reactivex.Single

@@ -1,4 +1,4 @@
-package com.crazyhitty.chdev.ks.news.data.model.news
+package com.crazyhitty.chdev.ks.news.data.api.model.news
 
 import android.os.Parcel
 import android.os.Parcelable

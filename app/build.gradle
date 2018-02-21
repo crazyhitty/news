@@ -83,4 +83,8 @@ dependencies {
 
     // Fresco
     implementation 'com.facebook.fresco:fresco:1.8.1'
+
+    // Stetho
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 }

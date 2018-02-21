@@ -3,8 +3,8 @@ package com.crazyhitty.chdev.ks.news.newsListing
 import android.os.Bundle
 import com.crazyhitty.chdev.ks.news.base.BasePresenter
 import com.crazyhitty.chdev.ks.news.base.BaseView
-import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
-import com.crazyhitty.chdev.ks.news.data.model.news.News
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
+import com.crazyhitty.chdev.ks.news.data.api.model.news.News
 
 /**
  * Contains blueprint for View and Presenter responsible for showing and getting news.

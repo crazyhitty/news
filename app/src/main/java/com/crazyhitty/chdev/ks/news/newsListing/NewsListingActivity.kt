@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.base.BaseAppCompatActivity
-import com.crazyhitty.chdev.ks.news.data.model.news.News
+import com.crazyhitty.chdev.ks.news.data.api.model.news.News
 import kotlinx.android.synthetic.main.activity_news_listing.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject

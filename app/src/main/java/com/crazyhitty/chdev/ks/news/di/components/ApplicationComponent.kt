@@ -1,7 +1,7 @@
 package com.crazyhitty.chdev.ks.news.di.components
 
 import com.crazyhitty.chdev.ks.news.NewsApplication
-import com.crazyhitty.chdev.ks.news.data.NewsApiService
+import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.di.modules.ApplicationModule
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.SchedulerProvider

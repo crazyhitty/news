@@ -1,6 +1,6 @@
-package com.crazyhitty.chdev.ks.news.data
+package com.crazyhitty.chdev.ks.news.data.api
 
-import com.crazyhitty.chdev.ks.news.data.model.news.News
+import com.crazyhitty.chdev.ks.news.data.api.model.news.News
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

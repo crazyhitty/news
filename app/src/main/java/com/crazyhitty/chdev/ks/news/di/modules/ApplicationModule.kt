@@ -5,17 +5,19 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.data.Constants
-import com.crazyhitty.chdev.ks.news.data.NewsApiConfig
-import com.crazyhitty.chdev.ks.news.data.NewsApiService
+import com.crazyhitty.chdev.ks.news.data.api.NewsApiConfig
+import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.di.ApiConfig
 import com.crazyhitty.chdev.ks.news.di.ApplicationContext
 import com.crazyhitty.chdev.ks.news.util.internet.AppInternetHelper
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.AppSchedulerProvider
 import com.crazyhitty.chdev.ks.news.util.rx.SchedulerProvider
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.CallAdapter
 import retrofit2.Converter
@@ -71,6 +73,10 @@ class ApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
+    fun provideNetworkInterceptor(): Interceptor = StethoInterceptor()
+
+    @Provides
+    @Singleton
     fun provideCallAdapterFactory(): CallAdapter.Factory = RxJava2CallAdapterFactory.create()
 
     @Provides
@@ -79,7 +85,8 @@ class ApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(@ApiConfig apiConfig: NewsApiConfig): OkHttpClient =
+    fun provideOkHttpClient(@ApiConfig apiConfig: NewsApiConfig,
+                            networkInterceptor: Interceptor): OkHttpClient =
             OkHttpClient.Builder()
                     .addInterceptor {
                         it.proceed(it.request()
@@ -87,6 +94,7 @@ class ApplicationModule(private val application: Application) {
                                 .addHeader(apiConfig.apiHeader, apiConfig.apiKey)
                                 .build())
                     }
+                    .addNetworkInterceptor(networkInterceptor)
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS)
                     .writeTimeout(30, TimeUnit.SECONDS)

@@ -3,8 +3,8 @@ package com.crazyhitty.chdev.ks.news.newsListing
 import android.os.Bundle
 import com.crazyhitty.chdev.ks.news.base.Presenter
 import com.crazyhitty.chdev.ks.news.data.Constants
-import com.crazyhitty.chdev.ks.news.data.NewsApiService
-import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
+import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable

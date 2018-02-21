@@ -1,4 +1,4 @@
-package com.crazyhitty.chdev.ks.news.data
+package com.crazyhitty.chdev.ks.news.data.api
 
 /**
  * Data class which will contain information about News API.

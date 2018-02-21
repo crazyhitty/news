@@ -5,6 +5,7 @@ import com.crazyhitty.chdev.ks.news.di.components.ApplicationComponent
 import com.crazyhitty.chdev.ks.news.di.components.DaggerApplicationComponent
 import com.crazyhitty.chdev.ks.news.di.modules.ApplicationModule
 import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.stetho.Stetho
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
 
@@ -34,5 +35,8 @@ class NewsApplication : Application() {
 
         // Initialize fresco.
         Fresco.initialize(this)
+
+        // Initialize Stetho.
+        Stetho.initializeWithDefaults(this)
     }
 }

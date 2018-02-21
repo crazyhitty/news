@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.crazyhitty.chdev.ks.news.R
-import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
-import com.crazyhitty.chdev.ks.news.data.model.news.News
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
+import com.crazyhitty.chdev.ks.news.data.api.model.news.News
 import com.crazyhitty.chdev.ks.news.util.extensions.setImageUriOrHide
 import com.crazyhitty.chdev.ks.news.util.extensions.setTextOrHide
 import com.facebook.drawee.view.SimpleDraweeView
