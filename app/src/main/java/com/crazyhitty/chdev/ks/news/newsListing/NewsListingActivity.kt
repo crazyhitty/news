@@ -44,7 +44,7 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
         recyclerViewNews.layoutManager = linearLayoutManager
         recyclerViewNews.adapter = newsRecyclerAdapter
         newsRecyclerAdapter.onItemClickListener = {
-            newsListingPresenter.redirectToNewsDetailsScreen(it)
+            newsListingPresenter.redirectToNewsDetailsScreen(Bundle(), it)
         }
     }
 

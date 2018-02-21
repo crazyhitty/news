@@ -89,8 +89,11 @@ interface NewsListingContract {
         /**
          * Redirect the user to news details screen.
          *
+         * @param bundle        Provide a bundle which will be returned via
+         *                      [View.openNewsDetailsActivity] later on with extra details which
+         *                      you can transport to News details screen.
          * @param articlesItem  Extra news information
          */
-        fun redirectToNewsDetailsScreen(articlesItem: ArticlesItem?)
+        fun redirectToNewsDetailsScreen(bundle: Bundle, articlesItem: ArticlesItem?)
     }
 }
