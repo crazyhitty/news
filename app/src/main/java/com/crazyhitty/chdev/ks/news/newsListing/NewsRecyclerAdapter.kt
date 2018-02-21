@@ -8,6 +8,8 @@ import android.widget.TextView
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.data.model.news.ArticlesItem
 import com.crazyhitty.chdev.ks.news.data.model.news.News
+import com.crazyhitty.chdev.ks.news.util.extensions.setTextOrHide
+import com.facebook.drawee.view.SimpleDraweeView
 import org.jetbrains.anko.find
 
 /**
@@ -41,12 +43,21 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHol
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder?, position: Int) {
-        holder?.textViewTitle?.text = news?.articles?.get(position)?.title
+        val article = news?.articles?.get(position)
+
+        holder?.textViewTitle?.text = article?.title
+        holder?.textViewDesc?.setTextOrHide(article?.description)
+        holder?.textViewSource?.text = article?.source?.name
+        holder?.textViewDate?.text = article?.publishedAt
+        holder?.imageViewNews?.setImageURI(article?.urlToImage)
     }
 
-
     inner class NewsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        val textViewTitle = itemView?.find<TextView>(R.id.text_view_title)
+        val textViewTitle = itemView?.find<TextView>(R.id.textViewTitle)
+        val textViewDesc = itemView?.find<TextView>(R.id.textViewDesc)
+        val textViewSource = itemView?.find<TextView>(R.id.textViewSource)
+        val textViewDate = itemView?.find<TextView>(R.id.textViewDate)
+        val imageViewNews = itemView?.find<SimpleDraweeView>(R.id.imageViewNews)
         init {
             itemView?.setOnClickListener {
                 onItemClickListener?.invoke(news?.articles?.get(adapterPosition))

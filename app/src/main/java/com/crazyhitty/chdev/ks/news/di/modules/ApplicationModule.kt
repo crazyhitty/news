@@ -44,7 +44,7 @@ class ApplicationModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideCalligraphyConfig(): CalligraphyConfig = CalligraphyConfig.Builder()
-            .setDefaultFontPath("fonts/Google-Medium.ttf")
+            .setDefaultFontPath("fonts/WorkSans-Regular.ttf")
             .setFontAttrId(R.attr.fontPath)
             .build()
 

@@ -9,4 +9,49 @@
     <dimen name="marginMedium">16dp</dimen>
     <dimen name="marginSmall">8dp</dimen>
 
+    <!--activity_news_listing-->
+    <dimen name="activityNewsListingToolbarTitleTextSize">24sp</dimen>
+    <dimen name="activityNewsListingToolbarTitleMarginStart">16dp</dimen>
+    <dimen name="activityNewsListingToolbarTitleMarginEnd">16dp</dimen>
+    <dimen name="activityNewsListingToolbarTitleMarginTop">0dp</dimen>
+    <dimen name="activityNewsListingToolbarTitleMarginBottom">0dp</dimen>
+    <dimen name="activityNewsListingToolbarDividerMarginStart">0dp</dimen>
+    <dimen name="activityNewsListingToolbarDividerMarginEnd">0dp</dimen>
+    <dimen name="activityNewsListingToolbarDividerMarginTop">0dp</dimen>
+    <dimen name="activityNewsListingToolbarDividerMarginBottom">0dp</dimen>
+    <dimen name="activityNewsListingToolbarDividerHeight">0.5dp</dimen>
+
+    <!--item_news-->
+    <dimen name="itemNewsTitleTextSize">24sp</dimen>
+    <dimen name="itemNewsTitleMarginStart">16dp</dimen>
+    <dimen name="itemNewsTitleMarginEnd">16dp</dimen>
+    <dimen name="itemNewsTitleMarginTop">16dp</dimen>
+    <dimen name="itemNewsTitleMarginBottom">0dp</dimen>
+    <dimen name="itemNewsDescTextSize">20sp</dimen>
+    <dimen name="itemNewsDescMarginStart">16dp</dimen>
+    <dimen name="itemNewsDescMarginEnd">16dp</dimen>
+    <dimen name="itemNewsDescMarginTop">16dp</dimen>
+    <dimen name="itemNewsDescMarginBottom">0dp</dimen>
+    <dimen name="itemNewsImageMarginStart">16dp</dimen>
+    <dimen name="itemNewsImageMarginEnd">16dp</dimen>
+    <dimen name="itemNewsImageMarginTop">16dp</dimen>
+    <dimen name="itemNewsImageMarginBottom">0dp</dimen>
+    <dimen name="itemNewsImageHeight">150dp</dimen>
+    <dimen name="itemNewsImageCornerRadius">2dp</dimen>
+    <dimen name="itemNewsSourceTextSize">14sp</dimen>
+    <dimen name="itemNewsSourceMarginStart">16dp</dimen>
+    <dimen name="itemNewsSourceMarginEnd">16dp</dimen>
+    <dimen name="itemNewsSourceMarginTop">16dp</dimen>
+    <dimen name="itemNewsSourceMarginBottom">0dp</dimen>
+    <dimen name="itemNewsDateTextSize">14sp</dimen>
+    <dimen name="itemNewsDateMarginStart">16dp</dimen>
+    <dimen name="itemNewsDateMarginEnd">16dp</dimen>
+    <dimen name="itemNewsDateMarginTop">16dp</dimen>
+    <dimen name="itemNewsDateMarginBottom">0dp</dimen>
+    <dimen name="itemNewsDividerMarginStart">0dp</dimen>
+    <dimen name="itemNewsDividerMarginEnd">0dp</dimen>
+    <dimen name="itemNewsDividerMarginTop">16dp</dimen>
+    <dimen name="itemNewsDividerMarginBottom">0dp</dimen>
+    <dimen name="itemNewsDividerHeight">0.5dp</dimen>
+
 </resources>

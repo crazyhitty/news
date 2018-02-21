@@ -80,4 +80,7 @@ dependencies {
 
     // Calligraphy
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+
+    // Fresco
+    implementation 'com.facebook.fresco:fresco:1.8.1'
 }

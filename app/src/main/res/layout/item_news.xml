@@ -1,21 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true"
-    android:background="?attr/selectableItemBackground">
+    android:focusable="true">
 
     <TextView
-        android:id="@+id/text_view_title"
+        android:id="@+id/textViewTitle"
+        style="@style/NewsListingTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/marginMedium"
-        android:layout_marginEnd="@dimen/marginMedium"
-        android:layout_marginStart="@dimen/marginMedium"
-        android:layout_marginTop="@dimen/marginMedium"
-        android:textAppearance="@style/TextAppearanceNewsItem"
-        tools:text="News title" />
+        tools:text="NASA discovers new planet in our solar system" />
+
+    <TextView
+        android:id="@+id/textViewDesc"
+        style="@style/NewsListingDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTitle"
+        tools:text="NASA's director John Doe just confirmed on twitter that their scientists discovered a new planet in our solar system. NASA will conduct a press conference later this week to provide more details about this discovery." />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imageViewNews"
+        style="@style/NewsListingImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/itemNewsImageHeight"
+        android:layout_below="@id/textViewDesc"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:placeholderImage="?attr/colorNewsListingImagePlaceholder"
+        fresco:roundedCornerRadius="@dimen/itemNewsImageCornerRadius" />
+
+    <TextView
+        android:id="@+id/textViewSource"
+        style="@style/NewsListingSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/imageViewNews"
+        tools:text="BBC" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        style="@style/NewsListingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/imageViewNews"
+        tools:text="Today, 3 hrs ago" />
+
+    <View
+        style="@style/NewsListingDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/itemNewsDividerHeight"
+        android:layout_below="@id/textViewSource"
+        android:background="?attr/colorNewsListingDivider" />
 
 </RelativeLayout>

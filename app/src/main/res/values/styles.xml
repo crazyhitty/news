@@ -18,7 +18,14 @@
         <item name="android:textAppearanceLarge">@style/TextAppearanceLarge</item>
         <item name="android:textAppearanceMedium">@style/TextAppearanceMedium</item>
         <item name="android:textAppearanceSmall">@style/TextAppearanceSmall</item>
-        <item name="colorNewsItem">@color/colorNewsItem</item>
+        <item name="colorToolbarTitle">@color/colorToolbarTitle</item>
+        <item name="colorToolbarDivider">@color/colorToolbarDivider</item>
+        <item name="colorNewsListingTitle">@color/colorNewsListingTitle</item>
+        <item name="colorNewsListingDesc">@color/colorNewsListingDesc</item>
+        <item name="colorNewsListingSource">@color/colorNewsListingSource</item>
+        <item name="colorNewsListingDate">@color/colorNewsListingDate</item>
+        <item name="colorNewsListingDivider">@color/colorNewsListingDivider</item>
+        <item name="colorNewsListingImagePlaceholder">@color/colorNewsListingImagePlaceholder</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -48,8 +55,77 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="TextAppearanceNewsItem" parent="TextAppearanceMedium">
-        <item name="android:textColor">?attr/colorNewsItem</item>
+    <style name="ToolbarTitle">
+        <item name="android:layout_marginStart">@dimen/activityNewsListingToolbarTitleMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/activityNewsListingToolbarTitleMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/activityNewsListingToolbarTitleMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/activityNewsListingToolbarTitleMarginBottom</item>
+        <item name="android:textColor">?attr/colorToolbarTitle</item>
+        <item name="android:textSize">@dimen/activityNewsListingToolbarTitleTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="ToolbarDivider">
+        <item name="android:layout_marginStart">@dimen/activityNewsListingToolbarDividerMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/activityNewsListingToolbarDividerMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/activityNewsListingToolbarDividerMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/activityNewsListingToolbarDividerMarginBottom</item>
+    </style>
+
+    <style name="NewsListingTitle">
+        <item name="android:layout_marginStart">@dimen/itemNewsTitleMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemNewsTitleMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemNewsTitleMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemNewsTitleMarginBottom</item>
+        <item name="android:textColor">?attr/colorNewsListingTitle</item>
+        <item name="android:textSize">@dimen/itemNewsTitleTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="NewsListingDesc">
+        <item name="android:layout_marginStart">@dimen/itemNewsDescMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemNewsDescMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemNewsDescMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemNewsDescMarginBottom</item>
+        <item name="android:textColor">?attr/colorNewsListingDesc</item>
+        <item name="android:textSize">@dimen/itemNewsDescTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="NewsListingImage">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_marginStart">@dimen/itemNewsImageMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemNewsImageMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemNewsImageMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemNewsImageMarginBottom</item>
+    </style>
+
+    <style name="NewsListingSource">
+        <item name="android:layout_marginStart">@dimen/itemNewsSourceMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemNewsSourceMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemNewsSourceMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemNewsSourceMarginBottom</item>
+        <item name="android:textColor">?attr/colorNewsListingSource</item>
+        <item name="android:textSize">@dimen/itemNewsSourceTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="NewsListingDate">
+        <item name="android:layout_marginStart">@dimen/itemNewsDateMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemNewsDateMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemNewsDateMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemNewsDateMarginBottom</item>
+        <item name="android:textColor">?attr/colorNewsListingDate</item>
+        <item name="android:textAppearance">@style/TextAppearanceSmall</item>
+        <item name="android:textSize">@dimen/itemNewsDateTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="NewsListingDivider">
+        <item name="android:layout_marginStart">@dimen/itemNewsDividerMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemNewsDividerMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemNewsDividerMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemNewsDividerMarginBottom</item>
     </style>
 
 </resources>
