@@ -43,6 +43,10 @@ class NewsListingPresenterTest {
                 mockNewsApiService)
     }
 
+    /**
+     * Test if the [NewsListingPresenter.onAttach] method is executed successfully and works as
+     * expected in a scenario where everything goes fine.
+     */
     @Test
     fun testNewsListingPresenterOnAttachSuccess() {
         // Mock internet helper and return true for internet connectivity checks.
@@ -68,6 +72,10 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).enableRefresh()
     }
 
+    /**
+     * Test if the [NewsListingPresenter.onAttach] method is executed successfully and works as
+     * expected in a scenario where internet is not available.
+     */
     @Test
     fun testNewsListingPresenterOnAttachInternetFailure() {
         // Mock internet helper and return true for internet connectivity checks.
@@ -80,6 +88,10 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).showError("No internet available")
     }
 
+    /**
+     * Test if the [NewsListingPresenter.onAttach] method is executed successfully and works as
+     * expected in a scenario where remote server is unable to fetch the news.
+     */
     @Test
     fun testNewsListingPresenterOnAttachApiFailure() {
         // Mock internet helper and return true for internet connectivity checks.
@@ -106,6 +118,10 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).enableRefresh()
     }
 
+    /**
+     * Test if the [NewsListingPresenter.refresh] method is executed successfully and works as
+     * expected in a scenario where internet is not available.
+     */
     @Test
     fun testNewsListingPresenterRefreshSuccess() {
         // Just attach the view to the presenter.
@@ -133,6 +149,10 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).showNews(news)
     }
 
+    /**
+     * Test if the [NewsListingPresenter.refresh] method is executed successfully and works as
+     * expected in a scenario where internet is not available.
+     */
     @Test
     fun testNewsListingPresenterRefreshInternetFailure() {
         // Just attach the view to the presenter.
@@ -149,6 +169,10 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).stopRefreshing()
     }
 
+    /**
+     * Test if the [NewsListingPresenter.refresh] method is executed successfully and works as
+     * expected in a scenario where remote server is unable to fetch the news.
+     */
     @Test
     fun testNewsListingPresenterRefreshApiFailure() {
         // Just attach the view to the presenter.
