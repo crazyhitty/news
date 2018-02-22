@@ -40,7 +40,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHol
     }
 
     override fun getItemCount(): Int {
-        return news?.totalResults ?: 0
+        return news?.articles?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder?, position: Int) {
@@ -48,7 +48,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHol
 
         holder?.textViewTitle?.text = article?.title
         holder?.textViewDesc?.setTextOrHide(article?.description)
-        holder?.textViewSource?.text = article?.source?.name
+        holder?.textViewAuthor?.text = article?.author
         holder?.textViewDate?.text = article?.publishedAt
         holder?.imageViewNews?.setImageUriOrHide(article?.urlToImage)
     }
@@ -56,7 +56,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHol
     inner class NewsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         val textViewTitle = itemView?.find<TextView>(R.id.textViewTitle)
         val textViewDesc = itemView?.find<TextView>(R.id.textViewDesc)
-        val textViewSource = itemView?.find<TextView>(R.id.textViewSource)
+        val textViewAuthor = itemView?.find<TextView>(R.id.textViewAuthor)
         val textViewDate = itemView?.find<TextView>(R.id.textViewDate)
         val imageViewNews = itemView?.find<SimpleDraweeView>(R.id.imageViewNews)
         init {

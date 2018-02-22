@@ -16,7 +16,7 @@
 
     <color name="colorNewsListingTitle">#333233</color>
     <color name="colorNewsListingDesc">#858485</color>
-    <color name="colorNewsListingSource">#B9B9B9</color>
+    <color name="colorNewsListingAuthor">#B9B9B9</color>
     <color name="colorNewsListingDate">#B9B9B9</color>
     <color name="colorNewsListingDivider">#e0e0e0</color>
     <color name="colorNewsListingImagePlaceholder">#e0e0e0</color>

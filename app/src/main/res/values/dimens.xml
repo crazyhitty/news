@@ -38,11 +38,11 @@
     <dimen name="itemNewsImageMarginBottom">0dp</dimen>
     <dimen name="itemNewsImageHeight">150dp</dimen>
     <dimen name="itemNewsImageCornerRadius">2dp</dimen>
-    <dimen name="itemNewsSourceTextSize">14sp</dimen>
-    <dimen name="itemNewsSourceMarginStart">16dp</dimen>
-    <dimen name="itemNewsSourceMarginEnd">16dp</dimen>
-    <dimen name="itemNewsSourceMarginTop">16dp</dimen>
-    <dimen name="itemNewsSourceMarginBottom">0dp</dimen>
+    <dimen name="itemNewsAuthorTextSize">14sp</dimen>
+    <dimen name="itemNewsAuthorMarginStart">16dp</dimen>
+    <dimen name="itemNewsAuthorMarginEnd">16dp</dimen>
+    <dimen name="itemNewsAuthorMarginTop">16dp</dimen>
+    <dimen name="itemNewsAuthorMarginBottom">0dp</dimen>
     <dimen name="itemNewsDateTextSize">14sp</dimen>
     <dimen name="itemNewsDateMarginStart">16dp</dimen>
     <dimen name="itemNewsDateMarginEnd">16dp</dimen>

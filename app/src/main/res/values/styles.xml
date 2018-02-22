@@ -22,7 +22,7 @@
         <item name="colorToolbarDivider">@color/colorToolbarDivider</item>
         <item name="colorNewsListingTitle">@color/colorNewsListingTitle</item>
         <item name="colorNewsListingDesc">@color/colorNewsListingDesc</item>
-        <item name="colorNewsListingSource">@color/colorNewsListingSource</item>
+        <item name="colorNewsListingAuthor">@color/colorNewsListingAuthor</item>
         <item name="colorNewsListingDate">@color/colorNewsListingDate</item>
         <item name="colorNewsListingDivider">@color/colorNewsListingDivider</item>
         <item name="colorNewsListingImagePlaceholder">@color/colorNewsListingImagePlaceholder</item>
@@ -100,13 +100,13 @@
         <item name="android:layout_marginBottom">@dimen/itemNewsImageMarginBottom</item>
     </style>
 
-    <style name="NewsListingSource">
-        <item name="android:layout_marginStart">@dimen/itemNewsSourceMarginStart</item>
-        <item name="android:layout_marginEnd">@dimen/itemNewsSourceMarginEnd</item>
-        <item name="android:layout_marginTop">@dimen/itemNewsSourceMarginTop</item>
-        <item name="android:layout_marginBottom">@dimen/itemNewsSourceMarginBottom</item>
-        <item name="android:textColor">?attr/colorNewsListingSource</item>
-        <item name="android:textSize">@dimen/itemNewsSourceTextSize</item>
+    <style name="NewsListingAuthor">
+        <item name="android:layout_marginStart">@dimen/itemNewsAuthorMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemNewsAuthorMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemNewsAuthorMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemNewsAuthorMarginBottom</item>
+        <item name="android:textColor">?attr/colorNewsListingAuthor</item>
+        <item name="android:textSize">@dimen/itemNewsAuthorTextSize</item>
         <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
     </style>
 

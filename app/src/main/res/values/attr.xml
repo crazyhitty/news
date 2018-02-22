@@ -7,7 +7,7 @@
     <attr name="colorToolbarDivider" format="reference" />
     <attr name="colorNewsListingTitle" format="reference" />
     <attr name="colorNewsListingDesc" format="reference" />
-    <attr name="colorNewsListingSource" format="reference" />
+    <attr name="colorNewsListingAuthor" format="reference" />
     <attr name="colorNewsListingDate" format="reference" />
     <attr name="colorNewsListingDivider" format="reference" />
     <attr name="colorNewsListingImagePlaceholder" format="reference" />
