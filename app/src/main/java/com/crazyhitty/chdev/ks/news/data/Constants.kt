@@ -15,4 +15,9 @@ object Constants {
     object NewsListing {
         const val EXTRA_ARTICLES_ITEM = "extra_articles_item"
     }
+
+    object DateFormat {
+        const val PROVIDED_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
+        const val NORMALIZED_DATE_FORMAT = "h:mm a EEE, MMM d, ''yy"
+    }
 }

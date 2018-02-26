@@ -9,6 +9,9 @@ import com.crazyhitty.chdev.ks.news.data.api.NewsApiConfig
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.di.ApiConfig
 import com.crazyhitty.chdev.ks.news.di.ApplicationContext
+import com.crazyhitty.chdev.ks.news.di.NormalizedDate
+import com.crazyhitty.chdev.ks.news.di.ProvidedDate
+import com.crazyhitty.chdev.ks.news.util.DateTimeFormatter
 import com.crazyhitty.chdev.ks.news.util.internet.AppInternetHelper
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.AppSchedulerProvider
@@ -25,6 +28,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -113,4 +118,20 @@ class ApplicationModule(private val application: Application) {
                     .client(okHttpClient)
                     .build()
                     .create(NewsApiService::class.java)
+
+    @Provides
+    @ProvidedDate
+    fun provideProvidedDate() = SimpleDateFormat(Constants.DateFormat.PROVIDED_DATE_FORMAT,
+            Locale.getDefault())
+
+    @Provides
+    @NormalizedDate
+    fun provideNormalizedDate() = SimpleDateFormat(Constants.DateFormat.NORMALIZED_DATE_FORMAT,
+            Locale.getDefault())
+
+    @Provides
+    @Singleton
+    fun provideDateTimeFormatter(@ProvidedDate providedDateFormat: SimpleDateFormat,
+                                 @NormalizedDate normalizedDateFormat: SimpleDateFormat) =
+            DateTimeFormatter(providedDateFormat, normalizedDateFormat)
 }

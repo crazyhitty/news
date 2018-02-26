@@ -22,21 +22,17 @@ interface NewsApiService {
     fun sources(): Single<Source>
 
     /**
-     * Fetches the top headlines.
-     *
-     * @return
-     * [Single] observable containing [News].
-     */
-    @GET("/v2/top-headlines")
-    fun topHeadlines(@Query("country") country: String,
-                     @Query("pageNumber") pageNumber: Int): Single<News>
-
-    /**
      * Fetches all of the news from a particular source.
+     *
+     * @param sources   Provide source from which news should be fetched.
+     * @param pageSize  Number of articles that should be provided in a single request.
+     * @param page      Current page number for maintaining pagination.
      *
      * @return
      * [Single] observable containing [News].
      */
     @GET("/v2/everything")
-    fun everything(@Query("source") source: String): Single<News>
+    fun everything(@Query("sources") sources: String,
+                   @Query("pageSize") pageSize: Int,
+                   @Query("page") page: Int): Single<News>
 }

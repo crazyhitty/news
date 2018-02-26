@@ -5,8 +5,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.base.BaseAppCompatActivity
-import com.crazyhitty.chdev.ks.news.data.api.model.news.News
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
 import kotlinx.android.synthetic.main.activity_news_listing.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -16,6 +18,8 @@ import javax.inject.Inject
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
+    private val log = AnkoLogger(this::class.java)
+
     @Inject
     lateinit var newsListingPresenter: NewsListingContract.Presenter
 
@@ -43,6 +47,15 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     private fun setupNewsRecyclerView() {
         recyclerViewNews.layoutManager = linearLayoutManager
         recyclerViewNews.adapter = newsRecyclerAdapter
+
+        recyclerViewNews.addOnScrollListener(object : RecyclerScrollListener(linearLayoutManager, 6) {
+            override fun onPositionAppeared(position: Int) {
+                super.onPositionAppeared(position)
+                log.info { "Last 5th news article item is visible on the screen with position($position)" }
+                newsListingPresenter.reachedLastFifthNewsItem()
+            }
+        })
+
         newsRecyclerAdapter.onItemClickListener = {
             newsListingPresenter.redirectToNewsDetailsScreen(Bundle(), it)
         }
@@ -75,8 +88,8 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
         progressBar.visibility = View.GONE
     }
 
-    override fun showNews(news: News) {
-        newsRecyclerAdapter.news = news
+    override fun showNewsArticles(articles: ArrayList<ArticlesItem?>) {
+        newsRecyclerAdapter.articles = articles
     }
 
     override fun openNewsDetailsActivity(bundle: Bundle) {
@@ -106,5 +119,13 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
 
     override fun showErrorToast(message: String) {
         toast(message)
+    }
+
+    override fun showRecyclerLoadMoreErrorView(message: String) {
+        newsRecyclerAdapter.showErrorView(message)
+    }
+
+    override fun showRecyclerLoadingView() {
+        newsRecyclerAdapter.showLoadingView()
     }
 }

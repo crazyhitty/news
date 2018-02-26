@@ -5,6 +5,7 @@ import android.os.Parcelable
 
 data class ArticlesItem(
         val publishedAt: String? = null,
+        var publishedAtReadable: String? = null,
         val author: String? = null,
         val urlToImage: String? = null,
         val description: String? = null,
@@ -16,12 +17,14 @@ data class ArticlesItem(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
+            parcel.readString(),
             parcel.readParcelable(Source::class.java.classLoader),
             parcel.readString(),
             parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(publishedAt)
+        parcel.writeString(publishedAtReadable)
         parcel.writeString(author)
         parcel.writeString(urlToImage)
         parcel.writeString(description)

@@ -3,6 +3,7 @@ package com.crazyhitty.chdev.ks.news.di.components
 import com.crazyhitty.chdev.ks.news.NewsApplication
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.di.modules.ApplicationModule
+import com.crazyhitty.chdev.ks.news.util.DateTimeFormatter
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.SchedulerProvider
 import dagger.Component
@@ -24,4 +25,6 @@ interface ApplicationComponent {
     fun getInternetHelper(): InternetHelper
 
     fun getNewsApiService(): NewsApiService
+
+    fun getDateTimeFormatter(): DateTimeFormatter
 }
