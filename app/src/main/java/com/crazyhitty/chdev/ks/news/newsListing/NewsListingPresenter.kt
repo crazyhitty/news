@@ -204,7 +204,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
      */
     private fun cleanNewsData(news: News): News {
         val filteredArticles = news.articles?.filter { !it?.title.isNullOrBlank() }
-                ?.distinctBy { it?.title }
+                ?.distinctBy { Pair(it?.title, it?.description) }
                 ?.map {
                     // Convert publish date into a readable date.
                     if (it?.publishedAt != null) {
