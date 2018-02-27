@@ -1,9 +1,12 @@
 package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
+import com.crazyhitty.chdev.ks.news.data.Constants
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
 import com.crazyhitty.chdev.ks.news.data.api.model.news.News
+import com.crazyhitty.chdev.ks.news.data.api.model.news.Source
+import com.crazyhitty.chdev.ks.news.util.DateTimeFormatter
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.TestSchedulerProvider
 import io.reactivex.Single
@@ -16,6 +19,8 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
@@ -32,6 +37,7 @@ class NewsListingPresenterTest {
     private lateinit var mockBundle: Bundle
 
     private lateinit var testScheduler: TestScheduler
+    private lateinit var dateTimeFormatter: DateTimeFormatter
     private lateinit var newsListingPresenter: NewsListingContract.Presenter
 
     @Before
@@ -41,10 +47,16 @@ class NewsListingPresenterTest {
         testScheduler = TestScheduler()
         val testSchedulerProvider = TestSchedulerProvider(testScheduler)
 
+        dateTimeFormatter = DateTimeFormatter(SimpleDateFormat(Constants.DateFormat.PROVIDED_DATE_FORMAT,
+                Locale.getDefault()),
+                SimpleDateFormat(Constants.DateFormat.NORMALIZED_DATE_FORMAT,
+                        Locale.getDefault()))
+
         newsListingPresenter = NewsListingPresenter(mockInternetHelper,
                 testSchedulerProvider,
                 compositeDisposable,
-                mockNewsApiService)
+                mockNewsApiService,
+                dateTimeFormatter)
     }
 
     /**
@@ -59,11 +71,19 @@ class NewsListingPresenterTest {
                 .isAvailable()
 
         // Mock NewsApiService and return a dummy news data when topHeadlines method is called.
-        val news = News()
+        val articles = arrayListOf(ArticlesItem("2018-02-21T20:12:43Z",
+                null,
+                "John Doe",
+                "https://example.com/example.png",
+                "John Doe is not a dummy name",
+                Source("1", "Sellout News Network"),
+                "John Does goes to Hollywood",
+                "https://example.com/example"))
+        val news = News(20, articles, "ok")
 
         Mockito.doReturn(Single.just(news))
                 .`when`(mockNewsApiService)
-                .topHeadlines("us", 0)
+                .everything("ars-technica", 20, 1)
 
         newsListingPresenter.onAttach(mockNewsListingView)
 
@@ -72,7 +92,7 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).showProgress()
         Mockito.verify(mockNewsListingView).disableRefresh()
         Mockito.verify(mockNewsListingView).hideProgress()
-        Mockito.verify(mockNewsListingView).showNews(news)
+        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticlesItem?>)
         Mockito.verify(mockNewsListingView).enableRefresh()
     }
 
@@ -109,7 +129,7 @@ class NewsListingPresenterTest {
 
         Mockito.doReturn(singleNewsError)
                 .`when`(mockNewsApiService)
-                .topHeadlines("us", 0)
+                .everything("ars-technica", 20, 1)
 
         newsListingPresenter.onAttach(mockNewsListingView)
 
@@ -123,8 +143,37 @@ class NewsListingPresenterTest {
     }
 
     /**
+     * Test if the [NewsListingPresenter.onAttach] method is executed successfully and works as
+     * expected in a scenario where remote server is able to fetch the news but the news returned
+     * from server is malformed.
+     */
+    @Test
+    fun testNewsListingPresenterOnAttachApiFailureAlternative() {
+        // Mock internet helper and return true for internet connectivity checks.
+        Mockito.doReturn(true)
+                .`when`(mockInternetHelper)
+                .isAvailable()
+
+        val news = News(0, null, "failure")
+
+        Mockito.doReturn(Single.just(news))
+                .`when`(mockNewsApiService)
+                .everything("ars-technica", 20, 1)
+
+        newsListingPresenter.onAttach(mockNewsListingView)
+
+        testScheduler.triggerActions()
+
+        Mockito.verify(mockNewsListingView).showProgress()
+        Mockito.verify(mockNewsListingView).disableRefresh()
+        Mockito.verify(mockNewsListingView).hideProgress()
+        Mockito.verify(mockNewsListingView).showError("Unknown error")
+        Mockito.verify(mockNewsListingView).enableRefresh()
+    }
+
+    /**
      * Test if the [NewsListingPresenter.refresh] method is executed successfully and works as
-     * expected in a scenario where internet is not available.
+     * expected in a scenario where everything goes fine.
      */
     @Test
     fun testNewsListingPresenterRefreshSuccess() {
@@ -137,11 +186,19 @@ class NewsListingPresenterTest {
                 .isAvailable()
 
         // Mock NewsApiService and return a dummy news data when topHeadlines method is called.
-        val news = News()
+        val articles = arrayListOf(ArticlesItem("2018-02-21T20:12:43Z",
+                null,
+                "John Doe",
+                "https://example.com/example.png",
+                "John Doe is not a dummy name",
+                Source("1", "Sellout News Network"),
+                "John Does goes to Hollywood",
+                "https://example.com/example"))
+        val news = News(20, articles, "ok")
 
         Mockito.doReturn(Single.just(news))
                 .`when`(mockNewsApiService)
-                .topHeadlines("us", 0)
+                .everything("ars-technica", 20, 1)
 
         newsListingPresenter.refresh()
 
@@ -150,7 +207,7 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).showRefreshingDoneMessage("News refreshed")
         Mockito.verify(mockNewsListingView).stopRefreshing()
         Mockito.verify(mockNewsListingView).clearNews()
-        Mockito.verify(mockNewsListingView).showNews(news)
+        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticlesItem?>)
     }
 
     /**
@@ -193,13 +250,42 @@ class NewsListingPresenterTest {
 
         Mockito.doReturn(singleNewsError)
                 .`when`(mockNewsApiService)
-                .topHeadlines("us", 0)
+                .everything("ars-technica", 20, 1)
 
         newsListingPresenter.refresh()
 
         testScheduler.triggerActions()
 
         Mockito.verify(mockNewsListingView).showErrorToast("")
+        Mockito.verify(mockNewsListingView).stopRefreshing()
+    }
+
+    /**
+     * Test if the [NewsListingPresenter.refresh] method is executed successfully and works as
+     * expected in a scenario where remote server is able to fetch the news but the news returned
+     * from server is malformed.
+     */
+    @Test
+    fun testNewsListingPresenterRefreshApiFailureAlternative() {
+        // Just attach the view to the presenter.
+        newsListingPresenter.onAttach(mockNewsListingView)
+
+        // Mock internet helper and return true for internet connectivity checks.
+        Mockito.doReturn(true)
+                .`when`(mockInternetHelper)
+                .isAvailable()
+
+        val news = News(0, null, "failure")
+
+        Mockito.doReturn(Single.just(news))
+                .`when`(mockNewsApiService)
+                .everything("ars-technica", 20, 1)
+
+        newsListingPresenter.refresh()
+
+        testScheduler.triggerActions()
+
+        Mockito.verify(mockNewsListingView).showErrorToast("Unknown error")
         Mockito.verify(mockNewsListingView).stopRefreshing()
     }
 
@@ -217,6 +303,126 @@ class NewsListingPresenterTest {
         newsListingPresenter.redirectToNewsDetailsScreen(mockBundle, articlesItem)
 
         Mockito.verify(mockNewsListingView).openNewsDetailsActivity(mockBundle)
+    }
+
+    /**
+     * Test if the [NewsListingPresenter.reachedLastFifthNewsItem] method is executed successfully
+     * and works as expected in a scenario where everything goes fine.
+     */
+    @Test
+    fun testReachedLastFifthNewsItemSuccess() {
+        // Just attach the view to the presenter.
+        newsListingPresenter.onAttach(mockNewsListingView)
+
+        // Mock internet helper and return true for internet connectivity checks.
+        Mockito.doReturn(true)
+                .`when`(mockInternetHelper)
+                .isAvailable()
+
+        // Mock NewsApiService and return a dummy news data when topHeadlines method is called.
+        val articles = arrayListOf(ArticlesItem("2018-02-21T20:12:43Z",
+                null,
+                "John Doe",
+                "https://example.com/example.png",
+                "John Doe is not a dummy name",
+                Source("1", "Sellout News Network"),
+                "John Does goes to Hollywood",
+                "https://example.com/example"))
+        val news = News(20, articles, "ok")
+
+        Mockito.doReturn(Single.just(news))
+                .`when`(mockNewsApiService)
+                .everything("ars-technica", 20, 2)
+
+        newsListingPresenter.reachedLastFifthNewsItem()
+
+        testScheduler.triggerActions()
+
+        Mockito.verify(mockNewsListingView).disableRefresh()
+        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticlesItem?>)
+        Mockito.verify(mockNewsListingView).enableRefresh()
+    }
+
+    /**
+     * Test if the [NewsListingPresenter.reachedLastFifthNewsItem] method is executed successfully
+     * and works as expected in a scenario where internet is not available.
+     */
+    @Test
+    fun testReachedLastFifthNewsItemInternetFailure() {
+        // Just attach the view to the presenter.
+        newsListingPresenter.onAttach(mockNewsListingView)
+
+        // Mock internet helper and return true for internet connectivity checks.
+        Mockito.doReturn(false)
+                .`when`(mockInternetHelper)
+                .isAvailable()
+
+        newsListingPresenter.reachedLastFifthNewsItem()
+
+        testScheduler.triggerActions()
+
+        Mockito.verify(mockNewsListingView).showRecyclerLoadMoreErrorView("No internet available")
+    }
+
+    /**
+     * Test if the [NewsListingPresenter.reachedLastFifthNewsItem] method is executed successfully
+     * and works as expected in a scenario where remote server is unable to fetch the news.
+     */
+    @Test
+    fun testReachedLastFifthNewsItemApiFailure() {
+        // Just attach the view to the presenter.
+        newsListingPresenter.onAttach(mockNewsListingView)
+
+        // Mock internet helper and return true for internet connectivity checks.
+        Mockito.doReturn(true)
+                .`when`(mockInternetHelper)
+                .isAvailable()
+
+        val singleNewsError = Single.create<News> {
+            it.onError(Exception(""))
+        }
+
+        Mockito.doReturn(singleNewsError)
+                .`when`(mockNewsApiService)
+                .everything("ars-technica", 20, 2)
+
+        newsListingPresenter.reachedLastFifthNewsItem()
+
+        testScheduler.triggerActions()
+
+        Mockito.verify(mockNewsListingView).showRecyclerLoadMoreErrorView("")
+        Mockito.verify(mockNewsListingView).showErrorToast("")
+        Mockito.verify(mockNewsListingView).enableRefresh()
+    }
+
+    /**
+     * Test if the [NewsListingPresenter.reachedLastFifthNewsItem] method is executed successfully
+     * and works as expected in a scenario where remote server is able to fetch the news but the
+     * news returned from server is malformed.
+     */
+    @Test
+    fun testReachedLastFifthNewsItemApiFailureAlternative() {
+        // Just attach the view to the presenter.
+        newsListingPresenter.onAttach(mockNewsListingView)
+
+        // Mock internet helper and return true for internet connectivity checks.
+        Mockito.doReturn(true)
+                .`when`(mockInternetHelper)
+                .isAvailable()
+
+        val news = News(0, null, "failure")
+
+        Mockito.doReturn(Single.just(news))
+                .`when`(mockNewsApiService)
+                .everything("ars-technica", 20, 2)
+
+        newsListingPresenter.reachedLastFifthNewsItem()
+
+        testScheduler.triggerActions()
+
+        Mockito.verify(mockNewsListingView).showRecyclerLoadMoreErrorView("Unknown error")
+        Mockito.verify(mockNewsListingView).showErrorToast("Unknown error")
+        Mockito.verify(mockNewsListingView).enableRefresh()
     }
 
     @After
