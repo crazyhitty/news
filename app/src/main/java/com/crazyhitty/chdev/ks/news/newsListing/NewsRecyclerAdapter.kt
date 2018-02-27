@@ -113,7 +113,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         holder?.textViewDesc?.setTextOrHide(article?.description)
         holder?.textViewAuthor?.text = article?.author
         holder?.textViewDate?.text = article?.publishedAtReadable
-        holder?.imageViewNews?.setImageUriOrHide(article?.urlToImage)
+        holder?.imageViewNews?.setImageUriOrHide(false, article?.urlToImage)
     }
 
     private fun onBindLoadingViewHolder(holder: LoadingViewHolder?, position: Int) {
