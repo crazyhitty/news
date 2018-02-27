@@ -1,14 +1,14 @@
 package com.crazyhitty.chdev.ks.news.util
 
-import java.text.SimpleDateFormat
+import java.text.DateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
-class DateTimeFormatter(private val providedDateFormat: SimpleDateFormat,
-                        private val normalizedDateFormat: SimpleDateFormat) {
+class DateTimeFormatter(private val providedDateFormat: DateFormat,
+                        private val normalizedDateFormat: DateFormat) {
     fun convertPublishDateToReadable(publishedAt: String): String {
         val publishTime = providedDateFormat.parse(publishedAt).time
         val currentTime = Calendar.getInstance().timeInMillis
