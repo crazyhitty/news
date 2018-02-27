@@ -7,15 +7,9 @@ This app uses [NewsApi](https://newsapi.org/) for fetching news.
 ## Build Instructions
 
 1. Clone this project.
-2. Create config.gradle in project root directory with these content:
-
-```
-ext.config = [
-        apiKey:'\"YOUR_API_KEY_HERE\"'
-]
-```
-
-3. Build project and you are good to go.
+2. Open this project in AndroidStudio.
+2. Rename config.gradle.sample to config.gradle in project root directory and update the API key inside that file with your own. You can create your own API key [here](https://newsapi.org/).
+3. Hit the `run` button in AndroidStudio and you are good to go.
 
 ## TODO
 
