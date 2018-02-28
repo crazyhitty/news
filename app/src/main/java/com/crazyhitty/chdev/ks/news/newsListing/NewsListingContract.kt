@@ -88,6 +88,16 @@ interface NewsListingContract {
          * being shown.
          */
         fun showRecyclerLoadingView()
+
+        /**
+         * Start listening if last 5th news item is being shown on the screen or not.
+         */
+        fun startListeningForLastFifthNewsItemShown()
+
+        /**
+         * Stop listening if last 5th news item is being shown on the screen or not.
+         */
+        fun stopListeningForLastFifthNewsItemShown()
     }
 
     interface Presenter: BasePresenter<View> {

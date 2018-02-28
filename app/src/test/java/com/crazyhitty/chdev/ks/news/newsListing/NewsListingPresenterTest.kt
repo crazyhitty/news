@@ -94,6 +94,7 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).hideProgress()
         Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticlesItem?>)
         Mockito.verify(mockNewsListingView).enableRefresh()
+        Mockito.verify(mockNewsListingView).startListeningForLastFifthNewsItemShown()
     }
 
     /**
@@ -204,10 +205,12 @@ class NewsListingPresenterTest {
 
         testScheduler.triggerActions()
 
+        Mockito.verify(mockNewsListingView).stopListeningForLastFifthNewsItemShown()
         Mockito.verify(mockNewsListingView).showRefreshingDoneMessage("News refreshed")
         Mockito.verify(mockNewsListingView).stopRefreshing()
         Mockito.verify(mockNewsListingView).clearNews()
         Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticlesItem?>)
+        Mockito.verify(mockNewsListingView).startListeningForLastFifthNewsItemShown()
     }
 
     /**
@@ -256,8 +259,10 @@ class NewsListingPresenterTest {
 
         testScheduler.triggerActions()
 
+        Mockito.verify(mockNewsListingView).stopListeningForLastFifthNewsItemShown()
         Mockito.verify(mockNewsListingView).showErrorToast("")
         Mockito.verify(mockNewsListingView).stopRefreshing()
+        Mockito.verify(mockNewsListingView).startListeningForLastFifthNewsItemShown()
     }
 
     /**
@@ -285,8 +290,10 @@ class NewsListingPresenterTest {
 
         testScheduler.triggerActions()
 
+        Mockito.verify(mockNewsListingView).stopListeningForLastFifthNewsItemShown()
         Mockito.verify(mockNewsListingView).showErrorToast("Unknown error")
         Mockito.verify(mockNewsListingView).stopRefreshing()
+        Mockito.verify(mockNewsListingView).startListeningForLastFifthNewsItemShown()
     }
 
     /**

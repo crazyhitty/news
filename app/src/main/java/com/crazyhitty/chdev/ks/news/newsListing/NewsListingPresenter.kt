@@ -57,6 +57,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                             this.view.hideProgress()
                             this.view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
                             this.view.enableRefresh()
+                            this.view.startListeningForLastFifthNewsItemShown()
                         } else {
                             log.error {
                                 """
@@ -96,6 +97,8 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
     override fun refresh() {
         // Check if internet is available or not.
         if (internetHelper.isAvailable()) {
+            page = 1
+            view.stopListeningForLastFifthNewsItemShown()
             compositeDisposable.add(newsApiService.everything("ars-technica", 20, page)
                     .map { cleanNewsData(it) }
                     .subscribeOn(schedulerProvider.io())
@@ -107,10 +110,11 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                         // Check if news status is ok and if news articles are available.
                         if (it?.status.equals("ok") &&
                                 it?.articles?.isNotEmpty() == true) {
-                            this.view.showRefreshingDoneMessage("News refreshed")
-                            this.view.stopRefreshing()
-                            this.view.clearNews()
-                            this.view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
+                            view.showRefreshingDoneMessage("News refreshed")
+                            view.stopRefreshing()
+                            view.clearNews()
+                            view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
+                            view.startListeningForLastFifthNewsItemShown()
                         } else {
                             log.error {
                                 """
@@ -120,8 +124,9 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                                     articlesSize=${it?.articles?.size}
                                 """.trimIndent()
                             }
-                            this.view.showErrorToast("Unknown error")
-                            this.view.stopRefreshing()
+                            view.showErrorToast("Unknown error")
+                            view.stopRefreshing()
+                            view.startListeningForLastFifthNewsItemShown()
                         }
                     }, {
                         // Handle failure scenario.
@@ -132,12 +137,14 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                                 $it
                             """.trimIndent()
                         }
-                        this.view.showErrorToast(it.message ?: "Unknown error")
-                        this.view.stopRefreshing()
+                        view.showErrorToast(it.message ?: "Unknown error")
+                        view.stopRefreshing()
+                        view.startListeningForLastFifthNewsItemShown()
                     }))
         } else {
-            this.view.showErrorToast("No internet available")
-            this.view.stopRefreshing()
+            view.showErrorToast("No internet available")
+            view.stopRefreshing()
+            view.startListeningForLastFifthNewsItemShown()
         }
     }
 
@@ -149,7 +156,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
     override fun reachedLastFifthNewsItem() {
         // Check if internet is available or not.
         if (internetHelper.isAvailable()) {
-            this.view.disableRefresh()
+            view.disableRefresh()
             compositeDisposable.add(newsApiService.everything("ars-technica", 20, page.plus(1))
                     .map { cleanNewsData(it) }
                     .subscribeOn(schedulerProvider.io())
@@ -161,8 +168,8 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                         if (it?.status.equals("ok") &&
                                 it?.articles?.isNotEmpty() == true) {
                             page = page.plus(1)
-                            this.view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
-                            this.view.enableRefresh()
+                            view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
+                            view.enableRefresh()
                         } else {
                             log.error {
                                 """
@@ -172,9 +179,9 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                                     articlesSize=${it?.articles?.size}
                                 """.trimIndent()
                             }
-                            this.view.showRecyclerLoadMoreErrorView("Unknown error")
-                            this.view.showErrorToast("Unknown error")
-                            this.view.enableRefresh()
+                            view.showRecyclerLoadMoreErrorView("Unknown error")
+                            view.showErrorToast("Unknown error")
+                            view.enableRefresh()
                         }
                     }, {
                         // Handle failure scenario.
@@ -185,12 +192,12 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                                 $it
                             """.trimIndent()
                         }
-                        this.view.showRecyclerLoadMoreErrorView(it.message ?: "Unknown error")
-                        this.view.showErrorToast(it.message ?: "Unknown error")
-                        this.view.enableRefresh()
+                        view.showRecyclerLoadMoreErrorView(it.message ?: "Unknown error")
+                        view.showErrorToast(it.message ?: "Unknown error")
+                        view.enableRefresh()
                     }))
         } else {
-            this.view.showRecyclerLoadMoreErrorView("No internet available")
+            view.showRecyclerLoadMoreErrorView("No internet available")
         }
     }
 

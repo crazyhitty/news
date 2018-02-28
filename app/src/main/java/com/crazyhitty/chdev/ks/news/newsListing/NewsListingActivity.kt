@@ -2,6 +2,7 @@ package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.base.BaseAppCompatActivity
@@ -47,14 +48,6 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     private fun setupNewsRecyclerView() {
         recyclerViewNews.layoutManager = linearLayoutManager
         recyclerViewNews.adapter = newsRecyclerAdapter
-
-        recyclerViewNews.addOnScrollListener(object : RecyclerScrollListener(linearLayoutManager, 6) {
-            override fun onPositionAppeared(position: Int) {
-                super.onPositionAppeared(position)
-                log.info { "Last 5th news article item is visible on the screen with position($position)" }
-                newsListingPresenter.reachedLastFifthNewsItem()
-            }
-        })
 
         newsRecyclerAdapter.onItemClickListener = {
             newsListingPresenter.redirectToNewsDetailsScreen(Bundle(), it)
@@ -127,5 +120,19 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
 
     override fun showRecyclerLoadingView() {
         newsRecyclerAdapter.showLoadingView()
+    }
+
+    override fun startListeningForLastFifthNewsItemShown() {
+        recyclerViewNews.addOnScrollListener(object : RecyclerScrollListener(linearLayoutManager, 6) {
+            override fun onPositionAppeared(position: Int) {
+                super.onPositionAppeared(position)
+                log.info { "Last 5th news article item is visible on the screen with position($position)" }
+                newsListingPresenter.reachedLastFifthNewsItem()
+            }
+        })
+    }
+
+    override fun stopListeningForLastFifthNewsItemShown() {
+        recyclerViewNews.addOnScrollListener(object : RecyclerView.OnScrollListener(){})
     }
 }
