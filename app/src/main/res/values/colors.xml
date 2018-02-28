@@ -11,14 +11,16 @@
     <color name="textColorSecondaryInverse">#44bba4</color>
     <color name="textColorTertiaryInverse">#44bba4</color>
 
-    <color name="colorToolbarTitle">#8683F1</color>
-    <color name="colorToolbarDivider">#9e9e9e</color>
-
+    <color name="colorNewsToolbarTitle">#8683F1</color>
+    <color name="colorNewsToolbarDivider">#9e9e9e</color>
     <color name="colorNewsListingTitle">#333233</color>
     <color name="colorNewsListingDesc">#858485</color>
     <color name="colorNewsListingAuthor">#B9B9B9</color>
     <color name="colorNewsListingDate">#B9B9B9</color>
     <color name="colorNewsListingDivider">#e0e0e0</color>
     <color name="colorNewsListingImagePlaceholder">#e0e0e0</color>
+
+    <color name="colorSourcesFilterText">#8683F1</color>
+    <color name="colorSourcesFilterHint">#858485</color>
 
 </resources>

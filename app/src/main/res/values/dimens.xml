@@ -54,4 +54,11 @@
     <dimen name="itemNewsDividerMarginBottom">0dp</dimen>
     <dimen name="itemNewsDividerHeight">0.5dp</dimen>
 
+    <!--activity_sources-->
+    <dimen name="activitySourcesFilterTextSize">24sp</dimen>
+    <dimen name="activitySourcesFilterMarginStart">16dp</dimen>
+    <dimen name="activitySourcesFilterMarginEnd">16dp</dimen>
+    <dimen name="activitySourcesFilterMarginTop">0dp</dimen>
+    <dimen name="activitySourcesFilterMarginBottom">0dp</dimen>
+
 </resources>

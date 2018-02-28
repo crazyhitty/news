@@ -18,14 +18,16 @@
         <item name="android:textAppearanceLarge">@style/TextAppearanceLarge</item>
         <item name="android:textAppearanceMedium">@style/TextAppearanceMedium</item>
         <item name="android:textAppearanceSmall">@style/TextAppearanceSmall</item>
-        <item name="colorToolbarTitle">@color/colorToolbarTitle</item>
-        <item name="colorToolbarDivider">@color/colorToolbarDivider</item>
+        <item name="colorNewsToolbarTitle">@color/colorNewsToolbarTitle</item>
+        <item name="colorNewsToolbarDivider">@color/colorNewsToolbarDivider</item>
         <item name="colorNewsListingTitle">@color/colorNewsListingTitle</item>
         <item name="colorNewsListingDesc">@color/colorNewsListingDesc</item>
         <item name="colorNewsListingAuthor">@color/colorNewsListingAuthor</item>
         <item name="colorNewsListingDate">@color/colorNewsListingDate</item>
         <item name="colorNewsListingDivider">@color/colorNewsListingDivider</item>
         <item name="colorNewsListingImagePlaceholder">@color/colorNewsListingImagePlaceholder</item>
+        <item name="colorSourcesFilterText">@color/colorSourcesFilterText</item>
+        <item name="colorSourcesFilterHint">@color/colorSourcesFilterHint</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -55,21 +57,30 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="ToolbarTitle">
-        <item name="android:layout_marginStart">@dimen/activityNewsListingToolbarTitleMarginStart</item>
+    <style name="NewsToolbarTitle">
+        <item name="android:layout_marginStart">@dimen/activityNewsListingToolbarTitleMarginStart
+        </item>
         <item name="android:layout_marginEnd">@dimen/activityNewsListingToolbarTitleMarginEnd</item>
         <item name="android:layout_marginTop">@dimen/activityNewsListingToolbarTitleMarginTop</item>
-        <item name="android:layout_marginBottom">@dimen/activityNewsListingToolbarTitleMarginBottom</item>
-        <item name="android:textColor">?attr/colorToolbarTitle</item>
+        <item name="android:layout_marginBottom">
+            @dimen/activityNewsListingToolbarTitleMarginBottom
+        </item>
+        <item name="android:textColor">?attr/colorNewsToolbarTitle</item>
         <item name="android:textSize">@dimen/activityNewsListingToolbarTitleTextSize</item>
         <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
     </style>
 
-    <style name="ToolbarDivider">
-        <item name="android:layout_marginStart">@dimen/activityNewsListingToolbarDividerMarginStart</item>
-        <item name="android:layout_marginEnd">@dimen/activityNewsListingToolbarDividerMarginEnd</item>
-        <item name="android:layout_marginTop">@dimen/activityNewsListingToolbarDividerMarginTop</item>
-        <item name="android:layout_marginBottom">@dimen/activityNewsListingToolbarDividerMarginBottom</item>
+    <style name="NewsToolbarDivider">
+        <item name="android:layout_marginStart">
+            @dimen/activityNewsListingToolbarDividerMarginStart
+        </item>
+        <item name="android:layout_marginEnd">@dimen/activityNewsListingToolbarDividerMarginEnd
+        </item>
+        <item name="android:layout_marginTop">@dimen/activityNewsListingToolbarDividerMarginTop
+        </item>
+        <item name="android:layout_marginBottom">
+            @dimen/activityNewsListingToolbarDividerMarginBottom
+        </item>
     </style>
 
     <style name="NewsListingTitle">
@@ -126,6 +137,18 @@
         <item name="android:layout_marginEnd">@dimen/itemNewsDividerMarginEnd</item>
         <item name="android:layout_marginTop">@dimen/itemNewsDividerMarginTop</item>
         <item name="android:layout_marginBottom">@dimen/itemNewsDividerMarginBottom</item>
+    </style>
+
+    <style name="SourcesFilter">
+        <item name="android:layout_marginStart">@dimen/activitySourcesFilterMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/activitySourcesFilterMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/activitySourcesFilterMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/activitySourcesFilterMarginBottom</item>
+        <item name="android:textColor">?attr/colorSourcesFilterText</item>
+        <item name="android:textColorHint">?attr/colorSourcesFilterHint</item>
+        <item name="android:textSize">@dimen/activitySourcesFilterTextSize</item>
+        <item name="android:background">@null</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
     </style>
 
 </resources>

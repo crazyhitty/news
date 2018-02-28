@@ -3,13 +3,15 @@
 
     <attr name="appBarOverlay" format="reference" />
     <attr name="popupOverlay" format="reference" />
-    <attr name="colorToolbarTitle" format="reference" />
-    <attr name="colorToolbarDivider" format="reference" />
+    <attr name="colorNewsToolbarTitle" format="reference" />
+    <attr name="colorNewsToolbarDivider" format="reference" />
     <attr name="colorNewsListingTitle" format="reference" />
     <attr name="colorNewsListingDesc" format="reference" />
     <attr name="colorNewsListingAuthor" format="reference" />
     <attr name="colorNewsListingDate" format="reference" />
     <attr name="colorNewsListingDivider" format="reference" />
     <attr name="colorNewsListingImagePlaceholder" format="reference" />
+    <attr name="colorSourcesFilterText" format="reference" />
+    <attr name="colorSourcesFilterHint" format="reference" />
 
 </resources>
