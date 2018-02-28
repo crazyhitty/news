@@ -131,7 +131,6 @@ class ApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideDateTimeFormatter(@ProvidedDate providedDateFormat: SimpleDateFormat,
-                                 @NormalizedDate normalizedDateFormat: SimpleDateFormat) =
-            DateTimeFormatter(providedDateFormat, normalizedDateFormat)
+    fun provideDateTimeFormatter(@ProvidedDate providedDateFormat: SimpleDateFormat) =
+            DateTimeFormatter(providedDateFormat)
 }
