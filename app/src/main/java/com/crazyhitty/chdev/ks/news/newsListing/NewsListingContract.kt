@@ -120,5 +120,7 @@ interface NewsListingContract {
          * Should be called when last 5th news item is visible on the screen.
          */
         fun reachedLastFifthNewsItem()
+
+        fun recyclerLoadMoreErrorViewClicked()
     }
 }

@@ -110,6 +110,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                         // Check if news status is ok and if news articles are available.
                         if (it?.status.equals("ok") &&
                                 it?.articles?.isNotEmpty() == true) {
+                            view.hideError()
                             view.showRefreshingDoneMessage("News refreshed")
                             view.stopRefreshing()
                             view.clearNews()
@@ -197,6 +198,56 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                         view.enableRefresh()
                     }))
         } else {
+            view.showRecyclerLoadMoreErrorView("No internet available")
+        }
+    }
+
+    override fun recyclerLoadMoreErrorViewClicked() {
+        // Check if internet is available or not.
+        if (internetHelper.isAvailable()) {
+            view.disableRefresh()
+            view.showRecyclerLoadingView()
+            compositeDisposable.add(newsApiService.everything("ars-technica", 20, page.plus(1))
+                    .map { cleanNewsData(it) }
+                    .subscribeOn(schedulerProvider.io())
+                    .observeOn(schedulerProvider.ui())
+                    .subscribe({
+                        // Handle success scenario.
+                        log.info { "News loaded from remote server" }
+
+                        if (it?.status.equals("ok") &&
+                                it?.articles?.isNotEmpty() == true) {
+                            page = page.plus(1)
+                            view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
+                            view.enableRefresh()
+                        } else {
+                            log.error {
+                                """
+                                    Unable to display news
+                                    Cause:
+                                    status=${it?.status}
+                                    articlesSize=${it?.articles?.size}
+                                """.trimIndent()
+                            }
+                            view.showRecyclerLoadMoreErrorView("Unknown error")
+                            view.showErrorToast("Unknown error")
+                            view.enableRefresh()
+                        }
+                    }, {
+                        // Handle failure scenario.
+                        log.error {
+                            """
+                                Unable to load news from remote server
+                                Cause:
+                                $it
+                            """.trimIndent()
+                        }
+                        view.showRecyclerLoadMoreErrorView(it.message ?: "Unknown error")
+                        view.showErrorToast(it.message ?: "Unknown error")
+                        view.enableRefresh()
+                    }))
+        } else {
+            view.showErrorToast("No internet available")
             view.showRecyclerLoadMoreErrorView("No internet available")
         }
     }

@@ -52,6 +52,10 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
         newsRecyclerAdapter.onItemClickListener = {
             newsListingPresenter.redirectToNewsDetailsScreen(Bundle(), it)
         }
+
+        newsRecyclerAdapter.onErrorViewClickListener = {
+            newsListingPresenter.recyclerLoadMoreErrorViewClicked()
+        }
     }
 
     private fun setupRefreshLayout() {
@@ -106,7 +110,7 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     }
 
     override fun showError(message: String) {
-        textViewNewsUnavailable.text = message
+        textViewNewsUnavailable.text = message.plus("\nSwipe down to refresh")
         textViewNewsUnavailable.visibility = View.VISIBLE
     }
 

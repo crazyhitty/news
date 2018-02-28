@@ -20,6 +20,7 @@
     <dimen name="activityNewsListingToolbarDividerMarginTop">0dp</dimen>
     <dimen name="activityNewsListingToolbarDividerMarginBottom">0dp</dimen>
     <dimen name="activityNewsListingToolbarDividerHeight">0.5dp</dimen>
+    <dimen name="activityNewsListingErrorTextSize">20sp</dimen>
 
     <!--item_news-->
     <dimen name="itemNewsTitleTextSize">24sp</dimen>
@@ -53,5 +54,12 @@
     <dimen name="itemNewsDividerMarginTop">16dp</dimen>
     <dimen name="itemNewsDividerMarginBottom">0dp</dimen>
     <dimen name="itemNewsDividerHeight">0.5dp</dimen>
+
+    <!--item_loading_error-->
+    <dimen name="itemLoadingErrorTextSize">20sp</dimen>
+    <dimen name="itemLoadingErrorPaddingStart">16dp</dimen>
+    <dimen name="itemLoadingErrorPaddingEnd">16dp</dimen>
+    <dimen name="itemLoadingErrorPaddingTop">16dp</dimen>
+    <dimen name="itemLoadingErrorPaddingBottom">16dp</dimen>
 
 </resources>
