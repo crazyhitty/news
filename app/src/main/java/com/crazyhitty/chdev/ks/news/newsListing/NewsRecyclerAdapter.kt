@@ -37,6 +37,8 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var onItemClickListener: ((ArticlesItem?) -> Unit)? = null
 
+    var onErrorViewClickListener: (() -> Unit)? = null
+
     fun clear() {
         articles.clear()
         notifyDataSetChanged()
@@ -121,7 +123,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     private fun onBindLoadingErrorViewHolder(holder: LoadingErrorViewHolder?, position: Int) {
-        holder?.textViewError?.text = errorMessage
+        holder?.textViewError?.text = errorMessage.plus("\nTap to retry")
     }
 
     inner class NewsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -144,5 +146,11 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class LoadingErrorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         val textViewError = itemView?.find<TextView>(R.id.textViewError)
+
+        init {
+            itemView?.setOnClickListener {
+                onErrorViewClickListener?.invoke()
+            }
+        }
     }
 }

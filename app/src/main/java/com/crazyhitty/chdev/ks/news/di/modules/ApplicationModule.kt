@@ -100,9 +100,9 @@ class ApplicationModule(private val application: Application) {
                                 .build())
                     }
                     .addNetworkInterceptor(networkInterceptor)
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .connectTimeout(15, TimeUnit.SECONDS)
+                    .readTimeout(15, TimeUnit.SECONDS)
+                    .writeTimeout(15, TimeUnit.SECONDS)
                     .build()
 
     @Provides
@@ -131,7 +131,6 @@ class ApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideDateTimeFormatter(@ProvidedDate providedDateFormat: SimpleDateFormat,
-                                 @NormalizedDate normalizedDateFormat: SimpleDateFormat) =
-            DateTimeFormatter(providedDateFormat, normalizedDateFormat)
+    fun provideDateTimeFormatter(@ProvidedDate providedDateFormat: SimpleDateFormat) =
+            DateTimeFormatter(providedDateFormat)
 }

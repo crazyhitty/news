@@ -139,6 +139,24 @@
         <item name="android:layout_marginBottom">@dimen/itemNewsDividerMarginBottom</item>
     </style>
 
+    <style name="NewsError">
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingTop">?attr/actionBarSize</item>
+        <item name="android:textSize">@dimen/activityNewsListingErrorTextSize</item>
+    </style>
+
+    <style name="NewsListingError">
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingStart">@dimen/itemLoadingErrorPaddingStart</item>
+        <item name="android:paddingEnd">@dimen/itemLoadingErrorPaddingEnd</item>
+        <item name="android:paddingTop">@dimen/itemLoadingErrorPaddingTop</item>
+        <item name="android:paddingBottom">@dimen/itemLoadingErrorPaddingBottom</item>
+        <item name="android:textSize">@dimen/itemLoadingErrorTextSize</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
     <style name="SourcesFilter">
         <item name="android:layout_marginStart">@dimen/activitySourcesFilterMarginStart</item>
         <item name="android:layout_marginEnd">@dimen/activitySourcesFilterMarginEnd</item>
