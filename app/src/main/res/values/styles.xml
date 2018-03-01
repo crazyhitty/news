@@ -81,6 +81,7 @@
         <item name="android:layout_marginBottom">
             @dimen/activityNewsListingToolbarDividerMarginBottom
         </item>
+        <item name="android:background">?attr/colorNewsToolbarDivider</item>
     </style>
 
     <style name="NewsListingTitle">
@@ -166,8 +167,15 @@
         <item name="android:textColorHint">?attr/colorSourcesFilterHint</item>
         <item name="android:textSize">@dimen/activitySourcesFilterTextSize</item>
         <item name="android:background">@null</item>
-        <item name="android:drawableEnd">@drawable/ic_cancel_24dp</item>
         <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="SourcesFilterCancel">
+        <item name="android:layout_marginStart">@dimen/activitySourcesFilterCancelMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/activitySourcesFilterCancelMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/activitySourcesFilterCancelMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/activitySourcesFilterCancelMarginBottom</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
 </resources>

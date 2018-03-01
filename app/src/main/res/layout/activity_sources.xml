@@ -9,7 +9,8 @@
     <RelativeLayout
         android:id="@+id/relativeLayoutToolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:animateLayoutChanges="true">
 
         <EditText
             android:id="@+id/editTextSources"
@@ -19,16 +20,25 @@
             android:layout_centerVertical="true"
             android:hint="@string/activitySourcesFilterHint"/>
 
+        <ImageButton
+            android:id="@+id/imageButtonCancel"
+            style="@style/SourcesFilterCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            tools:ignore="ContentDescription" />
+
         <View
             style="@style/NewsToolbarDivider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/activityNewsListingToolbarDividerHeight"
-            android:layout_alignParentBottom="true"
-            android:background="?attr/colorNewsToolbarDivider" />
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 
-    <!--<android.support.v4.widget.SwipeRefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,10 +53,10 @@
 
     <TextView
         android:id="@+id/textViewNewsUnavailable"
+        style="@style/NewsError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:paddingTop="?attr/actionBarSize"
         android:visibility="gone"
         tools:text="No news available, swipe down to refresh"
         tools:visibility="visible" />
@@ -60,6 +70,6 @@
         android:indeterminate="true"
         android:paddingTop="?attr/actionBarSize"
         android:visibility="gone"
-        tools:visibility="visible" />-->
+        tools:visibility="visible" />
 
 </RelativeLayout>
