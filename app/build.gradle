@@ -82,6 +82,9 @@ dependencies {
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
 
+    // Rxbinding
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
+
     // Dagger 2
     kapt 'com.google.dagger:dagger-compiler:2.14.1'
     implementation 'com.google.dagger:dagger:2.14.1'
