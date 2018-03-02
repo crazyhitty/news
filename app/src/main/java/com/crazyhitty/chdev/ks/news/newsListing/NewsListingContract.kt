@@ -107,14 +107,14 @@ interface NewsListingContract {
         fun refresh()
 
         /**
-         * Redirect the user to news details screen.
+         * Should be called when a news item is clicked.
          *
          * @param bundle    Provide a bundle which will be returned via
          *                  [View.openNewsDetailsActivity] later on with extra details which you
          *                  can transport to News details screen.
          * @param article   Extra news information
          */
-        fun redirectToNewsDetailsScreen(bundle: Bundle, article: ArticlesItem?)
+        fun newsItemClicked(bundle: Bundle, article: ArticlesItem?)
 
         /**
          * Should be called when last 5th news item is visible on the screen.

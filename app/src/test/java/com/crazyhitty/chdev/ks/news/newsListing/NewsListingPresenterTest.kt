@@ -298,7 +298,7 @@ class NewsListingPresenterTest {
     }
 
     /**
-     * Test if the [NewsListingPresenter.redirectToNewsDetailsScreen] method is executed
+     * Test if the [NewsListingPresenter.newsItemClicked] method is executed
      * successfully and works as expected in a scenario where everything goes fine.
      */
     @Test
@@ -308,7 +308,7 @@ class NewsListingPresenterTest {
 
         val articlesItem = ArticlesItem()
 
-        newsListingPresenter.redirectToNewsDetailsScreen(mockBundle, articlesItem)
+        newsListingPresenter.newsItemClicked(mockBundle, articlesItem)
 
         Mockito.verify(mockNewsListingView).openNewsDetailsActivity(mockBundle)
     }
