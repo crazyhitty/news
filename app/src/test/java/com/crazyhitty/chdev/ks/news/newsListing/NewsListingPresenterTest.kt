@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
+ * Tests for [NewsListingPresenter].
+ *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 @RunWith(MockitoJUnitRunner::class)
@@ -48,9 +50,7 @@ class NewsListingPresenterTest {
         val testSchedulerProvider = TestSchedulerProvider(testScheduler)
 
         dateTimeFormatter = DateTimeFormatter(SimpleDateFormat(Constants.DateFormat.PROVIDED_DATE_FORMAT,
-                Locale.getDefault()),
-                SimpleDateFormat(Constants.DateFormat.NORMALIZED_DATE_FORMAT,
-                        Locale.getDefault()))
+                Locale.getDefault()))
 
         newsListingPresenter = NewsListingPresenter(mockInternetHelper,
                 testSchedulerProvider,
@@ -298,7 +298,7 @@ class NewsListingPresenterTest {
     }
 
     /**
-     * Test if the [NewsListingPresenter.redirectToNewsDetailsScreen] method is executed
+     * Test if the [NewsListingPresenter.newsItemClicked] method is executed
      * successfully and works as expected in a scenario where everything goes fine.
      */
     @Test
@@ -308,7 +308,7 @@ class NewsListingPresenterTest {
 
         val articlesItem = ArticlesItem()
 
-        newsListingPresenter.redirectToNewsDetailsScreen(mockBundle, articlesItem)
+        newsListingPresenter.newsItemClicked(mockBundle, articlesItem)
 
         Mockito.verify(mockNewsListingView).openNewsDetailsActivity(mockBundle)
     }

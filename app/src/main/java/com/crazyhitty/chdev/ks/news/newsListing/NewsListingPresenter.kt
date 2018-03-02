@@ -149,7 +149,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
         }
     }
 
-    override fun redirectToNewsDetailsScreen(bundle: Bundle, article: ArticlesItem?) {
+    override fun newsItemClicked(bundle: Bundle, article: ArticlesItem?) {
         bundle.putParcelable(Constants.NewsListing.EXTRA_ARTICLES_ITEM, article)
         view.openNewsDetailsActivity(bundle)
     }

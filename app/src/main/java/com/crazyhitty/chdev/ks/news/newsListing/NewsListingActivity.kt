@@ -50,7 +50,7 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
         recyclerViewNews.adapter = newsRecyclerAdapter
 
         newsRecyclerAdapter.onItemClickListener = {
-            newsListingPresenter.redirectToNewsDetailsScreen(Bundle(), it)
+            newsListingPresenter.newsItemClicked(Bundle(), it)
         }
 
         newsRecyclerAdapter.onErrorViewClickListener = {
