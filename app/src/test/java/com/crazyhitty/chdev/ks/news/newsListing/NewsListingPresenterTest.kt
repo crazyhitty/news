@@ -48,9 +48,7 @@ class NewsListingPresenterTest {
         val testSchedulerProvider = TestSchedulerProvider(testScheduler)
 
         dateTimeFormatter = DateTimeFormatter(SimpleDateFormat(Constants.DateFormat.PROVIDED_DATE_FORMAT,
-                Locale.getDefault()),
-                SimpleDateFormat(Constants.DateFormat.NORMALIZED_DATE_FORMAT,
-                        Locale.getDefault()))
+                Locale.getDefault()))
 
         newsListingPresenter = NewsListingPresenter(mockInternetHelper,
                 testSchedulerProvider,
