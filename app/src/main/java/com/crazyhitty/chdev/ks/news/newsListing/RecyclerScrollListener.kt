@@ -4,6 +4,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 
 /**
+ * Type of [RecyclerView.OnScrollListener] which checks if a particular item was shown on the
+ * screen or not.
+ *
+ * @param linearLayoutManager   [LinearLayoutManager] used with the recycler view
+ * @param positionFromLast      Position to be checked for appearance, must be counted from last.
+ *                              Example: If you are checking for last 6th item's appearance provide
+ *                              6
+ *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 open class RecyclerScrollListener(private val linearLayoutManager: LinearLayoutManager,
@@ -17,6 +25,11 @@ open class RecyclerScrollListener(private val linearLayoutManager: LinearLayoutM
         }
     }
 
+    /**
+     * Checks if the provided position was appeared or not in the recycler view.
+     *
+     * @param itemCount Number of items available in recycler view adapter.
+     */
     private fun checkPositionAppearance(itemCount: Int) {
         val lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()
         val positionToBeChecked = itemCount.minus(positionFromLast)

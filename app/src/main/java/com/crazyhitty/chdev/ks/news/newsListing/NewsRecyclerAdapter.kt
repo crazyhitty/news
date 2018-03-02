@@ -25,31 +25,61 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         const val VIEW_TYPE_LOADING_ERROR = 3
     }
 
+    /**
+     * Flag indicating what view should be shown for the last item.
+     */
     private var lastItemViewType = VIEW_TYPE_LOADING
+
+    /**
+     * Error message which will be shown if [LoadingErrorViewHolder] is displayed.
+     */
     private var errorMessage: String? = null
 
+    /**
+     * List containing articles.
+     */
     var articles: ArrayList<ArticlesItem?> = ArrayList()
         set(value) {
+            // Notify the adapter that new items have been added to it so that it can display
+            // these new items.
             val oldSize = itemCount
             field.addAll(value)
             notifyItemRangeInserted(oldSize, itemCount)
         }
 
+    /**
+     * Get [ArticlesItem] associated with the news item which is clicked
+     */
     var onItemClickListener: ((ArticlesItem?) -> Unit)? = null
 
+    /**
+     * Called when error view is clicked by the user.
+     */
     var onErrorViewClickListener: (() -> Unit)? = null
 
+    /**
+     * Clear all of the articles from list and update adapter also.
+     */
     fun clear() {
         articles.clear()
         notifyDataSetChanged()
     }
 
+    /**
+     * Show [LoadingErrorViewHolder] for last item in the recycler view instead of
+     * [LoadingViewHolder].
+     *
+     * @param message   Error message to be displayed.
+     */
     fun showErrorView(message: String) {
         errorMessage = message
         lastItemViewType = VIEW_TYPE_LOADING_ERROR
         notifyItemChanged(itemCount.minus(1))
     }
 
+    /**
+     * Show [LoadingViewHolder] for last item in recycler view instead of [LoadingErrorViewHolder].
+     */
     fun showLoadingView() {
         lastItemViewType = VIEW_TYPE_LOADING
         notifyItemChanged(itemCount.minus(1))

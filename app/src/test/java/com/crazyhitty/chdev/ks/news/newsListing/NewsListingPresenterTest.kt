@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
+ * Tests for [NewsListingPresenter].
+ *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 @RunWith(MockitoJUnitRunner::class)
