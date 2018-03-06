@@ -22,6 +22,16 @@ interface SourcesContract {
         fun disableSearch()
 
         /**
+         * Hide the clear button in the UI.
+         */
+        fun showClearSearchButton()
+
+        /**
+         * Show the clear button in the UI.
+         */
+        fun hideClearSearchButton()
+
+        /**
          * Enable refresh UI, so that user can refresh the sources.
          */
         fun enableRefresh()

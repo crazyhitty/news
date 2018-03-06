@@ -73,6 +73,14 @@ class SourcesActivity: BaseAppCompatActivity(), SourcesContract.View {
         editTextSourcesFilter.isEnabled = false
     }
 
+    override fun showClearSearchButton() {
+        imageButtonClear.visibility = View.VISIBLE
+    }
+
+    override fun hideClearSearchButton() {
+        imageButtonClear.visibility = View.GONE
+    }
+
     override fun enableRefresh() {
         swipeRefreshLayout.isEnabled = true
     }

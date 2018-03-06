@@ -89,6 +89,13 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
 
     override fun searchFilterChanged(filter: String) {
         log.info { "Filter text: $filter" }
+
+        if (filter.isEmpty()) {
+            view.hideClearSearchButton()
+        } else {
+            view.showClearSearchButton()
+        }
+
         if (cachedSources == null ||
                 cachedSources?.sources == null ||
                 cachedSources?.sources?.isEmpty() == true) {
@@ -187,7 +194,11 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
     override fun clearSearchButtonClicked() {
         view.clearSearchFilter()
         cachedSources?.sources?.takeIf { it.isNotEmpty() }
-                .let { view.showSources(it as ArrayList<SourceItem?>) }
+                .let {
+                    view.clearSources()
+                    view.hideError()
+                    view.showSources(it?.toMutableList() as ArrayList<SourceItem?>)
+                }
     }
 
     /**
