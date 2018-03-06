@@ -74,4 +74,30 @@
     <dimen name="activitySourcesFilterClearMarginBottom">0dp</dimen>
     <dimen name="activitySourcesErrorTextSize">20sp</dimen>
 
+    <!--item_source-->
+    <dimen name="itemSourceNameTextSize">18sp</dimen>
+    <dimen name="itemSourceNameMarginStart">16dp</dimen>
+    <dimen name="itemSourceNameMarginEnd">16dp</dimen>
+    <dimen name="itemSourceNameMarginTop">16dp</dimen>
+    <dimen name="itemSourceNameMarginBottom">0dp</dimen>
+    <dimen name="itemSourceCheckBoxMarginStart">0dp</dimen>
+    <dimen name="itemSourceCheckBoxMarginEnd">16dp</dimen>
+    <dimen name="itemSourceCheckBoxMarginTop">0dp</dimen>
+    <dimen name="itemSourceCheckBoxMarginBottom">0dp</dimen>
+    <dimen name="itemSourceDescTextSize">16sp</dimen>
+    <dimen name="itemSourceDescMarginStart">16dp</dimen>
+    <dimen name="itemSourceDescMarginEnd">16dp</dimen>
+    <dimen name="itemSourceDescMarginTop">16dp</dimen>
+    <dimen name="itemSourceDescMarginBottom">0dp</dimen>
+    <dimen name="itemSourceExtraDetailsTextSize">14sp</dimen>
+    <dimen name="itemSourceExtraDetailsMarginStart">16dp</dimen>
+    <dimen name="itemSourceExtraDetailsMarginEnd">16dp</dimen>
+    <dimen name="itemSourceExtraDetailsMarginTop">16dp</dimen>
+    <dimen name="itemSourceExtraDetailsMarginBottom">0dp</dimen>
+    <dimen name="itemSourceDividerMarginStart">0dp</dimen>
+    <dimen name="itemSourceDividerMarginEnd">0dp</dimen>
+    <dimen name="itemSourceDividerMarginTop">16dp</dimen>
+    <dimen name="itemSourceDividerMarginBottom">0dp</dimen>
+    <dimen name="itemSourceDividerHeight">0.5dp</dimen>
+
 </resources>

@@ -55,7 +55,6 @@
         style="@style/NewsListingDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/itemNewsDividerHeight"
-        android:layout_below="@id/textViewAuthor"
-        android:background="?attr/colorNewsListingDivider" />
+        android:layout_below="@id/textViewAuthor" />
 
 </RelativeLayout>

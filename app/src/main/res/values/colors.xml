@@ -22,5 +22,9 @@
 
     <color name="colorSourcesFilterText">#8683F1</color>
     <color name="colorSourcesFilterHint">#858485</color>
+    <color name="colorSourceName">#333233</color>
+    <color name="colorSourceDesc">#858485</color>
+    <color name="colorSourceExtraDetails">#B9B9B9</color>
+    <color name="colorSourceDivider">#e0e0e0</color>
 
 </resources>

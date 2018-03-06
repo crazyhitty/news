@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/textViewName"
+        style="@style/SourceName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="18sp"
-        tools:text="Source name"/>
+        tools:text="ABC News" />
+
+    <!--<CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/textViewDesc" />-->
+
+    <TextView
+        android:id="@+id/textViewDesc"
+        style="@style/SourceDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewName"
+        tools:text="Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos at ABCNews.com." />
+
+    <TextView
+        android:id="@+id/textViewExtraDetails"
+        style="@style/SourceExtraDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/textViewDesc"
+        tools:text="general / en / us" />
+
+    <View
+        style="@style/SourceDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/itemSourceDividerHeight"
+        android:layout_below="@id/textViewExtraDetails" />
 
 </RelativeLayout>

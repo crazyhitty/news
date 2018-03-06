@@ -14,10 +14,10 @@ import org.jetbrains.anko.find
  */
 class SourcesRecyclerAdapter : RecyclerView.Adapter<SourcesRecyclerAdapter.SourceViewHolder>() {
     var sourceItems: ArrayList<SourceItem?> = ArrayList()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     fun clear() {
         sourceItems.clear()
@@ -34,11 +34,15 @@ class SourcesRecyclerAdapter : RecyclerView.Adapter<SourcesRecyclerAdapter.Sourc
         val sourceItem = sourceItems[position]
 
         holder?.textViewName?.text = sourceItem?.name
+        holder?.textViewDesc?.text = sourceItem?.description
+        holder?.textViewExtraDetails?.text = "${sourceItem?.category} / ${sourceItem?.language} / ${sourceItem?.country}"
     }
 
     override fun getItemCount() = sourceItems.size
 
     inner class SourceViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         val textViewName = itemView?.find<TextView>(R.id.textViewName)
+        val textViewDesc = itemView?.find<TextView>(R.id.textViewDesc)
+        val textViewExtraDetails = itemView?.find<TextView>(R.id.textViewExtraDetails)
     }
 }

@@ -28,6 +28,10 @@
         <item name="colorNewsListingImagePlaceholder">@color/colorNewsListingImagePlaceholder</item>
         <item name="colorSourcesFilterText">@color/colorSourcesFilterText</item>
         <item name="colorSourcesFilterHint">@color/colorSourcesFilterHint</item>
+        <item name="colorSourceName">@color/colorSourceName</item>
+        <item name="colorSourceDesc">@color/colorSourceDesc</item>
+        <item name="colorSourceExtraDetails">@color/colorSourceExtraDetails</item>
+        <item name="colorSourceDivider">@color/colorSourceDivider</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -138,6 +142,7 @@
         <item name="android:layout_marginEnd">@dimen/itemNewsDividerMarginEnd</item>
         <item name="android:layout_marginTop">@dimen/itemNewsDividerMarginTop</item>
         <item name="android:layout_marginBottom">@dimen/itemNewsDividerMarginBottom</item>
+        <item name="android:background">?attr/colorNewsListingDivider</item>
     </style>
 
     <style name="NewsError">
@@ -182,6 +187,51 @@
         <item name="android:textAlignment">center</item>
         <item name="android:paddingTop">?attr/actionBarSize</item>
         <item name="android:textSize">@dimen/activitySourcesErrorTextSize</item>
+    </style>
+
+    <style name="SourceName">
+        <item name="android:layout_marginStart">@dimen/itemSourceNameMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemSourceNameMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemSourceNameMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemSourceNameMarginBottom</item>
+        <item name="android:textColor">?attr/colorSourceName</item>
+        <item name="android:textSize">@dimen/itemSourceNameTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="SourceCheckBox">
+        <item name="android:layout_marginStart">@dimen/itemSourceCheckBoxMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemSourceCheckBoxMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemSourceCheckBoxMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemSourceCheckBoxMarginBottom</item>
+    </style>
+
+    <style name="SourceDesc">
+        <item name="android:layout_marginStart">@dimen/itemSourceDescMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemSourceDescMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemSourceDescMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemSourceDescMarginBottom</item>
+        <item name="android:textColor">?attr/colorSourceDesc</item>
+        <item name="android:textSize">@dimen/itemSourceDescTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="SourceExtraDetails">
+        <item name="android:layout_marginStart">@dimen/itemSourceExtraDetailsMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemSourceExtraDetailsMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemSourceExtraDetailsMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemSourceExtraDetailsMarginBottom</item>
+        <item name="android:textColor">?attr/colorSourceExtraDetails</item>
+        <item name="android:textSize">@dimen/itemSourceExtraDetailsTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="SourceDivider">
+        <item name="android:layout_marginStart">@dimen/itemSourceDividerMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemSourceDividerMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemSourceDividerMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemSourceDividerMarginBottom</item>
+        <item name="android:background">?attr/colorSourceDivider</item>
     </style>
 
 </resources>

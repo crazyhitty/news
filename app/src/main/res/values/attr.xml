@@ -13,5 +13,9 @@
     <attr name="colorNewsListingImagePlaceholder" format="reference" />
     <attr name="colorSourcesFilterText" format="reference" />
     <attr name="colorSourcesFilterHint" format="reference" />
+    <attr name="colorSourceName" format="reference" />
+    <attr name="colorSourceDesc" format="reference" />
+    <attr name="colorSourceExtraDetails" format="reference" />
+    <attr name="colorSourceDivider" format="reference" />
 
 </resources>
