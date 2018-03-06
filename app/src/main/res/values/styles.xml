@@ -170,12 +170,18 @@
         <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
     </style>
 
-    <style name="SourcesFilterCancel">
-        <item name="android:layout_marginStart">@dimen/activitySourcesFilterCancelMarginStart</item>
-        <item name="android:layout_marginEnd">@dimen/activitySourcesFilterCancelMarginEnd</item>
-        <item name="android:layout_marginTop">@dimen/activitySourcesFilterCancelMarginTop</item>
-        <item name="android:layout_marginBottom">@dimen/activitySourcesFilterCancelMarginBottom</item>
+    <style name="SourcesFilterClear">
+        <item name="android:layout_marginStart">@dimen/activitySourcesFilterClearMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/activitySourcesFilterClearMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/activitySourcesFilterClearMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/activitySourcesFilterClearMarginBottom</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="SourcesError">
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingTop">?attr/actionBarSize</item>
+        <item name="android:textSize">@dimen/activitySourcesErrorTextSize</item>
     </style>
 
 </resources>

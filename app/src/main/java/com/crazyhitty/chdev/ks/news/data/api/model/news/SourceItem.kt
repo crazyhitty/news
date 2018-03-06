@@ -3,13 +3,13 @@ package com.crazyhitty.chdev.ks.news.data.api.model.news
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Source(val id: String? = null,
-                  val name: String? = null,
-                  val description: String? = null,
-                  val url: String? = null,
-                  val category: String? = null,
-                  val language: String? = null,
-                  val country: String? = null) : Parcelable {
+data class SourceItem(val id: String? = null,
+                      val name: String? = null,
+                      val description: String? = null,
+                      val url: String? = null,
+                      val category: String? = null,
+                      val language: String? = null,
+                      val country: String? = null) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
@@ -33,12 +33,12 @@ data class Source(val id: String? = null,
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Source> {
-        override fun createFromParcel(parcel: Parcel): Source {
-            return Source(parcel)
+    companion object CREATOR : Parcelable.Creator<SourceItem> {
+        override fun createFromParcel(parcel: Parcel): SourceItem {
+            return SourceItem(parcel)
         }
 
-        override fun newArray(size: Int): Array<Source?> {
+        override fun newArray(size: Int): Array<SourceItem?> {
             return arrayOfNulls(size)
         }
     }

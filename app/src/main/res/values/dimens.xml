@@ -68,9 +68,10 @@
     <dimen name="activitySourcesFilterMarginEnd">16dp</dimen>
     <dimen name="activitySourcesFilterMarginTop">0dp</dimen>
     <dimen name="activitySourcesFilterMarginBottom">0dp</dimen>
-    <dimen name="activitySourcesFilterCancelMarginStart">0dp</dimen>
-    <dimen name="activitySourcesFilterCancelMarginEnd">16dp</dimen>
-    <dimen name="activitySourcesFilterCancelMarginTop">0dp</dimen>
-    <dimen name="activitySourcesFilterCancelMarginBottom">0dp</dimen>
+    <dimen name="activitySourcesFilterClearMarginStart">0dp</dimen>
+    <dimen name="activitySourcesFilterClearMarginEnd">16dp</dimen>
+    <dimen name="activitySourcesFilterClearMarginTop">0dp</dimen>
+    <dimen name="activitySourcesFilterClearMarginBottom">0dp</dimen>
+    <dimen name="activitySourcesErrorTextSize">20sp</dimen>
 
 </resources>

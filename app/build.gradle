@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 /**
  * Generate version code on the bases of current number of commits.
  *
- * Source: https://gist.github.com/paramsen/4a92c9230d799caeb3b90897da27a80c
+ * SourceItem: https://gist.github.com/paramsen/4a92c9230d799caeb3b90897da27a80c
  *
  * @return
  * Integer representing total number of commits.

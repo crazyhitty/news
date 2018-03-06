@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.crazyhitty.chdev.ks.news.base.Presenter
 import com.crazyhitty.chdev.ks.news.data.Constants
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
-import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticleItem
 import com.crazyhitty.chdev.ks.news.data.api.model.news.News
 import com.crazyhitty.chdev.ks.news.util.DateTimeFormatter
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
@@ -55,7 +55,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                         if (it?.status.equals("ok") &&
                                 it?.articles?.isNotEmpty() == true) {
                             this.view.hideProgress()
-                            this.view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
+                            this.view.showNewsArticles(it.articles as ArrayList<ArticleItem?>)
                             this.view.enableRefresh()
                             this.view.startListeningForLastFifthNewsItemShown()
                         } else {
@@ -114,7 +114,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                             view.showRefreshingDoneMessage("News refreshed")
                             view.stopRefreshing()
                             view.clearNews()
-                            view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
+                            view.showNewsArticles(it.articles as ArrayList<ArticleItem?>)
                             view.startListeningForLastFifthNewsItemShown()
                         } else {
                             log.error {
@@ -149,7 +149,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
         }
     }
 
-    override fun newsItemClicked(bundle: Bundle, article: ArticlesItem?) {
+    override fun newsItemClicked(bundle: Bundle, article: ArticleItem?) {
         bundle.putParcelable(Constants.NewsListing.EXTRA_ARTICLES_ITEM, article)
         view.openNewsDetailsActivity(bundle)
     }
@@ -169,7 +169,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                         if (it?.status.equals("ok") &&
                                 it?.articles?.isNotEmpty() == true) {
                             page = page.plus(1)
-                            view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
+                            view.showNewsArticles(it.articles as ArrayList<ArticleItem?>)
                             view.enableRefresh()
                         } else {
                             log.error {
@@ -218,7 +218,7 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                         if (it?.status.equals("ok") &&
                                 it?.articles?.isNotEmpty() == true) {
                             page = page.plus(1)
-                            view.showNewsArticles(it.articles as ArrayList<ArticlesItem?>)
+                            view.showNewsArticles(it.articles as ArrayList<ArticleItem?>)
                             view.enableRefresh()
                         } else {
                             log.error {
@@ -271,8 +271,6 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
                     // Return the current article with readable date.
                     it
                 }
-        return news.copy(totalResults = news.totalResults,
-                articles = filteredArticles,
-                status = news.status)
+        return news.copy(articles = filteredArticles)
     }
 }

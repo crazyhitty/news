@@ -1,7 +1,7 @@
 package com.crazyhitty.chdev.ks.news.data.api
 
 import com.crazyhitty.chdev.ks.news.data.api.model.news.News
-import com.crazyhitty.chdev.ks.news.data.api.model.news.Source
+import com.crazyhitty.chdev.ks.news.data.api.model.news.Sources
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,15 +16,15 @@ interface NewsApiService {
      * Fetches all of the news sources available.
      *
      * @return
-     * [Single] observable containing [Source].
+     * [Single] observable containing [Sources].
      */
     @GET("/v2/sources")
-    fun sources(): Single<Source>
+    fun sources(): Single<Sources>
 
     /**
-     * Fetches all of the news from a particular source.
+     * Fetches all of the news from a particular sourceItem.
      *
-     * @param sources   Provide source from which news should be fetched.
+     * @param sources   Provide sourceItem from which news should be fetched.
      * @param pageSize  Number of articles that should be provided in a single request.
      * @param page      Current page number for maintaining pagination.
      *

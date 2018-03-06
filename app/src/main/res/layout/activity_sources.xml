@@ -13,7 +13,7 @@
         android:animateLayoutChanges="true">
 
         <EditText
-            android:id="@+id/editTextSources"
+            android:id="@+id/editTextSourcesFilter"
             style="@style/SourcesFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,11 +21,11 @@
             android:hint="@string/activitySourcesFilterHint"/>
 
         <ImageButton
-            android:id="@+id/imageButtonCancel"
-            style="@style/SourcesFilterCancel"
+            android:id="@+id/imageButtonClear"
+            style="@style/SourcesFilterClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_cancel_24dp"
+            android:src="@drawable/ic_clear_24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             tools:ignore="ContentDescription" />
@@ -45,15 +45,15 @@
         android:layout_below="@id/relativeLayoutToolbar">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewNews"
+            android:id="@+id/recyclerViewSources"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
-        android:id="@+id/textViewNewsUnavailable"
-        style="@style/NewsError"
+        android:id="@+id/textViewSourcesUnavailable"
+        style="@style/SourcesError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

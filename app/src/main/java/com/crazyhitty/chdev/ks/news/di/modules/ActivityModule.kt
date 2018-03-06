@@ -8,6 +8,9 @@ import com.crazyhitty.chdev.ks.news.di.ActivityContext
 import com.crazyhitty.chdev.ks.news.newsListing.NewsListingContract
 import com.crazyhitty.chdev.ks.news.newsListing.NewsListingPresenter
 import com.crazyhitty.chdev.ks.news.newsListing.NewsRecyclerAdapter
+import com.crazyhitty.chdev.ks.news.sources.SourcesContract
+import com.crazyhitty.chdev.ks.news.sources.SourcesPresenter
+import com.crazyhitty.chdev.ks.news.sources.SourcesRecyclerAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -20,23 +23,24 @@ import dagger.Provides
 class ActivityModule(private val appCompatActivity: AppCompatActivity) {
     @Provides
     @ActivityContext
-    fun provideContext(): Context {
-        return appCompatActivity
-    }
+    fun provideContext(): Context = appCompatActivity
 
     @Provides
-    fun provideActivity(): Activity {
-        return appCompatActivity
-    }
+    fun provideActivity(): Activity = appCompatActivity
 
     @Provides
     fun provideNewsPresenter(newsListingPresenter: NewsListingPresenter):
-            NewsListingContract.Presenter {
-        return newsListingPresenter
-    }
+            NewsListingContract.Presenter = newsListingPresenter
+
+    @Provides
+    fun provideSourcesPresenter(sourcesPresenter: SourcesPresenter): SourcesContract.Presenter =
+            sourcesPresenter
 
     @Provides
     fun provideNewsRecyclerAdapter() = NewsRecyclerAdapter()
+
+    @Provides
+    fun provideSourcesRecyclerAdapter() = SourcesRecyclerAdapter()
 
     @Provides
     fun provideLinearLayoutManager(@ActivityContext context: Context): LinearLayoutManager =

@@ -3,13 +3,13 @@ package com.crazyhitty.chdev.ks.news.data.api.model.news
 import android.os.Parcel
 import android.os.Parcelable
 
-data class ArticlesItem(
+data class ArticleItem(
         val publishedAt: String? = null,
         var publishedAtReadable: String? = null,
         val author: String? = null,
         val urlToImage: String? = null,
         val description: String? = null,
-        val source: Source? = null,
+        val sourceItem: SourceItem? = null,
         val title: String? = null,
         val url: String? = null): Parcelable{
     constructor(parcel: Parcel) : this(
@@ -18,7 +18,7 @@ data class ArticlesItem(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readParcelable(Source::class.java.classLoader),
+            parcel.readParcelable(SourceItem::class.java.classLoader),
             parcel.readString(),
             parcel.readString())
 
@@ -28,7 +28,7 @@ data class ArticlesItem(
         parcel.writeString(author)
         parcel.writeString(urlToImage)
         parcel.writeString(description)
-        parcel.writeParcelable(source, flags)
+        parcel.writeParcelable(sourceItem, flags)
         parcel.writeString(title)
         parcel.writeString(url)
     }
@@ -37,12 +37,12 @@ data class ArticlesItem(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<ArticlesItem> {
-        override fun createFromParcel(parcel: Parcel): ArticlesItem {
-            return ArticlesItem(parcel)
+    companion object CREATOR : Parcelable.Creator<ArticleItem> {
+        override fun createFromParcel(parcel: Parcel): ArticleItem {
+            return ArticleItem(parcel)
         }
 
-        override fun newArray(size: Int): Array<ArticlesItem?> {
+        override fun newArray(size: Int): Array<ArticleItem?> {
             return arrayOfNulls(size)
         }
     }

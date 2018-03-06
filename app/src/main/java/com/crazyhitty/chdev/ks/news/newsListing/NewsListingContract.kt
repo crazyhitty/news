@@ -3,7 +3,7 @@ package com.crazyhitty.chdev.ks.news.newsListing
 import android.os.Bundle
 import com.crazyhitty.chdev.ks.news.base.BasePresenter
 import com.crazyhitty.chdev.ks.news.base.BaseView
-import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticleItem
 
 /**
  * Contains blueprint for View and Presenter responsible for showing and getting news.
@@ -38,7 +38,7 @@ interface NewsListingContract {
          *
          * @param articles  Contains all of the news available
          */
-        fun showNewsArticles(articles: ArrayList<ArticlesItem?>)
+        fun showNewsArticles(articles: ArrayList<ArticleItem?>)
 
         /**
          * Open the activity responsible for showing news details.
@@ -114,7 +114,7 @@ interface NewsListingContract {
          *                  can transport to News details screen.
          * @param article   Extra news information
          */
-        fun newsItemClicked(bundle: Bundle, article: ArticlesItem?)
+        fun newsItemClicked(bundle: Bundle, article: ArticleItem?)
 
         /**
          * Should be called when last 5th news item is visible on the screen.

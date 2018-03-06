@@ -3,9 +3,9 @@ package com.crazyhitty.chdev.ks.news.newsListing
 import android.os.Bundle
 import com.crazyhitty.chdev.ks.news.data.Constants
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
-import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticleItem
 import com.crazyhitty.chdev.ks.news.data.api.model.news.News
-import com.crazyhitty.chdev.ks.news.data.api.model.news.Source
+import com.crazyhitty.chdev.ks.news.data.api.model.news.SourceItem
 import com.crazyhitty.chdev.ks.news.util.DateTimeFormatter
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.TestSchedulerProvider
@@ -71,12 +71,12 @@ class NewsListingPresenterTest {
                 .isAvailable()
 
         // Mock NewsApiService and return a dummy news data when topHeadlines method is called.
-        val articles = arrayListOf(ArticlesItem("2018-02-21T20:12:43Z",
+        val articles = arrayListOf(ArticleItem("2018-02-21T20:12:43Z",
                 null,
                 "John Doe",
                 "https://example.com/example.png",
                 "John Doe is not a dummy name",
-                Source("1", "Sellout News Network"),
+                SourceItem("1", "Sellout News Network"),
                 "John Does goes to Hollywood",
                 "https://example.com/example"))
         val news = News(20, articles, "ok")
@@ -92,7 +92,7 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).showProgress()
         Mockito.verify(mockNewsListingView).disableRefresh()
         Mockito.verify(mockNewsListingView).hideProgress()
-        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticlesItem?>)
+        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticleItem?>)
         Mockito.verify(mockNewsListingView).enableRefresh()
         Mockito.verify(mockNewsListingView).startListeningForLastFifthNewsItemShown()
     }
@@ -187,12 +187,12 @@ class NewsListingPresenterTest {
                 .isAvailable()
 
         // Mock NewsApiService and return a dummy news data when topHeadlines method is called.
-        val articles = arrayListOf(ArticlesItem("2018-02-21T20:12:43Z",
+        val articles = arrayListOf(ArticleItem("2018-02-21T20:12:43Z",
                 null,
                 "John Doe",
                 "https://example.com/example.png",
                 "John Doe is not a dummy name",
-                Source("1", "Sellout News Network"),
+                SourceItem("1", "Sellout News Network"),
                 "John Does goes to Hollywood",
                 "https://example.com/example"))
         val news = News(20, articles, "ok")
@@ -210,7 +210,7 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).showRefreshingDoneMessage("News refreshed")
         Mockito.verify(mockNewsListingView).stopRefreshing()
         Mockito.verify(mockNewsListingView).clearNews()
-        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticlesItem?>)
+        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticleItem?>)
         Mockito.verify(mockNewsListingView).startListeningForLastFifthNewsItemShown()
     }
 
@@ -306,7 +306,7 @@ class NewsListingPresenterTest {
         // Just attach the view to the presenter.
         newsListingPresenter.onAttach(mockNewsListingView)
 
-        val articlesItem = ArticlesItem()
+        val articlesItem = ArticleItem()
 
         newsListingPresenter.newsItemClicked(mockBundle, articlesItem)
 
@@ -328,12 +328,12 @@ class NewsListingPresenterTest {
                 .isAvailable()
 
         // Mock NewsApiService and return a dummy news data when topHeadlines method is called.
-        val articles = arrayListOf(ArticlesItem("2018-02-21T20:12:43Z",
+        val articles = arrayListOf(ArticleItem("2018-02-21T20:12:43Z",
                 null,
                 "John Doe",
                 "https://example.com/example.png",
                 "John Doe is not a dummy name",
-                Source("1", "Sellout News Network"),
+                SourceItem("1", "Sellout News Network"),
                 "John Does goes to Hollywood",
                 "https://example.com/example"))
         val news = News(20, articles, "ok")
@@ -347,7 +347,7 @@ class NewsListingPresenterTest {
         testScheduler.triggerActions()
 
         Mockito.verify(mockNewsListingView).disableRefresh()
-        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticlesItem?>)
+        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticleItem?>)
         Mockito.verify(mockNewsListingView).enableRefresh()
     }
 
@@ -448,12 +448,12 @@ class NewsListingPresenterTest {
                 .isAvailable()
 
         // Mock NewsApiService and return a dummy news data when topHeadlines method is called.
-        val articles = arrayListOf(ArticlesItem("2018-02-21T20:12:43Z",
+        val articles = arrayListOf(ArticleItem("2018-02-21T20:12:43Z",
                 null,
                 "John Doe",
                 "https://example.com/example.png",
                 "John Doe is not a dummy name",
-                Source("1", "Sellout News Network"),
+                SourceItem("1", "Sellout News Network"),
                 "John Does goes to Hollywood",
                 "https://example.com/example"))
         val news = News(20, articles, "ok")
@@ -468,7 +468,7 @@ class NewsListingPresenterTest {
 
         Mockito.verify(mockNewsListingView).disableRefresh()
         Mockito.verify(mockNewsListingView).showRecyclerLoadingView()
-        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticlesItem?>)
+        Mockito.verify(mockNewsListingView).showNewsArticles(news.articles as ArrayList<ArticleItem?>)
         Mockito.verify(mockNewsListingView).enableRefresh()
     }
 

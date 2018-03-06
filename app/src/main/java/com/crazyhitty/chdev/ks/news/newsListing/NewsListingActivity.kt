@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.base.BaseAppCompatActivity
-import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticleItem
 import kotlinx.android.synthetic.main.activity_news_listing.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -85,7 +85,7 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
         progressBar.visibility = View.GONE
     }
 
-    override fun showNewsArticles(articles: ArrayList<ArticlesItem?>) {
+    override fun showNewsArticles(articles: ArrayList<ArticleItem?>) {
         newsRecyclerAdapter.articles = articles
     }
 

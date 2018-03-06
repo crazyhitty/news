@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.crazyhitty.chdev.ks.news.R
-import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticlesItem
+import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticleItem
 import com.crazyhitty.chdev.ks.news.util.extensions.setImageUriOrHide
 import com.crazyhitty.chdev.ks.news.util.extensions.setTextOrHide
 import com.facebook.drawee.view.SimpleDraweeView
@@ -38,7 +38,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
      * List containing articles.
      */
-    var articles: ArrayList<ArticlesItem?> = ArrayList()
+    var articles: ArrayList<ArticleItem?> = ArrayList()
         set(value) {
             // Notify the adapter that new items have been added to it so that it can display
             // these new items.
@@ -48,9 +48,9 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     /**
-     * Get [ArticlesItem] associated with the news item which is clicked
+     * Get [ArticleItem] associated with the news item which is clicked
      */
-    var onItemClickListener: ((ArticlesItem?) -> Unit)? = null
+    var onItemClickListener: ((ArticleItem?) -> Unit)? = null
 
     /**
      * Called when error view is clicked by the user.
