@@ -99,5 +99,10 @@
     <dimen name="itemSourceDividerMarginTop">16dp</dimen>
     <dimen name="itemSourceDividerMarginBottom">0dp</dimen>
     <dimen name="itemSourceDividerHeight">0.5dp</dimen>
+    <dimen name="itemSourceHeadingTextSize">14sp</dimen>
+    <dimen name="itemSourceHeadingMarginStart">16dp</dimen>
+    <dimen name="itemSourceHeadingMarginEnd">16dp</dimen>
+    <dimen name="itemSourceHeadingMarginTop">16dp</dimen>
+    <dimen name="itemSourceHeadingMarginBottom">16dp</dimen>
 
 </resources>

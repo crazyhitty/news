@@ -32,6 +32,7 @@
         <item name="colorSourceDesc">@color/colorSourceDesc</item>
         <item name="colorSourceExtraDetails">@color/colorSourceExtraDetails</item>
         <item name="colorSourceDivider">@color/colorSourceDivider</item>
+        <item name="colorSourceHeading">@color/colorSourceHeading</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -204,6 +205,7 @@
         <item name="android:layout_marginEnd">@dimen/itemSourceCheckBoxMarginEnd</item>
         <item name="android:layout_marginTop">@dimen/itemSourceCheckBoxMarginTop</item>
         <item name="android:layout_marginBottom">@dimen/itemSourceCheckBoxMarginBottom</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
     <style name="SourceDesc">
@@ -232,6 +234,16 @@
         <item name="android:layout_marginTop">@dimen/itemSourceDividerMarginTop</item>
         <item name="android:layout_marginBottom">@dimen/itemSourceDividerMarginBottom</item>
         <item name="android:background">?attr/colorSourceDivider</item>
+    </style>
+
+    <style name="SourceHeading">
+        <item name="android:layout_marginStart">@dimen/itemSourceHeadingMarginStart</item>
+        <item name="android:layout_marginEnd">@dimen/itemSourceHeadingMarginEnd</item>
+        <item name="android:layout_marginTop">@dimen/itemSourceHeadingMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/itemSourceHeadingMarginBottom</item>
+        <item name="android:textColor">?attr/colorSourceHeading</item>
+        <item name="android:textSize">@dimen/itemSourceHeadingTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
     </style>
 
 </resources>

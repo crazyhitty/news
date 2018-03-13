@@ -17,5 +17,12 @@
     <attr name="colorSourceDesc" format="reference" />
     <attr name="colorSourceExtraDetails" format="reference" />
     <attr name="colorSourceDivider" format="reference" />
+    <attr name="colorSourceHeading" format="reference" />
+
+    <declare-styleable name="SourceCheckbox">
+        <attr name="checked" format="boolean" />
+        <attr name="checkedTrueDrawable" format="integer" />
+        <attr name="checkedFalseDrawable" format="integer" />
+    </declare-styleable>
 
 </resources>

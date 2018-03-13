@@ -26,5 +26,6 @@
     <color name="colorSourceDesc">#858485</color>
     <color name="colorSourceExtraDetails">#B9B9B9</color>
     <color name="colorSourceDivider">#e0e0e0</color>
+    <color name="colorSourceHeading">#8683F1</color>
 
 </resources>

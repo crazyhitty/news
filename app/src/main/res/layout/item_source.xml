@@ -3,23 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/textViewName"
         style="@style/SourceName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/checkBox"
         tools:text="ABC News" />
 
-    <!--<CheckBox
+    <com.crazyhitty.chdev.ks.news.sources.SourceCheckbox
         android:id="@+id/checkBox"
+        style="@style/SourceCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@id/textViewName"
+        android:layout_alignBottom="@id/textViewName"
         android:layout_alignParentEnd="true"
-        android:layout_above="@id/textViewDesc" />-->
+        android:focusable="true"
+        app:checked="false"
+        app:checkedTrueDrawable="@drawable/ic_remove_24dp"
+        app:checkedFalseDrawable="@drawable/ic_add_24dp" />
 
     <TextView
         android:id="@+id/textViewDesc"

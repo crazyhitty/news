@@ -9,7 +9,8 @@ data class SourceItem(val id: String? = null,
                       val url: String? = null,
                       val category: String? = null,
                       val language: String? = null,
-                      val country: String? = null) : Parcelable {
+                      val country: String? = null,
+                      var selected: Boolean? = null) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
@@ -17,7 +18,8 @@ data class SourceItem(val id: String? = null,
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readString())
+            parcel.readString(),
+            parcel.readValue(Boolean::class.java.classLoader) as? Boolean)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
@@ -27,6 +29,7 @@ data class SourceItem(val id: String? = null,
         parcel.writeString(category)
         parcel.writeString(language)
         parcel.writeString(country)
+        parcel.writeValue(selected)
     }
 
     override fun describeContents(): Int {
@@ -42,5 +45,4 @@ data class SourceItem(val id: String? = null,
             return arrayOfNulls(size)
         }
     }
-
 }
