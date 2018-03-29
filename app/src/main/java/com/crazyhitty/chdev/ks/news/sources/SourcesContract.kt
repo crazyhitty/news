@@ -119,5 +119,12 @@ interface SourcesContract {
          * Should be called when search clear button click is invoked in the UI.
          */
         fun clearSearchButtonClicked()
+
+        /**
+         * Should be called when a particular source item check button is clicked.
+         *
+         * @param sourceItem    Checked source item
+         */
+        fun sourceItemCheckClicked(sourceItem: SourceItem?)
     }
 }

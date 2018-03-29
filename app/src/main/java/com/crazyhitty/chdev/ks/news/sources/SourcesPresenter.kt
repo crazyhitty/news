@@ -28,6 +28,8 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
      */
     private var cachedSources: Sources? = null
 
+    private var selectedCachedSourcesMap: HashMap<String?, SourceItem?> = HashMap()
+
     override fun onAttach(view: SourcesContract.View) {
         super.onAttach(view)
         // Check if internet is available or not.
@@ -139,6 +141,9 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
             view.disableSearch()
             compositeDisposable.add(newsApiService.sources()
                     .map {
+                        // Check if any selection needs to be performed in the new sources data.
+                        selectSources(selectedCachedSourcesMap, it)
+
                         // Save the items in cache so that they can be filtered later on.
                         cachedSources = it.copy(sources = it.sources?.toMutableList())
                         filterSources(view.getSearchFilter(), it)
@@ -201,6 +206,14 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
                 }
     }
 
+    override fun sourceItemCheckClicked(sourceItem: SourceItem?) {
+        if (sourceItem?.selected == true) {
+            selectedCachedSourcesMap[sourceItem.id] = sourceItem
+        } else {
+            selectedCachedSourcesMap.remove(sourceItem?.id)
+        }
+    }
+
     /**
      * Filter sources with specific name.
      *
@@ -212,5 +225,12 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
             it?.name?.contains(filter, true) == true
         }
         return sources.copy(sources = filteredSources)
+    }
+
+    private fun selectSources(selectedSourcesMap: HashMap<String?, SourceItem?>, newSources: Sources) {
+        newSources.sources?.map {
+            val selected = selectedSourcesMap.containsKey(it?.id)
+            it?.selected = selected
+        }
     }
 }

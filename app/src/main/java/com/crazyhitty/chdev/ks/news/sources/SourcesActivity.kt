@@ -45,6 +45,10 @@ class SourcesActivity: BaseAppCompatActivity(), SourcesContract.View {
     private fun setupSourcesRecyclerAdapter() {
         recyclerViewSources.layoutManager = linearLayoutManager
         recyclerViewSources.adapter = sourcesRecyclerAdapter
+
+        sourcesRecyclerAdapter.onSourceCheckClickListener = {
+            sourcesPresenter.sourceItemCheckClicked(it)
+        }
     }
 
     private fun setupRefreshLayout() {
