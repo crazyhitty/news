@@ -18,6 +18,10 @@
     <attr name="colorSourceExtraDetails" format="reference" />
     <attr name="colorSourceDivider" format="reference" />
     <attr name="colorSourceHeading" format="reference" />
+    <attr name="colorSourceContinueDivider" format="reference" />
+    <attr name="colorSourceContinueText" format="reference" />
+
+    <attr name="sourceContinueBackground" format="reference" />
 
     <declare-styleable name="SourceCheckbox">
         <attr name="checked" format="boolean" />

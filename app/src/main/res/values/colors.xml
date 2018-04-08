@@ -27,5 +27,9 @@
     <color name="colorSourceExtraDetails">#B9B9B9</color>
     <color name="colorSourceDivider">#e0e0e0</color>
     <color name="colorSourceHeading">#8683F1</color>
+    <color name="colorSourceContinueText">#e7e5df</color>
+    <color name="colorSourceContinueDivider">#d9bf78</color>
+    <color name="colorSourceContinueEnabled">#e7bb41</color>
+    <color name="colorSourceContinueDisabled">#d9bf78</color>
 
 </resources>

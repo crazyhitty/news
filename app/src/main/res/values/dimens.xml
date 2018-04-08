@@ -73,6 +73,16 @@
     <dimen name="activitySourcesFilterClearMarginTop">0dp</dimen>
     <dimen name="activitySourcesFilterClearMarginBottom">0dp</dimen>
     <dimen name="activitySourcesErrorTextSize">20sp</dimen>
+    <dimen name="activitySourcesContinueDividerMarginStart">0dp</dimen>
+    <dimen name="activitySourcesContinueDividerMarginEnd">0dp</dimen>
+    <dimen name="activitySourcesContinueDividerMarginTop">0dp</dimen>
+    <dimen name="activitySourcesContinueDividerMarginBottom">0dp</dimen>
+    <dimen name="activitySourcesContinueDividerHeight">0.5dp</dimen>
+    <dimen name="itemSourceContinueTextSize">18sp</dimen>
+    <dimen name="itemSourceContinuePaddingStart">16dp</dimen>
+    <dimen name="itemSourceContinuePaddingEnd">16dp</dimen>
+    <dimen name="itemSourceContinuePaddingTop">16dp</dimen>
+    <dimen name="itemSourceContinuePaddingBottom">16dp</dimen>
 
     <!--item_source-->
     <dimen name="itemSourceNameTextSize">18sp</dimen>

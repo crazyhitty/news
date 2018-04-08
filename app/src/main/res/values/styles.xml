@@ -33,6 +33,9 @@
         <item name="colorSourceExtraDetails">@color/colorSourceExtraDetails</item>
         <item name="colorSourceDivider">@color/colorSourceDivider</item>
         <item name="colorSourceHeading">@color/colorSourceHeading</item>
+        <item name="colorSourceContinueDivider">@color/colorSourceContinueDivider</item>
+        <item name="colorSourceContinueText">@color/colorSourceContinueText</item>
+        <item name="sourceContinueBackground">@drawable/ic_source_continue_background</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -243,6 +246,35 @@
         <item name="android:layout_marginBottom">@dimen/itemSourceHeadingMarginBottom</item>
         <item name="android:textColor">?attr/colorSourceHeading</item>
         <item name="android:textSize">@dimen/itemSourceHeadingTextSize</item>
+        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+    </style>
+
+    <style name="SourceContinue">
+        <item name="android:background">?attr/sourceContinueBackground</item>
+    </style>
+
+    <style name="SourcesContinueDivider">
+        <item name="android:layout_marginStart">
+            @dimen/activitySourcesContinueDividerMarginStart
+        </item>
+        <item name="android:layout_marginEnd">@dimen/activitySourcesContinueDividerMarginEnd
+        </item>
+        <item name="android:layout_marginTop">@dimen/activitySourcesContinueDividerMarginTop
+        </item>
+        <item name="android:layout_marginBottom">
+            @dimen/activitySourcesContinueDividerMarginBottom
+        </item>
+        <item name="android:background">?attr/colorSourceContinueDivider</item>
+    </style>
+
+    <style name="SourceContinueText">
+        <item name="android:paddingStart">@dimen/itemSourceContinuePaddingStart</item>
+        <item name="android:paddingEnd">@dimen/itemSourceContinuePaddingEnd</item>
+        <item name="android:paddingTop">@dimen/itemSourceContinuePaddingTop</item>
+        <item name="android:paddingBottom">@dimen/itemSourceContinuePaddingBottom</item>
+        <item name="android:textColor">?attr/colorSourceContinueText</item>
+        <item name="android:textSize">@dimen/itemSourceHeadingTextSize</item>
+        <item name="android:textAlignment">center</item>
         <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
     </style>
 

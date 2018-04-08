@@ -53,6 +53,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
+        style="@style/SourceContinue"
         android:id="@+id/frameLayoutContinueFooter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,21 +66,16 @@
         tools:visibility="visible">
 
         <View
-            style="@style/NewsToolbarDivider"
+            style="@style/SourcesContinueDivider"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/activityNewsListingToolbarDividerHeight"
-            android:layout_alignParentBottom="true" />
+            android:layout_height="@dimen/activitySourcesContinueDividerHeight" />
 
         <TextView
+            style="@style/SourceContinueText"
             android:id="@+id/textViewContinue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:background="@drawable/ic_source_continue_background"
-            android:textAlignment="center"
-            android:textColor="#F5F5F5"
-            android:text="Select 3 sources to continue"
-            tools:visibility="visible"/>
+            android:text="Select 3 sources to continue" />
 
     </LinearLayout>
 
