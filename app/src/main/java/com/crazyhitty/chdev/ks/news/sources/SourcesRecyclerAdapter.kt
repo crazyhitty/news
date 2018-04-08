@@ -35,7 +35,7 @@ class SourcesRecyclerAdapter : RecyclerView.Adapter<SourcesRecyclerAdapter.Sourc
     override fun onBindViewHolder(holder: SourceViewHolder?, position: Int) {
         val sourceItem = sourceItems[position]
 
-        holder?.textViewName?.text = sourceItem?.name
+        holder?.textViewName?.text = sourceItem?.spannableName
         holder?.textViewDesc?.text = sourceItem?.description
         holder?.textViewExtraDetails?.text = "${sourceItem?.category} / ${sourceItem?.language} / ${sourceItem?.country}"
         holder?.checkBox?.checked = sourceItem?.selected ?: false

@@ -1,5 +1,9 @@
 package com.crazyhitty.chdev.ks.news.sources
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import com.crazyhitty.chdev.ks.news.base.Presenter
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.data.api.model.news.SourceItem
@@ -11,6 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import org.jetbrains.anko.info
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 /**
@@ -42,6 +47,13 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
             compositeDisposable.add(newsApiService.sources()
                     .subscribeOn(schedulerProvider.io())
                     .observeOn(schedulerProvider.ui())
+                    .map {
+                        it.sources?.map {
+                            it?.spannableName = SpannableString(it?.name)
+                        }
+                        // Return the sources with added spannable names with each item.
+                        it
+                    }
                     .subscribe({
                         // Handle success scenario.
                         log.info { "Sources loaded from remote server" }
@@ -112,37 +124,35 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
         } else {
             cachedSources?.let {
                 val sources = it
-                if (!filter.isBlank()) {
-                    compositeDisposable.add(Single.create<Sources> {
-                        val filteredSources = filterSources(filter, sources)
-                        if (filteredSources.sources?.isEmpty() == true) {
-                            it.onError(NullPointerException("No such source(s) available"))
-                        } else {
-                            it.onSuccess(filteredSources)
-                        }
-                    }.subscribeOn(schedulerProvider.io())
-                            .observeOn(schedulerProvider.ui())
-                            .subscribe(
-                                    {
-                                        // Handle success scenario.
-                                        view.clearSources()
-                                        view.hideError()
-                                        view.showSources(it.sources as ArrayList<SourceItem?>)
-                                        view.disableContinueFooter()
-                                        view.showContinueFooter()
-                                        if (selectedCachedSourcesMap.size >= 3) {
-                                            view.enableContinueFooter()
-                                        }
-                                    },
-                                    {
-                                        // Handle failure scenario.
-                                        view.clearSources()
-                                        view.showError("No such source(s) available")
-                                        view.disableContinueFooter()
-                                        view.hideContinueFooter()
+                compositeDisposable.add(Single.create<Sources> {
+                    val filteredSources = filterSources(filter, sources)
+                    if (filteredSources.sources?.isEmpty() == true) {
+                        it.onError(NullPointerException("No such source(s) available"))
+                    } else {
+                        it.onSuccess(filteredSources)
+                    }
+                }.subscribeOn(schedulerProvider.io())
+                        .observeOn(schedulerProvider.ui())
+                        .subscribe(
+                                {
+                                    // Handle success scenario.
+                                    view.clearSources()
+                                    view.hideError()
+                                    view.showSources(it.sources as ArrayList<SourceItem?>)
+                                    view.disableContinueFooter()
+                                    view.showContinueFooter()
+                                    if (selectedCachedSourcesMap.size >= 3) {
+                                        view.enableContinueFooter()
                                     }
-                            ))
-                }
+                                },
+                                {
+                                    // Handle failure scenario.
+                                    view.clearSources()
+                                    view.showError("No such source(s) available")
+                                    view.disableContinueFooter()
+                                    view.hideContinueFooter()
+                                }
+                        ))
             }
         }
     }
@@ -260,8 +270,35 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
      * @param sources   Current sources data to be filtered
      */
     private fun filterSources(filter: String, sources: Sources): Sources {
+        if (filter.isBlank()) {
+            val filteredSources = sources.sources?.map {
+                it?.spannableName = SpannableString(it?.name)
+                // Return the filtered sources with spannable name.
+                it
+            }
+            return sources.copy(sources = filteredSources)
+        }
+
         val filteredSources = sources.sources?.filter {
             it?.name?.contains(filter, true) == true
+        }?.map {
+            val pattern = Pattern.compile(filter, Pattern.CASE_INSENSITIVE)
+            val matcher = pattern.matcher(it?.name)
+
+            val spannableName = SpannableString(it?.name)
+
+            // The loop will keep on executing until matcher finds all the matches. This will help
+            // us get the start/end indexes for matched substrings.
+            while (matcher.find()) {
+                spannableName.setSpan(ForegroundColorSpan(Color.RED),
+                        matcher.start(),
+                        matcher.end(),
+                        0)
+            }
+
+            it?.spannableName = spannableName
+            // Return the modified source item.
+            it
         }
         return sources.copy(sources = filteredSources)
     }
