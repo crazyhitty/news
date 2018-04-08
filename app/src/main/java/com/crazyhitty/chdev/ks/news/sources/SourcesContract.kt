@@ -1,5 +1,6 @@
 package com.crazyhitty.chdev.ks.news.sources
 
+import android.os.Bundle
 import com.crazyhitty.chdev.ks.news.base.BasePresenter
 import com.crazyhitty.chdev.ks.news.base.BaseView
 import com.crazyhitty.chdev.ks.news.data.api.model.news.SourceItem
@@ -100,6 +101,31 @@ interface SourcesContract {
          * Show error toast if something goes wrong.
          */
         fun showErrorToast(message: String)
+
+        /**
+         * Show continue footer on the UI.
+         */
+        fun showContinueFooter()
+
+        /**
+         * Hide continue footer on the UI.
+         */
+        fun hideContinueFooter()
+
+        /**
+         * Enable continue footer on the UI.
+         */
+        fun enableContinueFooter()
+
+        /**
+         * Disable continue footer on the UI.
+         */
+        fun disableContinueFooter()
+
+        /**
+         * Redirect the user to news listing screen.
+         */
+        fun redirectToNewsScreen()
     }
 
     interface Presenter : BasePresenter<View> {
@@ -126,5 +152,10 @@ interface SourcesContract {
          * @param sourceItem    Checked source item
          */
         fun sourceItemCheckClicked(sourceItem: SourceItem?)
+
+        /**
+         * Should be called when continue footer is clicked.
+         */
+        fun continueFooterClicked()
     }
 }

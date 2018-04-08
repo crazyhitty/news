@@ -37,6 +37,8 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
             this.view.showProgress()
             this.view.disableSearch()
             this.view.disableRefresh()
+            this.view.disableContinueFooter()
+            this.view.hideContinueFooter()
             compositeDisposable.add(newsApiService.sources()
                     .subscribeOn(schedulerProvider.io())
                     .observeOn(schedulerProvider.ui())
@@ -53,6 +55,7 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
                             this.view.showSources(it.sources as ArrayList<SourceItem?>)
                             this.view.enableSearch()
                             this.view.enableRefresh()
+                            this.view.showContinueFooter()
                         } else {
                             log.error {
                                 """
@@ -103,6 +106,8 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
                 cachedSources?.sources?.isEmpty() == true) {
             if (!filter.isBlank()) {
                 view.showError("No source(s) available to search")
+                view.disableContinueFooter()
+                view.hideContinueFooter()
             }
         } else {
             cachedSources?.let {
@@ -123,11 +128,18 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
                                         view.clearSources()
                                         view.hideError()
                                         view.showSources(it.sources as ArrayList<SourceItem?>)
+                                        view.disableContinueFooter()
+                                        view.showContinueFooter()
+                                        if (selectedCachedSourcesMap.size >= 3) {
+                                            view.enableContinueFooter()
+                                        }
                                     },
                                     {
                                         // Handle failure scenario.
                                         view.clearSources()
                                         view.showError("No such source(s) available")
+                                        view.disableContinueFooter()
+                                        view.hideContinueFooter()
                                     }
                             ))
                 }
@@ -139,6 +151,7 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
         // Check if internet is available or not.
         if (internetHelper.isAvailable()) {
             view.disableSearch()
+            view.disableContinueFooter()
             compositeDisposable.add(newsApiService.sources()
                     .map {
                         // Check if any selection needs to be performed in the new sources data.
@@ -163,6 +176,10 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
                             view.clearSources()
                             view.showSources(it.sources as ArrayList<SourceItem?>)
                             view.enableSearch()
+                            view.showContinueFooter()
+                            if (selectedCachedSourcesMap.size >= 3) {
+                                view.enableContinueFooter()
+                            }
                         } else {
                             log.error {
                                 """
@@ -175,6 +192,9 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
                             view.showErrorToast("No such source(s) available")
                             view.stopRefreshing()
                             view.enableSearch()
+                            if (selectedCachedSourcesMap.size >= 3) {
+                                view.enableContinueFooter()
+                            }
                         }
                     }, {
                         // Handle failure scenario.
@@ -188,6 +208,9 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
                         view.showErrorToast(it.message ?: "Unknown error")
                         view.stopRefreshing()
                         view.enableSearch()
+                        if (selectedCachedSourcesMap.size >= 3) {
+                            view.enableContinueFooter()
+                        }
                     }))
         } else {
             view.showErrorToast("No internet available")
@@ -211,6 +234,22 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
             selectedCachedSourcesMap[sourceItem.id] = sourceItem
         } else {
             selectedCachedSourcesMap.remove(sourceItem?.id)
+        }
+
+        // Enable/disable continue footer if the current number of selected items are greater/less
+        // than 3.
+        if (selectedCachedSourcesMap.size >= 3) {
+            view.enableContinueFooter()
+        } else {
+            view.disableContinueFooter()
+        }
+    }
+
+    override fun continueFooterClicked() {
+        if (selectedCachedSourcesMap.size >= 3) {
+            view.redirectToNewsScreen()
+        } else {
+            view.showErrorToast("Please select at least 3 sources to continue")
         }
     }
 

@@ -40,6 +40,7 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
+        android:layout_above="@id/frameLayoutContinueFooter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/relativeLayoutToolbar">
@@ -50,6 +51,37 @@
             android:layout_height="match_parent" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/frameLayoutContinueFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <View
+            style="@style/NewsToolbarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activityNewsListingToolbarDividerHeight"
+            android:layout_alignParentBottom="true" />
+
+        <TextView
+            android:id="@+id/textViewContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@drawable/ic_source_continue_background"
+            android:textAlignment="center"
+            android:textColor="#F5F5F5"
+            android:text="Select 3 sources to continue"
+            tools:visibility="visible"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textViewSourcesUnavailable"
