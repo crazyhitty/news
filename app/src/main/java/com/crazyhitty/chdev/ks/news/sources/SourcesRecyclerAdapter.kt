@@ -10,6 +10,8 @@ import com.crazyhitty.chdev.ks.news.data.api.model.news.SourceItem
 import org.jetbrains.anko.find
 
 /**
+ * This adapter will power the sources list.
+ *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 class SourcesRecyclerAdapter : RecyclerView.Adapter<SourcesRecyclerAdapter.SourceViewHolder>() {
@@ -19,11 +21,17 @@ class SourcesRecyclerAdapter : RecyclerView.Adapter<SourcesRecyclerAdapter.Sourc
             notifyDataSetChanged()
         }
 
+    /**
+     * Clear the current list and update the UI also.
+     */
     fun clear() {
         sourceItems.clear()
         notifyDataSetChanged()
     }
 
+    /**
+     * Listen for events when sources check button is clicked.
+     */
     var onSourceCheckClickListener: ((SourceItem?) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SourceViewHolder {
