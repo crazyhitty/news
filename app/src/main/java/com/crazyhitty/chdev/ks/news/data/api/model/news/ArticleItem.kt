@@ -11,7 +11,7 @@ data class ArticleItem(
         val description: String? = null,
         val sourceItem: SourceItem? = null,
         val title: String? = null,
-        val url: String? = null): Parcelable{
+        val url: String? = null): Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
