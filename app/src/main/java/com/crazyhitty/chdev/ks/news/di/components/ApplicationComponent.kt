@@ -1,6 +1,7 @@
 package com.crazyhitty.chdev.ks.news.di.components
 
 import com.crazyhitty.chdev.ks.news.NewsApplication
+import com.crazyhitty.chdev.ks.news.data.DataStore
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.di.modules.ApplicationModule
 import com.crazyhitty.chdev.ks.news.util.DateTimeFormatter
@@ -27,4 +28,6 @@ interface ApplicationComponent {
     fun getNewsApiService(): NewsApiService
 
     fun getDateTimeFormatter(): DateTimeFormatter
+
+    fun getDataStore(): DataStore
 }

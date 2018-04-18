@@ -2,21 +2,22 @@ package com.crazyhitty.chdev.ks.news.di.modules
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.data.Constants
+import com.crazyhitty.chdev.ks.news.data.DataStore
+import com.crazyhitty.chdev.ks.news.data.NewsDataStore
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiConfig
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
-import com.crazyhitty.chdev.ks.news.di.ApiConfig
-import com.crazyhitty.chdev.ks.news.di.ApplicationContext
-import com.crazyhitty.chdev.ks.news.di.NormalizedDate
-import com.crazyhitty.chdev.ks.news.di.ProvidedDate
+import com.crazyhitty.chdev.ks.news.di.*
 import com.crazyhitty.chdev.ks.news.util.DateTimeFormatter
 import com.crazyhitty.chdev.ks.news.util.internet.AppInternetHelper
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.AppSchedulerProvider
 import com.crazyhitty.chdev.ks.news.util.rx.SchedulerProvider
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -77,6 +78,14 @@ class ApplicationModule(private val application: Application) {
             Constants.Api.API_KEY)
 
     @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
+            context.getSharedPreferences(Constants.DataStore.SHARED_PREFERENCES_NAME,
+                    Context.MODE_PRIVATE)
+
+    @Provides
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
+
+    @Provides
     @Singleton
     fun provideNetworkInterceptor(): Interceptor = StethoInterceptor()
 
@@ -133,4 +142,9 @@ class ApplicationModule(private val application: Application) {
     @Singleton
     fun provideDateTimeFormatter(@ProvidedDate providedDateFormat: SimpleDateFormat) =
             DateTimeFormatter(providedDateFormat)
+
+    @Provides
+    @Singleton
+    fun provideDataStore(moshi: Moshi, sharedPreferences: SharedPreferences): DataStore =
+            NewsDataStore(moshi, sharedPreferences)
 }

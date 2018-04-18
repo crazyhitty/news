@@ -1,15 +1,16 @@
 package com.crazyhitty.chdev.ks.news.sources
 
 import android.graphics.Color
-import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import com.crazyhitty.chdev.ks.news.base.Presenter
+import com.crazyhitty.chdev.ks.news.data.DataStore
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.data.api.model.news.SourceItem
 import com.crazyhitty.chdev.ks.news.data.api.model.news.Sources
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.SchedulerProvider
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import org.jetbrains.anko.AnkoLogger
@@ -24,7 +25,8 @@ import javax.inject.Inject
 class SourcesPresenter @Inject constructor(private val internetHelper: InternetHelper,
                                            private val schedulerProvider: SchedulerProvider,
                                            private val compositeDisposable: CompositeDisposable,
-                                           private val newsApiService: NewsApiService) :
+                                           private val newsApiService: NewsApiService,
+                                           private val dataStore: DataStore) :
         Presenter<SourcesContract.View>(), SourcesContract.Presenter {
     private val log = AnkoLogger(this::class.java)
 
@@ -257,7 +259,24 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
 
     override fun continueFooterClicked() {
         if (selectedCachedSourcesMap.size >= 3) {
-            view.redirectToNewsScreen()
+            // Disable the continue footer.
+            view.disableContinueFooter()
+
+            // Save the current sources asynchronously.
+            compositeDisposable.add(
+                    Completable.create({
+                        val selectedSources = Sources("ok",
+                                selectedCachedSourcesMap.values.toList())
+                        dataStore.saveSources(selectedSources)
+                        dataStore.sourcesSelectionComplete(true)
+                        it.onComplete()
+                    })
+                            .subscribeOn(schedulerProvider.io())
+                            .observeOn(schedulerProvider.ui())
+                            .subscribe {
+                                view.redirectToNewsScreen()
+                            }
+            )
         } else {
             view.showErrorToast("Please select at least 3 sources to continue")
         }

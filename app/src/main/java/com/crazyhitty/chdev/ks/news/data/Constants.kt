@@ -20,4 +20,8 @@ object Constants {
         const val PROVIDED_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
         const val NORMALIZED_DATE_FORMAT = "h:mm a EEE, MMM d, ''yy"
     }
+
+    object DataStore {
+        const val SHARED_PREFERENCES_NAME = "news_data_store"
+    }
 }
