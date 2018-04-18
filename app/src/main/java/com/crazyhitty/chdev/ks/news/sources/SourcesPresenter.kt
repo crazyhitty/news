@@ -20,6 +20,16 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 /**
+ * Implementation of [SourcesContract.Presenter]. The main job of this presenter is to fetch list
+ * of sources from remote server and manage selected sources.
+ *
+ * @param internetHelper        [InternetHelper]'s instance to monitor internet availability.
+ * @param schedulerProvider     [SchedulerProvider]'s instance to run code on appropriate threads.
+ * @param compositeDisposable   [CompositeDisposable]'s instance for managing multiple disposables.
+ * @param newsApiService        [NewsApiService]'s instance for fetching sources data from remote
+ *                              server.
+ * @param dataStore             [DataStore]'s instance for caching sources so it can be used later.
+ *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 class SourcesPresenter @Inject constructor(private val internetHelper: InternetHelper,
