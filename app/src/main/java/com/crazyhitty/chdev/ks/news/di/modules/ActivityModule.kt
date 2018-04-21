@@ -11,6 +11,8 @@ import com.crazyhitty.chdev.ks.news.newsListing.NewsRecyclerAdapter
 import com.crazyhitty.chdev.ks.news.sources.SourcesContract
 import com.crazyhitty.chdev.ks.news.sources.SourcesPresenter
 import com.crazyhitty.chdev.ks.news.sources.SourcesRecyclerAdapter
+import com.crazyhitty.chdev.ks.news.splash.SplashContract
+import com.crazyhitty.chdev.ks.news.splash.SplashPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -35,6 +37,10 @@ class ActivityModule(private val appCompatActivity: AppCompatActivity) {
     @Provides
     fun provideSourcesPresenter(sourcesPresenter: SourcesPresenter): SourcesContract.Presenter =
             sourcesPresenter
+
+    @Provides
+    fun provideSplashPresenter(splashPresenter: SplashPresenter): SplashContract.Presenter =
+            splashPresenter
 
     @Provides
     fun provideNewsRecyclerAdapter() = NewsRecyclerAdapter()
