@@ -13,6 +13,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.TestScheduler
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,6 +22,7 @@ import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Tests for [NewsListingPresenter].
@@ -40,7 +42,7 @@ class NewsListingPresenterTest {
 
     private lateinit var testScheduler: TestScheduler
     private lateinit var dateTimeFormatter: DateTimeFormatter
-    private lateinit var newsListingPresenter: NewsListingContract.Presenter
+    private lateinit var newsListingPresenter: NewsListingPresenter
 
     @Before
     fun setup() {
@@ -205,8 +207,8 @@ class NewsListingPresenterTest {
 
         testScheduler.triggerActions()
 
-        Mockito.verify(mockNewsListingView).hideError()
         Mockito.verify(mockNewsListingView).stopListeningForLastFifthNewsItemShown()
+        Mockito.verify(mockNewsListingView).hideError()
         Mockito.verify(mockNewsListingView).showRefreshingDoneMessage("News refreshed")
         Mockito.verify(mockNewsListingView).stopRefreshing()
         Mockito.verify(mockNewsListingView).clearNews()
@@ -232,6 +234,7 @@ class NewsListingPresenterTest {
 
         Mockito.verify(mockNewsListingView).showErrorToast("No internet available")
         Mockito.verify(mockNewsListingView).stopRefreshing()
+        Mockito.verify(mockNewsListingView).startListeningForLastFifthNewsItemShown()
     }
 
     /**
@@ -302,7 +305,7 @@ class NewsListingPresenterTest {
      * successfully and works as expected in a scenario where everything goes fine.
      */
     @Test
-    fun testNewsListingPresenterRedirectToNewsDetailsScreenSuccess() {
+    fun testNewsItemClickedSuccess() {
         // Just attach the view to the presenter.
         newsListingPresenter.onAttach(mockNewsListingView)
 
@@ -398,6 +401,7 @@ class NewsListingPresenterTest {
 
         testScheduler.triggerActions()
 
+        Mockito.verify(mockNewsListingView).disableRefresh()
         Mockito.verify(mockNewsListingView).showRecyclerLoadMoreErrorView("")
         Mockito.verify(mockNewsListingView).showErrorToast("")
         Mockito.verify(mockNewsListingView).enableRefresh()
@@ -428,6 +432,7 @@ class NewsListingPresenterTest {
 
         testScheduler.triggerActions()
 
+        Mockito.verify(mockNewsListingView).disableRefresh()
         Mockito.verify(mockNewsListingView).showRecyclerLoadMoreErrorView("Unknown error")
         Mockito.verify(mockNewsListingView).showErrorToast("Unknown error")
         Mockito.verify(mockNewsListingView).enableRefresh()
@@ -521,6 +526,8 @@ class NewsListingPresenterTest {
 
         testScheduler.triggerActions()
 
+        Mockito.verify(mockNewsListingView).disableRefresh()
+        Mockito.verify(mockNewsListingView).showRecyclerLoadingView()
         Mockito.verify(mockNewsListingView).showRecyclerLoadMoreErrorView("")
         Mockito.verify(mockNewsListingView).showErrorToast("")
         Mockito.verify(mockNewsListingView).enableRefresh()
@@ -551,9 +558,85 @@ class NewsListingPresenterTest {
 
         testScheduler.triggerActions()
 
+        Mockito.verify(mockNewsListingView).disableRefresh()
+        Mockito.verify(mockNewsListingView).showRecyclerLoadingView()
         Mockito.verify(mockNewsListingView).showRecyclerLoadMoreErrorView("Unknown error")
         Mockito.verify(mockNewsListingView).showErrorToast("Unknown error")
         Mockito.verify(mockNewsListingView).enableRefresh()
+    }
+
+    @Test
+    fun testCleanNewsDataSuccess() {
+        val articleItemNormal = ArticleItem(publishedAt = "2018-04-21T11:22:19Z",
+                title = "NASA discovers water on mars")
+        val articleItemTitleNull = ArticleItem(publishedAt = "2018-04-21T11:23:19Z")
+        val articleItemTitleEmpty = ArticleItem(publishedAt = "2018-04-21T11:24:19Z",
+                title = "")
+        val articleItemTitleSame1 = ArticleItem(publishedAt = "2018-04-21T11:24:19Z",
+                title = "New life form found in Antarctica")
+        val articleItemTitleSame2 = ArticleItem(publishedAt = "2018-04-21T11:25:19Z",
+                title = "New life form found in Antarctica")
+        val articleItemDateNull = ArticleItem(title = "Olympics starting this weekend")
+        val articleItemDateEmpty = ArticleItem(publishedAt = "",
+                title = "FIFA World Cup is the most watched event in the world")
+
+        val articles = arrayListOf(articleItemNormal,
+                articleItemTitleNull,
+                articleItemTitleEmpty,
+                articleItemTitleSame1,
+                articleItemTitleSame2,
+                articleItemDateNull,
+                articleItemDateEmpty)
+        val news = News(articles.size, articles, "ok")
+
+        val cleanedArticles = arrayListOf(articleItemNormal,
+                articleItemTitleSame1,
+                articleItemDateNull,
+                articleItemDateEmpty)
+        val cleanedNews = News(cleanedArticles.size, cleanedArticles, "ok")
+
+        assertEquals(newsListingPresenter.cleanNewsData(news), cleanedNews)
+    }
+
+    @Test
+    fun testCleanNewsDataSuccessNullArticles() {
+        val news = News(0, null, "ok")
+        val cleanedNews = News(0, null, "ok")
+
+        assertEquals(newsListingPresenter.cleanNewsData(news), cleanedNews)
+    }
+
+    @Test
+    fun testCleanNewsDataSuccessEmptyOrNullTitlesOnly() {
+        val articleItemTitleNull = ArticleItem(publishedAt = "2018-04-21T11:23:19Z")
+        val articleItemTitleEmpty = ArticleItem(publishedAt = "2018-04-21T11:24:19Z",
+                title = "")
+
+        val articles = arrayListOf(articleItemTitleNull,
+                articleItemTitleEmpty)
+        val news = News(articles.size, articles, "ok")
+
+        val cleanedArticles = arrayListOf<ArticleItem>()
+        val cleanedNews = News(cleanedArticles.size, cleanedArticles, "ok")
+
+        assertEquals(newsListingPresenter.cleanNewsData(news), cleanedNews)
+    }
+
+    @Test
+    fun testCleanNewsDataSuccessEmptyOrNullDatesOnly() {
+        val articleItemDateNull = ArticleItem(title = "Olympics starting this weekend")
+        val articleItemDateEmpty = ArticleItem(publishedAt = "",
+                title = "FIFA World Cup is the most watched event in the world")
+
+        val articles = arrayListOf(articleItemDateNull,
+                articleItemDateEmpty)
+        val news = News(articles.size, articles, "ok")
+
+        val cleanedArticles = arrayListOf(articleItemDateNull,
+                articleItemDateEmpty)
+        val cleanedNews = News(cleanedArticles.size, cleanedArticles, "ok")
+
+        assertEquals(newsListingPresenter.cleanNewsData(news), cleanedNews)
     }
 
     @After
