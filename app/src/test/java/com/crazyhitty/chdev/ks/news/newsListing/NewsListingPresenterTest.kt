@@ -565,6 +565,10 @@ class NewsListingPresenterTest {
         Mockito.verify(mockNewsListingView).enableRefresh()
     }
 
+    /**
+     * Test if the [NewsListingPresenter.cleanNewsData] method is executed successfully
+     * and works as expected in a scenario where everything goes fine.
+     */
     @Test
     fun testCleanNewsDataSuccess() {
         val articleItemNormal = ArticleItem(publishedAt = "2018-04-21T11:22:19Z",
@@ -598,6 +602,10 @@ class NewsListingPresenterTest {
         assertEquals(newsListingPresenter.cleanNewsData(news), cleanedNews)
     }
 
+    /**
+     * Test if the [NewsListingPresenter.cleanNewsData] method is executed successfully
+     * and works as expected in a scenario where null articles are provided.
+     */
     @Test
     fun testCleanNewsDataSuccessNullArticles() {
         val news = News(0, null, "ok")
@@ -606,6 +614,10 @@ class NewsListingPresenterTest {
         assertEquals(newsListingPresenter.cleanNewsData(news), cleanedNews)
     }
 
+    /**
+     * Test if the [NewsListingPresenter.cleanNewsData] method is executed successfully
+     * and works as expected in a scenario where only empty/null titles are there in articles.
+     */
     @Test
     fun testCleanNewsDataSuccessEmptyOrNullTitlesOnly() {
         val articleItemTitleNull = ArticleItem(publishedAt = "2018-04-21T11:23:19Z")
@@ -622,6 +634,10 @@ class NewsListingPresenterTest {
         assertEquals(newsListingPresenter.cleanNewsData(news), cleanedNews)
     }
 
+    /**
+     * Test if the [NewsListingPresenter.cleanNewsData] method is executed successfully
+     * and works as expected in a scenario where only empty/null dates are there in articles.
+     */
     @Test
     fun testCleanNewsDataSuccessEmptyOrNullDatesOnly() {
         val articleItemDateNull = ArticleItem(title = "Olympics starting this weekend")
