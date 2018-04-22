@@ -1,6 +1,7 @@
 package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
+import android.support.annotation.VisibleForTesting
 import com.crazyhitty.chdev.ks.news.base.Presenter
 import com.crazyhitty.chdev.ks.news.data.Constants
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
@@ -260,17 +261,19 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
      * @return
      * Filtered and cleaned news.
      */
-    private fun cleanNewsData(news: News): News {
+    @VisibleForTesting
+    fun cleanNewsData(news: News): News {
         val filteredArticles = news.articles?.filter { !it?.title.isNullOrBlank() }
                 ?.distinctBy { it?.title }
                 ?.map {
                     // Convert publish date into a readable date.
-                    if (it?.publishedAt != null) {
-                        it.publishedAtReadable = dateTimeFormatter.convertPublishDateToReadable(it.publishedAt)
+                    if (it?.publishedAt != null &&  !it.publishedAt.isNullOrBlank()) {
+                        it.publishedAtReadable =
+                                dateTimeFormatter.convertPublishDateToReadable(it.publishedAt)
                     }
                     // Return the current article with readable date.
                     it
                 }
-        return news.copy(articles = filteredArticles)
+        return news.copy(totalResults=filteredArticles?.size ?: 0, articles = filteredArticles)
     }
 }
