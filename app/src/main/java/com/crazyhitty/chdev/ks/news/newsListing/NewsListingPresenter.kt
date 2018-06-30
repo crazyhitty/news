@@ -1,7 +1,6 @@
 package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
-import android.support.annotation.VisibleForTesting
 import com.crazyhitty.chdev.ks.news.base.Presenter
 import com.crazyhitty.chdev.ks.news.data.Constants
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
@@ -261,7 +260,6 @@ class NewsListingPresenter @Inject constructor(private val internetHelper: Inter
      * @return
      * Filtered and cleaned news.
      */
-    @VisibleForTesting
     fun cleanNewsData(news: News): News {
         val filteredArticles = news.articles?.filter { !it?.title.isNullOrBlank() }
                 ?.distinctBy { it?.title }

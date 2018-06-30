@@ -1,7 +1,6 @@
 package com.crazyhitty.chdev.ks.news.sources
 
 import android.graphics.Color
-import android.support.annotation.VisibleForTesting
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import com.crazyhitty.chdev.ks.news.base.Presenter
