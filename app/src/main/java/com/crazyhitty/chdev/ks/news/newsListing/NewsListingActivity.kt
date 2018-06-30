@@ -46,8 +46,10 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     }
 
     private fun setupNewsRecyclerView() {
-        recyclerViewNews.layoutManager = linearLayoutManager
-        recyclerViewNews.adapter = newsRecyclerAdapter
+        newsListingView.linearLayoutManager = linearLayoutManager
+        newsListingView.recyclerViewNews.layoutManager = linearLayoutManager
+        newsListingView.newsRecyclerAdapter = newsRecyclerAdapter
+        newsListingView.recyclerViewNews.adapter = newsRecyclerAdapter
 
         newsRecyclerAdapter.onItemClickListener = {
             newsListingPresenter.newsItemClicked(Bundle(), it)
@@ -59,7 +61,7 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     }
 
     private fun setupRefreshLayout() {
-        swipeRefreshLayout.setOnRefreshListener {
+        newsListingView.onSwipeDownRefresh {
             newsListingPresenter.refresh()
         }
     }
@@ -70,23 +72,23 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     }
 
     override fun enableRefresh() {
-        swipeRefreshLayout.isEnabled = true
+        newsListingView.enableSwipeDownToRefresh()
     }
 
     override fun disableRefresh() {
-        swipeRefreshLayout.isEnabled = false
+        newsListingView.disableSwipeDownToRefresh()
     }
 
     override fun showProgress() {
-        progressBar.visibility = View.VISIBLE
+        newsListingView.showProgress()
     }
 
     override fun hideProgress() {
-        progressBar.visibility = View.GONE
+        newsListingView.hideProgress()
     }
 
     override fun showNewsArticles(articles: ArrayList<ArticleItem?>) {
-        newsRecyclerAdapter.articles = articles
+        newsListingView.updateNewsListing(articles)
     }
 
     override fun openNewsDetailsActivity(bundle: Bundle) {
@@ -94,11 +96,11 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     }
 
     override fun clearNews() {
-        newsRecyclerAdapter.clear()
+        newsListingView.clearNewsListing()
     }
 
     override fun stopRefreshing() {
-        swipeRefreshLayout.isRefreshing = false
+        newsListingView.stopSwipeDownToRefresh()
     }
 
     override fun showRefreshingDoneMessage(message: String) {
@@ -106,12 +108,12 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     }
 
     override fun hideError() {
-        textViewNewsUnavailable.visibility = View.GONE
+        newsListingView.hideErrorText()
     }
 
     override fun showError(message: String) {
-        textViewNewsUnavailable.text = message.plus("\nSwipe down to refresh")
-        textViewNewsUnavailable.visibility = View.VISIBLE
+        newsListingView.updateErrorText(message)
+        newsListingView.showErrorText()
     }
 
     override fun showErrorToast(message: String) {
@@ -127,16 +129,13 @@ class NewsListingActivity : BaseAppCompatActivity(), NewsListingContract.View {
     }
 
     override fun startListeningForLastFifthNewsItemShown() {
-        recyclerViewNews.addOnScrollListener(object : RecyclerScrollListener(linearLayoutManager, 6) {
-            override fun onPositionAppeared(position: Int) {
-                super.onPositionAppeared(position)
-                log.info { "Last 5th news article item is visible on the screen with position($position)" }
-                newsListingPresenter.reachedLastFifthNewsItem()
-            }
-        })
+        newsListingView.onNewsScrollItemAppeared(6) {
+            log.info { "Last 5th news article item is visible on the screen with position($it)" }
+            newsListingPresenter.reachedLastFifthNewsItem()
+        }
     }
 
     override fun stopListeningForLastFifthNewsItemShown() {
-        recyclerViewNews.addOnScrollListener(object : RecyclerView.OnScrollListener(){})
+        newsListingView.stopNewsScrollListener()
     }
 }
