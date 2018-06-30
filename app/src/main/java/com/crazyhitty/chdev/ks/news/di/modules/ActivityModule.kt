@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import com.crazyhitty.chdev.ks.news.di.ActivityContext
 import com.crazyhitty.chdev.ks.news.newsListing.NewsListingContract
 import com.crazyhitty.chdev.ks.news.newsListing.NewsListingPresenter
-import com.crazyhitty.chdev.ks.news.newsListing.NewsRecyclerAdapter
 import com.crazyhitty.chdev.ks.news.sources.SourcesContract
 import com.crazyhitty.chdev.ks.news.sources.SourcesPresenter
 import com.crazyhitty.chdev.ks.news.sources.SourcesRecyclerAdapter
@@ -41,9 +40,6 @@ class ActivityModule(private val appCompatActivity: AppCompatActivity) {
     @Provides
     fun provideSplashPresenter(splashPresenter: SplashPresenter): SplashContract.Presenter =
             splashPresenter
-
-    @Provides
-    fun provideNewsRecyclerAdapter() = NewsRecyclerAdapter()
 
     @Provides
     fun provideSourcesRecyclerAdapter() = SourcesRecyclerAdapter()
