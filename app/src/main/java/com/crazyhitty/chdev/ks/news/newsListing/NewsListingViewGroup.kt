@@ -14,7 +14,11 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticleItem
+import com.crazyhitty.chdev.ks.news.di.components.DaggerViewGroupComponent
+import com.crazyhitty.chdev.ks.news.di.components.ViewGroupComponent
+import com.crazyhitty.chdev.ks.news.di.modules.ViewGroupModule
 import org.jetbrains.anko.find
+import javax.inject.Inject
 
 /**
  * This view is responsible for rendering list of news associated with a particular source.
@@ -24,20 +28,31 @@ import org.jetbrains.anko.find
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 @SuppressLint("ViewConstructor")
-class NewsListingView : RelativeLayout {
-    // Setup recycler view for news.
-    lateinit var recyclerViewNews: RecyclerView
+class NewsListingViewGroup : RelativeLayout {
+    private val viewGroupComponent: ViewGroupComponent by lazy {
+        DaggerViewGroupComponent.builder()
+                .viewGroupModule(ViewGroupModule(this))
+                .build()
+    }
+
+    @Inject
+    lateinit var linearLayoutManager: LinearLayoutManager
+    @Inject
+    lateinit var newsRecyclerAdapter: NewsRecyclerAdapter
+
+    private lateinit var recyclerViewNews: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var textViewNewsUnavailable: TextView
     private lateinit var progressBar: ProgressBar
-
-    lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var newsRecyclerAdapter: NewsRecyclerAdapter
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
     init {
+        // Inject view group component.
+        viewGroupComponent.inject(this)
+
+        // Inflate layout.
         val layoutInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         layoutInflater.inflate(R.layout.view_news_listing, this)
 
@@ -54,6 +69,9 @@ class NewsListingView : RelativeLayout {
         swipeRefreshLayout = find(R.id.swipeRefreshLayout)
         textViewNewsUnavailable = find(R.id.textViewNewsUnavailable)
         progressBar = find(R.id.progressBar)
+
+        recyclerViewNews.layoutManager = linearLayoutManager
+        recyclerViewNews.adapter = newsRecyclerAdapter
     }
 
     /**
@@ -160,6 +178,20 @@ class NewsListingView : RelativeLayout {
     }
 
     /**
+     * Show error view on the last item in news listing.
+     */
+    fun showRecyclerLoadMoreErrorView(message: String) {
+        newsRecyclerAdapter.showErrorView(message)
+    }
+
+    /**
+     * Show loading view on the last item in news listing.
+     */
+    fun showRecyclerLoadingView() {
+        newsRecyclerAdapter.showLoadingView()
+    }
+
+    /**
      * Listen when a particular news item with the provided position is appeared for the first
      * time on the screen.
      *
@@ -178,6 +210,6 @@ class NewsListingView : RelativeLayout {
      * Stop listening for news item appearance.
      */
     fun stopNewsScrollListener() {
-        recyclerViewNews.addOnScrollListener(object : RecyclerView.OnScrollListener(){})
+        recyclerViewNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {})
     }
 }
