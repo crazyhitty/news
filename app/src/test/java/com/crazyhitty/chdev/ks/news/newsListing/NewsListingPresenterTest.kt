@@ -105,7 +105,7 @@ class NewsListingPresenterTest {
      */
     @Test
     fun testNewsListingPresenterOnAttachInternetFailure() {
-        // Mock internet helper and return true for internet connectivity checks.
+        // Mock internet helper and return false for internet connectivity checks.
         Mockito.doReturn(false)
                 .`when`(mockInternetHelper)
                 .isAvailable()
@@ -225,7 +225,7 @@ class NewsListingPresenterTest {
         // Just attach the view to the presenter.
         newsListingPresenter.onAttach(mockNewsListingView)
 
-        // Mock internet helper and return true for internet connectivity checks.
+        // Mock internet helper and return false for internet connectivity checks.
         Mockito.doReturn(false)
                 .`when`(mockInternetHelper)
                 .isAvailable()
@@ -363,7 +363,7 @@ class NewsListingPresenterTest {
         // Just attach the view to the presenter.
         newsListingPresenter.onAttach(mockNewsListingView)
 
-        // Mock internet helper and return true for internet connectivity checks.
+        // Mock internet helper and return false for internet connectivity checks.
         Mockito.doReturn(false)
                 .`when`(mockInternetHelper)
                 .isAvailable()
@@ -486,7 +486,7 @@ class NewsListingPresenterTest {
         // Just attach the view to the presenter.
         newsListingPresenter.onAttach(mockNewsListingView)
 
-        // Mock internet helper and return true for internet connectivity checks.
+        // Mock internet helper and return false for internet connectivity checks.
         Mockito.doReturn(false)
                 .`when`(mockInternetHelper)
                 .isAvailable()

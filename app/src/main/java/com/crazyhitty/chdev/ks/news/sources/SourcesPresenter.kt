@@ -1,6 +1,7 @@
 package com.crazyhitty.chdev.ks.news.sources
 
 import android.graphics.Color
+import android.support.annotation.VisibleForTesting
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import com.crazyhitty.chdev.ks.news.base.Presenter
@@ -43,9 +44,9 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
     /**
      * Stores a copy of sources fetched from remote server.
      */
-    private var cachedSources: Sources? = null
+    var cachedSources: Sources? = null
 
-    private var selectedCachedSourcesMap: HashMap<String?, SourceItem?> = HashMap()
+    var selectedCachedSourcesMap: HashMap<String?, SourceItem?> = HashMap()
 
     override fun onAttach(view: SourcesContract.View) {
         super.onAttach(view)
@@ -238,6 +239,9 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
             view.showErrorToast("No internet available")
             view.stopRefreshing()
             view.enableSearch()
+            if (selectedCachedSourcesMap.size >= 3) {
+                view.enableContinueFooter()
+            }
         }
     }
 
@@ -298,7 +302,7 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
      * @param filter    Search filter
      * @param sources   Current sources data to be filtered
      */
-    private fun filterSources(filter: String, sources: Sources): Sources {
+    fun filterSources(filter: String, sources: Sources): Sources {
         if (filter.isBlank()) {
             val filteredSources = sources.sources?.map {
                 it?.spannableName = SpannableString(it?.name)
@@ -332,7 +336,7 @@ class SourcesPresenter @Inject constructor(private val internetHelper: InternetH
         return sources.copy(sources = filteredSources)
     }
 
-    private fun selectSources(selectedSourcesMap: HashMap<String?, SourceItem?>, newSources: Sources) {
+    fun selectSources(selectedSourcesMap: HashMap<String?, SourceItem?>, newSources: Sources) {
         newSources.sources?.map {
             val selected = selectedSourcesMap.containsKey(it?.id)
             it?.selected = selected
