@@ -9,7 +9,7 @@ data class ArticleItem(
         val author: String? = null,
         val urlToImage: String? = null,
         val description: String? = null,
-        val sourceItem: SourceItem? = null,
+        val source: SourceItem? = null,
         val title: String? = null,
         val url: String? = null): Parcelable {
     constructor(parcel: Parcel) : this(
@@ -28,7 +28,7 @@ data class ArticleItem(
         parcel.writeString(author)
         parcel.writeString(urlToImage)
         parcel.writeString(description)
-        parcel.writeParcelable(sourceItem, flags)
+        parcel.writeParcelable(source, flags)
         parcel.writeString(title)
         parcel.writeString(url)
     }
