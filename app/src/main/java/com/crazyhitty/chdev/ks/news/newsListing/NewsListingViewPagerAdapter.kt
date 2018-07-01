@@ -27,4 +27,6 @@ class NewsListingViewPagerAdapter : PagerAdapter() {
             view === `object` as NewsListingViewGroup
 
     override fun getCount() = sources.size
+
+    override fun getPageTitle(position: Int) = sources[position]
 }

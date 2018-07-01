@@ -26,6 +26,7 @@ class NewsListingActivity : BaseAppCompatActivity() {
     }
 
     private fun setViewPager() {
+        tabLayoutSources.setupWithViewPager(viewPagerNews)
         viewPagerNews.adapter = newsListingViewPagerAdapter
 
         // TODO: testing code, remove it after testing UI.

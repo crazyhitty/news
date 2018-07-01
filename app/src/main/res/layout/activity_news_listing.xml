@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativeLayoutNewsListing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,19 +19,28 @@
             android:layout_centerVertical="true"
             android:text="@string/app_name" />
 
-        <View
-            style="@style/NewsToolbarDivider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/activityNewsListingToolbarDividerHeight"
-            android:layout_alignParentBottom="true"
-            android:background="?attr/colorNewsToolbarDivider" />
-
     </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayoutSources"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayoutToolbar"
+        app:tabGravity="fill"
+        app:tabMode="scrollable"/>
+
+    <View
+        android:id="@+id/divider"
+        style="@style/NewsToolbarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activityNewsListingToolbarDividerHeight"
+        android:layout_below="@id/tabLayoutSources"
+        android:background="?attr/colorNewsToolbarDivider" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPagerNews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/relativeLayoutToolbar" />
+        android:layout_below="@id/divider" />
 
 </RelativeLayout>
