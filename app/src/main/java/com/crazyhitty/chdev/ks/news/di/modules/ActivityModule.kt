@@ -5,6 +5,7 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.crazyhitty.chdev.ks.news.di.ActivityContext
+import com.crazyhitty.chdev.ks.news.newsListing.NewsListingViewPagerAdapter
 import com.crazyhitty.chdev.ks.news.sources.SourcesContract
 import com.crazyhitty.chdev.ks.news.sources.SourcesPresenter
 import com.crazyhitty.chdev.ks.news.sources.SourcesRecyclerAdapter
@@ -41,4 +42,7 @@ class ActivityModule(private val appCompatActivity: AppCompatActivity) {
     @Provides
     fun provideLinearLayoutManager(@ActivityContext context: Context): LinearLayoutManager =
             LinearLayoutManager(context)
+
+    @Provides
+    fun provideNewsListingViewPagerAdapter() = NewsListingViewPagerAdapter()
 }

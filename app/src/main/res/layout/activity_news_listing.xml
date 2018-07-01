@@ -27,8 +27,8 @@
 
     </RelativeLayout>
 
-    <com.crazyhitty.chdev.ks.news.newsListing.NewsListingViewGroup
-        android:id="@+id/newsListingViewGroup"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerNews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/relativeLayoutToolbar" />

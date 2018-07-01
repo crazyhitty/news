@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +28,8 @@ import javax.inject.Inject
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 @SuppressLint("ViewConstructor")
-class NewsListingViewGroup : RelativeLayout, NewsListingContract.View {
+class NewsListingViewGroup(context: Context?,
+                           private val source: String) : RelativeLayout(context), NewsListingContract.View {
     companion object {
         /**
          * Position for which load more should be trigger. When this position is reached, the app
@@ -43,10 +43,12 @@ class NewsListingViewGroup : RelativeLayout, NewsListingContract.View {
     private val viewGroupComponent: ViewGroupComponent by lazy {
         DaggerViewGroupComponent.builder()
                 .viewGroupModule(ViewGroupModule(this))
-                .applicationComponent((context.applicationContext as NewsApplication).applicationComponent)
+                .applicationComponent((context?.applicationContext as NewsApplication).applicationComponent)
                 .build()
     }
 
+    @Inject
+    lateinit var newsListingViewGroupLayoutParams: ViewGroup.LayoutParams
     @Inject
     lateinit var linearLayoutManager: LinearLayoutManager
     @Inject
@@ -59,9 +61,6 @@ class NewsListingViewGroup : RelativeLayout, NewsListingContract.View {
     private lateinit var textViewNewsUnavailable: TextView
     private lateinit var progressBar: ProgressBar
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-
     init {
         // Inject view group component.
         viewGroupComponent.inject(this)
@@ -71,21 +70,9 @@ class NewsListingViewGroup : RelativeLayout, NewsListingContract.View {
         layoutInflater.inflate(R.layout.view_news_listing, this)
 
         // Set layout params for this FrameLayout.
-        val layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT)
-        setLayoutParams(layoutParams)
-    }
+        layoutParams = newsListingViewGroupLayoutParams
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-        // Get view references.
-        recyclerViewNews = find(R.id.recyclerViewNews)
-        swipeRefreshLayout = find(R.id.swipeRefreshLayout)
-        textViewNewsUnavailable = find(R.id.textViewNewsUnavailable)
-        progressBar = find(R.id.progressBar)
-
-        recyclerViewNews.layoutManager = linearLayoutManager
-        recyclerViewNews.adapter = newsRecyclerAdapter
+        bindViews()
 
         setupNewsRecyclerView()
 
@@ -95,7 +82,23 @@ class NewsListingViewGroup : RelativeLayout, NewsListingContract.View {
         newsListingPresenter.onAttach(this)
     }
 
+    /**
+     * Get view references.
+     */
+    private fun bindViews() {
+        recyclerViewNews = find(R.id.recyclerViewNews)
+        swipeRefreshLayout = find(R.id.swipeRefreshLayout)
+        textViewNewsUnavailable = find(R.id.textViewNewsUnavailable)
+        progressBar = find(R.id.progressBar)
+    }
+
+    /**
+     * Setup news recycler view which will be responsible for displaying list of news.
+     */
     private fun setupNewsRecyclerView() {
+        recyclerViewNews.layoutManager = linearLayoutManager
+        recyclerViewNews.adapter = newsRecyclerAdapter
+
         newsRecyclerAdapter.onItemClickListener = {
             newsListingPresenter.newsItemClicked(Bundle(), it)
         }
@@ -105,6 +108,9 @@ class NewsListingViewGroup : RelativeLayout, NewsListingContract.View {
         }
     }
 
+    /**
+     * Setup swipe to refresh, so that user can swipe down and trigger refresh.
+     */
     private fun setupRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener {
             newsListingPresenter.refresh()

@@ -3,6 +3,7 @@ package com.crazyhitty.chdev.ks.news.di.modules
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import com.crazyhitty.chdev.ks.news.di.ViewGroupContext
 import com.crazyhitty.chdev.ks.news.newsListing.NewsListingContract
 import com.crazyhitty.chdev.ks.news.newsListing.NewsListingPresenter
@@ -50,4 +51,12 @@ class ViewGroupModule(private val viewGroup: ViewGroup) {
     @Provides
     fun provideLinearLayoutManager(@ViewGroupContext context: Context): LinearLayoutManager =
             LinearLayoutManager(context)
+
+    /**
+     * Provide [ViewGroup.LayoutParams] for NewsListingViewGroup.
+     */
+    @Provides
+    fun provideLayoutParamsForNewsListingViewPagerAdapter(): ViewGroup.LayoutParams =
+            RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT)
 }
