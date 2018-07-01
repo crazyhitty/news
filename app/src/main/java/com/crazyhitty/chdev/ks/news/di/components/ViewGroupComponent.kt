@@ -9,7 +9,7 @@ import dagger.Component
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 @PerViewGroup
-@Component(modules = [ViewGroupModule::class])
+@Component(dependencies = [ApplicationComponent::class], modules = [ViewGroupModule::class])
 interface ViewGroupComponent {
     /**
      * Inject in [NewsListingViewGroup].

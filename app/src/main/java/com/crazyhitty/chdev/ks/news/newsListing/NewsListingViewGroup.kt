@@ -2,6 +2,7 @@ package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,26 +13,37 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.crazyhitty.chdev.ks.news.NewsApplication
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticleItem
 import com.crazyhitty.chdev.ks.news.di.components.DaggerViewGroupComponent
 import com.crazyhitty.chdev.ks.news.di.components.ViewGroupComponent
 import com.crazyhitty.chdev.ks.news.di.modules.ViewGroupModule
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
  * This view is responsible for rendering list of news associated with a particular source.
  *
- * @param context   Current activity context.
- *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 @SuppressLint("ViewConstructor")
-class NewsListingViewGroup : RelativeLayout {
+class NewsListingViewGroup : RelativeLayout, NewsListingContract.View {
+    companion object {
+        /**
+         * Position for which load more should be trigger. When this position is reached, the app
+         * should start loading next page of news. This position should be from last.
+         * For example: If this value is 6, then when the last 5th position is visible on the
+         * screen, it would start loading for more items.
+         */
+        const val POSITION_FROM_LAST = 6
+    }
+
     private val viewGroupComponent: ViewGroupComponent by lazy {
         DaggerViewGroupComponent.builder()
                 .viewGroupModule(ViewGroupModule(this))
+                .applicationComponent((context.applicationContext as NewsApplication).applicationComponent)
                 .build()
     }
 
@@ -39,6 +51,8 @@ class NewsListingViewGroup : RelativeLayout {
     lateinit var linearLayoutManager: LinearLayoutManager
     @Inject
     lateinit var newsRecyclerAdapter: NewsRecyclerAdapter
+    @Inject
+    lateinit var newsListingPresenter: NewsListingContract.Presenter
 
     private lateinit var recyclerViewNews: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -72,144 +86,103 @@ class NewsListingViewGroup : RelativeLayout {
 
         recyclerViewNews.layoutManager = linearLayoutManager
         recyclerViewNews.adapter = newsRecyclerAdapter
+
+        setupNewsRecyclerView()
+
+        setupRefreshLayout()
+
+        // Setup presenter.
+        newsListingPresenter.onAttach(this)
     }
 
-    /**
-     * Listen for news item click events.
-     *
-     * @param onClick   Function containing [ArticleItem]
-     */
-    fun onNewsItemClick(onClick: (articleItem: ArticleItem?) -> Unit) {
-        newsRecyclerAdapter.onItemClickListener = { onClick(it) }
-    }
+    private fun setupNewsRecyclerView() {
+        newsRecyclerAdapter.onItemClickListener = {
+            newsListingPresenter.newsItemClicked(Bundle(), it)
+        }
 
-    /**
-     * Listen for news error view click events.
-     *
-     * @param onClick   Function called when news error view is clicked.
-     */
-    fun onNewsErrorViewClick(onClick: () -> Unit) {
-        newsRecyclerAdapter.onErrorViewClickListener = { onClick() }
-    }
-
-    /**
-     * Listen when swipe to refresh is called.
-     *
-     * @param onRefresh   Function called when swipe down to refresh happens
-     */
-    fun onSwipeDownRefresh(onRefresh: () -> Unit) {
-        swipeRefreshLayout.setOnRefreshListener {
-            onRefresh()
+        newsRecyclerAdapter.onErrorViewClickListener = {
+            newsListingPresenter.recyclerLoadMoreErrorViewClicked()
         }
     }
 
-    /**
-     * Enable [SwipeRefreshLayout].
-     */
-    fun enableSwipeDownToRefresh() {
+    private fun setupRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener {
+            newsListingPresenter.refresh()
+        }
+    }
+
+    override fun onViewRemoved(child: View?) {
+        super.onViewRemoved(child)
+        newsListingPresenter.onDetach()
+    }
+
+    override fun enableRefresh() {
         swipeRefreshLayout.isEnabled = true
     }
 
-    /**
-     * Disable [SwipeRefreshLayout].
-     */
-    fun disableSwipeDownToRefresh() {
+    override fun disableRefresh() {
         swipeRefreshLayout.isEnabled = false
     }
 
-    /**
-     * Show [ProgressBar].
-     */
-    fun showProgress() {
+    override fun showProgress() {
         progressBar.visibility = View.VISIBLE
     }
 
-    /**
-     * Hide [ProgressBar].
-     */
-    fun hideProgress() {
+    override fun hideProgress() {
         progressBar.visibility = View.GONE
     }
 
-    /**
-     * Update news listing.
-     *
-     * @param articles  [ArrayList] containing [ArticleItem]s
-     */
-    fun updateNewsListing(articles: ArrayList<ArticleItem?>) {
+    override fun showNewsArticles(articles: ArrayList<ArticleItem?>) {
         newsRecyclerAdapter.articles = articles
     }
 
-    /**
-     * Remove all the news items from the UI.
-     */
-    fun clearNewsListing() {
+    override fun openNewsDetailsActivity(bundle: Bundle) {
+        context.toast("Not yet implemented!!")
+    }
+
+    override fun clearNews() {
         newsRecyclerAdapter.clear()
     }
 
-    /**
-     * Stop refreshing [SwipeRefreshLayout].
-     */
-    fun stopSwipeDownToRefresh() {
+    override fun stopRefreshing() {
         swipeRefreshLayout.isRefreshing = false
     }
 
-    /**
-     * Hide the error text.
-     */
-    fun hideErrorText() {
+    override fun showRefreshingDoneMessage(message: String) {
+        context.toast(message)
+    }
+
+    override fun hideError() {
         textViewNewsUnavailable.visibility = View.GONE
     }
 
-    /**
-     * Show the error text.
-     */
-    fun showErrorText() {
-        textViewNewsUnavailable.visibility = View.GONE
+    override fun showError(message: String) {
+        textViewNewsUnavailable.text = message
+        textViewNewsUnavailable.visibility = View.VISIBLE
     }
 
-    /**
-     * Update the error text.
-     *
-     * @param text  [String] message indicating error
-     */
-    fun updateErrorText(text: String) {
-        textViewNewsUnavailable.text = text
+    override fun showErrorToast(message: String) {
+        context.toast(message)
     }
 
-    /**
-     * Show error view on the last item in news listing.
-     */
-    fun showRecyclerLoadMoreErrorView(message: String) {
+    override fun showRecyclerLoadMoreErrorView(message: String) {
         newsRecyclerAdapter.showErrorView(message)
     }
 
-    /**
-     * Show loading view on the last item in news listing.
-     */
-    fun showRecyclerLoadingView() {
+    override fun showRecyclerLoadingView() {
         newsRecyclerAdapter.showLoadingView()
     }
 
-    /**
-     * Listen when a particular news item with the provided position is appeared for the first
-     * time on the screen.
-     *
-     * @param positionFromLast  Position to be checked for appearance, must be counted from last.
-     */
-    fun onNewsScrollItemAppeared(positionFromLast: Int, onItemAppearance: (position: Int) -> Unit) {
-        recyclerViewNews.addOnScrollListener(object : RecyclerScrollListener(linearLayoutManager, positionFromLast) {
+    override fun startListeningForLastFifthNewsItemShown() {
+        recyclerViewNews.addOnScrollListener(object : RecyclerScrollListener(linearLayoutManager, POSITION_FROM_LAST) {
             override fun onPositionAppeared(position: Int) {
                 super.onPositionAppeared(position)
-                onItemAppearance(position)
+                newsListingPresenter.reachedLastFifthNewsItem()
             }
         })
     }
 
-    /**
-     * Stop listening for news item appearance.
-     */
-    fun stopNewsScrollListener() {
+    override fun stopListeningForLastFifthNewsItemShown() {
         recyclerViewNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {})
     }
 }

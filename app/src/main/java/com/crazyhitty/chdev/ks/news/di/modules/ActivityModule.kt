@@ -5,8 +5,6 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.crazyhitty.chdev.ks.news.di.ActivityContext
-import com.crazyhitty.chdev.ks.news.newsListing.NewsListingContract
-import com.crazyhitty.chdev.ks.news.newsListing.NewsListingPresenter
 import com.crazyhitty.chdev.ks.news.sources.SourcesContract
 import com.crazyhitty.chdev.ks.news.sources.SourcesPresenter
 import com.crazyhitty.chdev.ks.news.sources.SourcesRecyclerAdapter
@@ -28,10 +26,6 @@ class ActivityModule(private val appCompatActivity: AppCompatActivity) {
 
     @Provides
     fun provideActivity(): Activity = appCompatActivity
-
-    @Provides
-    fun provideNewsPresenter(newsListingPresenter: NewsListingPresenter):
-            NewsListingContract.Presenter = newsListingPresenter
 
     @Provides
     fun provideSourcesPresenter(sourcesPresenter: SourcesPresenter): SourcesContract.Presenter =

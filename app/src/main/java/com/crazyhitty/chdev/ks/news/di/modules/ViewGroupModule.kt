@@ -4,6 +4,8 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.view.ViewGroup
 import com.crazyhitty.chdev.ks.news.di.ViewGroupContext
+import com.crazyhitty.chdev.ks.news.newsListing.NewsListingContract
+import com.crazyhitty.chdev.ks.news.newsListing.NewsListingPresenter
 import com.crazyhitty.chdev.ks.news.newsListing.NewsRecyclerAdapter
 import dagger.Module
 import dagger.Provides
@@ -28,6 +30,13 @@ class ViewGroupModule(private val viewGroup: ViewGroup) {
      */
     @Provides
     fun provideViewGroup() = viewGroup
+
+    /**
+     * Provide [NewsListingPresenter] for fetching news.
+     */
+    @Provides
+    fun provideNewsPresenter(newsListingPresenter: NewsListingPresenter):
+            NewsListingContract.Presenter = newsListingPresenter
 
     /**
      * Provide [NewsRecyclerAdapter] for the [ViewGroup].
