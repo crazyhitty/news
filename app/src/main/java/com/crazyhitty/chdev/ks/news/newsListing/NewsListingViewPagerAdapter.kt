@@ -12,18 +12,18 @@ import android.view.ViewGroup
 class NewsListingViewPagerAdapter : PagerAdapter() {
     var sources: Array<String> = emptyArray()
 
-    override fun instantiateItem(container: ViewGroup?, position: Int): Any {
-        val newsListingViewGroup = NewsListingViewGroup(container?.context, sources[position])
-        container?.addView(newsListingViewGroup)
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val newsListingViewGroup = NewsListingViewGroup(container.context, sources[position])
+        container.addView(newsListingViewGroup)
         return newsListingViewGroup
     }
 
-    override fun destroyItem(container: ViewGroup?, position: Int, `object`: Any?) {
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         super.destroyItem(container, position, `object`)
-        container?.removeView(`object` as NewsListingViewGroup)
+        container.removeView(`object` as NewsListingViewGroup)
     }
 
-    override fun isViewFromObject(view: View?, `object`: Any?) =
+    override fun isViewFromObject(view: View, `object`: Any) =
             view === `object` as NewsListingViewGroup
 
     override fun getCount() = sources.size

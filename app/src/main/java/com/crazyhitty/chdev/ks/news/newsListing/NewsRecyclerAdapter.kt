@@ -85,20 +85,20 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyItemChanged(itemCount.minus(1))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_NEWS -> {
-                val view = LayoutInflater.from(parent?.context)
+                val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_news, parent, false)
                 NewsViewHolder(view)
             }
             VIEW_TYPE_LOADING -> {
-                val view = LayoutInflater.from(parent?.context)
+                val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_loading, parent, false)
                 LoadingViewHolder(view)
             }
             VIEW_TYPE_LOADING_ERROR -> {
-                val view = LayoutInflater.from(parent?.context)
+                val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_loading_error, parent, false)
                 LoadingErrorViewHolder(view)
             }
@@ -130,7 +130,7 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         else -> VIEW_TYPE_NEWS
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is NewsViewHolder -> onBindNewsViewHolder(holder, position)
             is LoadingViewHolder -> onBindLoadingViewHolder(holder, position)
@@ -138,47 +138,47 @@ class NewsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    private fun onBindNewsViewHolder(holder: NewsViewHolder?, position: Int) {
+    private fun onBindNewsViewHolder(holder: NewsViewHolder, position: Int) {
         val article = articles[position]
 
-        holder?.textViewTitle?.text = article?.title
-        holder?.textViewDesc?.setTextOrHide(article?.description)
-        holder?.textViewAuthor?.text = article?.author
-        holder?.textViewDate?.text = article?.publishedAtReadable
-        holder?.imageViewNews?.setImageUriOrHide(false, article?.urlToImage)
+        holder.textViewTitle.text = article?.title
+        holder.textViewDesc.setTextOrHide(article?.description)
+        holder.textViewAuthor.text = article?.author
+        holder.textViewDate.text = article?.publishedAtReadable
+        holder.imageViewNews.setImageUriOrHide(false, article?.urlToImage)
     }
 
-    private fun onBindLoadingViewHolder(holder: LoadingViewHolder?, position: Int) {
+    private fun onBindLoadingViewHolder(holder: LoadingViewHolder, position: Int) {
 
     }
 
-    private fun onBindLoadingErrorViewHolder(holder: LoadingErrorViewHolder?, position: Int) {
-        holder?.textViewError?.text = errorMessage.plus("\nTap to retry")
+    private fun onBindLoadingErrorViewHolder(holder: LoadingErrorViewHolder, position: Int) {
+        holder.textViewError.text = errorMessage.plus("\nTap to retry")
     }
 
-    inner class NewsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        val textViewTitle = itemView?.find<TextView>(R.id.textViewTitle)
-        val textViewDesc = itemView?.find<TextView>(R.id.textViewDesc)
-        val textViewAuthor = itemView?.find<TextView>(R.id.textViewAuthor)
-        val textViewDate = itemView?.find<TextView>(R.id.textViewDate)
-        val imageViewNews = itemView?.find<SimpleDraweeView>(R.id.imageViewNews)
+    inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textViewTitle = itemView.find<TextView>(R.id.textViewTitle)
+        val textViewDesc = itemView.find<TextView>(R.id.textViewDesc)
+        val textViewAuthor = itemView.find<TextView>(R.id.textViewAuthor)
+        val textViewDate = itemView.find<TextView>(R.id.textViewDate)
+        val imageViewNews = itemView.find<SimpleDraweeView>(R.id.imageViewNews)
 
         init {
-            itemView?.setOnClickListener {
+            itemView.setOnClickListener {
                 onItemClickListener?.invoke(articles[adapterPosition])
             }
         }
     }
 
-    inner class LoadingViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        val progressBar = itemView?.find<ProgressBar>(R.id.progressBar)
+    inner class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val progressBar = itemView.find<ProgressBar>(R.id.progressBar)
     }
 
-    inner class LoadingErrorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        val textViewError = itemView?.find<TextView>(R.id.textViewError)
+    inner class LoadingErrorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textViewError = itemView.find<TextView>(R.id.textViewError)
 
         init {
-            itemView?.setOnClickListener {
+            itemView.setOnClickListener {
                 onErrorViewClickListener?.invoke()
             }
         }

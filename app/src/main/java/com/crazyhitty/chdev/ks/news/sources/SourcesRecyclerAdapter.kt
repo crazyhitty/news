@@ -34,31 +34,31 @@ class SourcesRecyclerAdapter : RecyclerView.Adapter<SourcesRecyclerAdapter.Sourc
      */
     var onSourceCheckClickListener: ((SourceItem?) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SourceViewHolder {
-        val view = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SourceViewHolder {
+        val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_source, parent, false)
         return SourceViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SourceViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: SourceViewHolder, position: Int) {
         val sourceItem = sourceItems[position]
 
-        holder?.textViewName?.text = sourceItem?.spannableName
-        holder?.textViewDesc?.text = sourceItem?.description
-        holder?.textViewExtraDetails?.text = "${sourceItem?.category} / ${sourceItem?.language} / ${sourceItem?.country}"
-        holder?.checkBox?.checked = sourceItem?.selected ?: false
+        holder.textViewName.text = sourceItem?.spannableName
+        holder.textViewDesc.text = sourceItem?.description
+        holder.textViewExtraDetails.text = "${sourceItem?.category} / ${sourceItem?.language} / ${sourceItem?.country}"
+        holder.checkBox.checked = sourceItem?.selected ?: false
     }
 
     override fun getItemCount() = sourceItems.size
 
-    inner class SourceViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        val textViewName = itemView?.find<TextView>(R.id.textViewName)
-        val textViewDesc = itemView?.find<TextView>(R.id.textViewDesc)
-        val textViewExtraDetails = itemView?.find<TextView>(R.id.textViewExtraDetails)
-        val checkBox = itemView?.find<SourceCheckbox>(R.id.checkBox)
+    inner class SourceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textViewName = itemView.find<TextView>(R.id.textViewName)
+        val textViewDesc = itemView.find<TextView>(R.id.textViewDesc)
+        val textViewExtraDetails = itemView.find<TextView>(R.id.textViewExtraDetails)
+        val checkBox = itemView.find<SourceCheckbox>(R.id.checkBox)
 
         init {
-            checkBox?.setOnClickListener {
+            checkBox.setOnClickListener {
                 sourceItems[adapterPosition]?.selected = sourceItems[adapterPosition]?.selected != true
                 notifyItemChanged(adapterPosition)
                 onSourceCheckClickListener?.invoke(sourceItems[adapterPosition])
