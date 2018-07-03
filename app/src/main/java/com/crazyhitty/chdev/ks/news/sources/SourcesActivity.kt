@@ -6,7 +6,7 @@ import android.view.View
 import com.crazyhitty.chdev.ks.news.R
 import com.crazyhitty.chdev.ks.news.base.BaseAppCompatActivity
 import com.crazyhitty.chdev.ks.news.data.api.model.news.SourceItem
-import com.crazyhitty.chdev.ks.news.newsListing.NewsListingActivity
+import com.crazyhitty.chdev.ks.news.newsListing.NewsActivity
 import com.crazyhitty.chdev.ks.news.util.extensions.onTextChanged
 import kotlinx.android.synthetic.main.activity_sources.*
 import org.jetbrains.anko.startActivity
@@ -163,6 +163,6 @@ class SourcesActivity : BaseAppCompatActivity(), SourcesContract.View {
     }
 
     override fun redirectToNewsScreen() {
-        startActivity<NewsListingActivity>()
+        startActivity<NewsActivity>()
     }
 }

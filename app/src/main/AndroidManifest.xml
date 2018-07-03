@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".newsListing.NewsListingActivity"
+            android:name=".newsListing.NewsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

@@ -11,7 +11,7 @@ import javax.inject.Inject
  *
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
-class NewsListingActivity : BaseAppCompatActivity() {
+class NewsActivity : BaseAppCompatActivity() {
     @Inject
     lateinit var newsListingViewPagerAdapter: NewsListingViewPagerAdapter
 
