@@ -1,12 +1,14 @@
 package com.crazyhitty.chdev.ks.news.newsListing
 
 import android.os.Bundle
-import com.crazyhitty.chdev.ks.news.data.Constants
+import com.crazyhitty.chdev.ks.news.Constants
 import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.data.api.model.news.ArticleItem
 import com.crazyhitty.chdev.ks.news.data.api.model.news.News
 import com.crazyhitty.chdev.ks.news.data.api.model.news.SourceItem
-import com.crazyhitty.chdev.ks.news.util.DateTimeFormatter
+import com.crazyhitty.chdev.ks.news.presentation.newslisting.NewsListingContract
+import com.crazyhitty.chdev.ks.news.presentation.newslisting.NewsListingPresenter
+import com.crazyhitty.chdev.ks.news.util.DateTimeUtil
 import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
 import com.crazyhitty.chdev.ks.news.util.rx.TestSchedulerProvider
 import io.reactivex.Single
@@ -41,7 +43,7 @@ class NewsListingPresenterTest {
     private lateinit var mockBundle: Bundle
 
     private lateinit var testScheduler: TestScheduler
-    private lateinit var dateTimeFormatter: DateTimeFormatter
+    private lateinit var dateTimeFormatter: DateTimeUtil
     private lateinit var newsListingPresenter: NewsListingPresenter
 
     @Before
@@ -51,7 +53,7 @@ class NewsListingPresenterTest {
         testScheduler = TestScheduler()
         val testSchedulerProvider = TestSchedulerProvider(testScheduler)
 
-        dateTimeFormatter = DateTimeFormatter(SimpleDateFormat(Constants.DateFormat.PROVIDED_DATE_FORMAT,
+        dateTimeFormatter = DateTimeUtil(SimpleDateFormat(Constants.DateFormat.PROVIDED_DATE_FORMAT,
                 Locale.getDefault()))
 
         newsListingPresenter = NewsListingPresenter(mockInternetHelper,

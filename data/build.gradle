@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    def dep = rootProject.ext.dataDependencies
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':domain')
+    implementation dep.kotlinStdLib
+    compileOnly dep.javaxAnnotation
+    implementation dep.javaxInject
+    implementation dep.rxJava
+    implementation dep.rxAndroid
+    implementation dep.androidAnnotations
+    testImplementation dep.junit
+    implementation dep.okHttp
+    implementation dep.moshi
+    implementation dep.retrofit
+    implementation dep.retrofitConverter
+    implementation dep.retrofitRxJava
+    implementation dep.retrofitLogging
+}

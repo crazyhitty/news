@@ -6,35 +6,22 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-/**
- * Generate version code on the bases of current number of commits.
- *
- * Source: https://gist.github.com/paramsen/4a92c9230d799caeb3b90897da27a80c
- *
- * @return
- * Integer representing total number of commits.
- */
-static def generateVersionCode() {
-    def result = "git rev-list HEAD --count".execute().text.trim() //unix
-    if(result.empty) result = "PowerShell -Command git rev-list HEAD --count".execute().text.trim() //windows
-    if(result.empty) throw new RuntimeException("Could not generate versioncode on this platform? Cmd output: ${result.text}")
-    return result.toInteger()
-}
-
-def majorVersion = 0
-
 android {
-    compileSdkVersion 26
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
     defaultConfig {
-        applicationId "com.crazyhitty.chdev.ks.news"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode generateVersionCode()
-        versionName "${majorVersion}.${getVersionCode()}"
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.generateVersionCode()
+        versionName "${rootProject.ext.majorVersion}.${getVersionCode()}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         debug {
+            applicationIdSuffix ".dev"
             buildConfigField 'String', 'API_KEY', config.apiKey
         }
         release {
@@ -43,7 +30,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    testOptions.unitTests{
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            eachDependency { details ->
+                // Force all of the primary support libraries to use the same version.
+                if (details.requested.group == rootProject.ext.presentationDependencies.supportLibGroup
+                        && details.requested.name != 'multidex'
+                        && details.requested.name != 'multidex-instrumentation') {
+                    details.useVersion rootProject.ext.supportLibVersion
+                }
+            }
+        }
+    }
+
+    testOptions.unitTests {
         returnDefaultValues = true
         all {
             testLogging {
@@ -58,53 +64,51 @@ kapt {
     generateStubs = true
 }
 
+project.afterEvaluate {
+    project.android.applicationVariants.all { variant ->
+        def addConstant = { constantName, constantValue ->
+            variant.mergedFlavor.manifestPlaceholders += [(constantName): constantValue]
+            buildConfigField "String", "${constantName}", "\"${constantValue}\""
+        }
+        rootProject.ext.NavigationActions.each {
+            action -> addConstant(action, "${rootProject.ext.applicationId}.${action}")
+        }
+    }
+}
+
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    // Tests
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.7.1'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
-    // Kotlin
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-
-    // Android support
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-
-    // Rxjava 2
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    // Because RxAndroid releases are few and far between, it is recommended you also
-    // explicitly depend on RxJava's latest version for bug fixes and new features.
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
-
-    // Rxbinding
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
-
-    // Dagger 2
-    kapt 'com.google.dagger:dagger-compiler:2.14.1'
-    implementation 'com.google.dagger:dagger:2.14.1'
-
-    // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.moshi:moshi-kotlin:1.5.0'
-
-    // Anko Commons
-    implementation "org.jetbrains.anko:anko-commons:$anko_version"
-
-    // Calligraphy
-    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
-
-    // Fresco
-    implementation 'com.facebook.fresco:fresco:1.8.1'
-
-    // Stetho
-    implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    def dep = rootProject.ext.presentationDependencies
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':domain')
+    implementation project(':data')
+    implementation dep.kotlinStdLib
+    implementation dep.appcompat
+    implementation dep.supportDesign
+    implementation dep.constraintLayout
+    implementation dep.dagger
+    implementation dep.daggerAndroid
+    kapt dep.daggerAndroidProcessor
+    kapt dep.daggerCompiler
+    implementation dep.rxJava
+    implementation dep.rxAndroid
+    compileOnly dep.javaxAnnotation
+    implementation dep.javaxInject
+    testImplementation dep.junit
+    testImplementation dep.mockito
+    androidTestImplementation dep.testRunner
+    androidTestImplementation dep.expressoCore
+    implementation dep.kotlinReflect
+    implementation dep.rxBinding
+    implementation dep.anko
+    implementation dep.calligraphy
+    implementation dep.fresco
+    implementation dep.stetho
+    implementation dep.stethoOkhttp
+    def dataDep = rootProject.ext.dataDependencies
+    implementation dataDep.okHttp
+    implementation dataDep.moshi
+    implementation dataDep.retrofit
+    implementation dataDep.retrofitConverter
+    implementation dataDep.retrofitRxJava
+    implementation dataDep.retrofitLogging
 }

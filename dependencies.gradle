@@ -1,0 +1,124 @@
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+}
+
+ext {
+
+/**
+ * Generate version code on the bases of current number of commits.
+ *
+ * Source: https://gist.github.com/paramsen/4a92c9230d799caeb3b90897da27a80c
+ *
+ * @return
+ * Integer representing total number of commits.
+ */
+    generateVersionCode = {
+        def result = "git rev-list HEAD --count".execute().text.trim() //unix
+        if (result.empty) {
+            result =
+                    "PowerShell -Command git rev-list HEAD --count".execute().text.trim()
+        } //windows
+        if (result.empty) {
+            throw new RuntimeException(
+                    "Could not generate versioncode on this platform? Cmd output: ${result.text}")
+        }
+        return result.toInteger()
+    }
+
+    majorVersion = 0
+
+    compileSdkVersion = 26
+    buildToolsVersion = "28.0.0"
+    minSdkVersion = 19
+    targetSdkVersion = 26
+    versionCode = System.getenv("BUILD_NUMBER") as Integer ?: 1
+    versionName = System.getenv("BUILD_NUMBER") ?: "IDE"
+    applicationId = "com.crazyhitty.chdev.ks.news"
+    sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+    targetCompatibilityVersion = JavaVersion.VERSION_1_8
+
+    supportLibVersion = "27.0.2"
+    constraintLayoutVersion = "1.1.2"
+    daggerVersion = "2.15"
+    butterKnifeVersion = "8.8.1"
+    moshiVersion = "1.5.0"
+    rxJavaVersion = "2.1.7"
+    rxAndroidVersion = "2.0.1"
+    rxBindingVersion = "2.1.1"
+    javaxAnnotationVersion = "1.0"
+    javaxInjectVersion = "1"
+    okHttpVersion = "3.9.1"
+    retrofitVersion = "2.3.0"
+    retrofitLoggingVersion = "3.9.1"
+    glideVersion = "4.5.0"
+    glideOkhttpVersion = "4.6.1@aar"
+    lottieVersion = "2.2.5"
+    dexterVersion = "4.2.0"
+    hockeyVersion = "5.1.0"
+    timberVersion = "4.7.0"
+    junitVersion = "4.12"
+    mockitoVersion = "2.18.3"
+    guavaVersion = "25.0-android"
+    espressoVersion = "3.0.2"
+    novodaEspressoVersion = "1.0.0"
+    testVersion = "1.0.2"
+    calligraphyVersion = "2.3.0"
+    frescoVersion = "1.8.1"
+    stethoVersion = "1.5.0"
+    stethoOkHttpVersion = "1.5.0"
+
+    presentationDependencies = [
+            supportLibGroup       : "com.android.support",
+            kotlinStdLib          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            kotlinReflect         : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
+            appcompat             : "com.android.support:appcompat-v7:$supportLibVersion",
+            supportDesign         : "com.android.support:design:$supportLibVersion",
+            constraintLayout      : "com.android.support.constraint:constraint-layout:$constraintLayoutVersion",
+            rxJava                : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid             : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            rxBinding             : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
+            javaxAnnotation       : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject           : "javax.inject:javax.inject:${javaxInjectVersion}",
+            dagger                : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            moshi                 : "com.squareup.moshi:moshi-kotlin:$moshiVersion",
+            daggerAndroid         : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            junit                 : "junit:junit:${junitVersion}",
+            mockito               : "org.mockito:mockito-core:${mockitoVersion}",
+            expressoCore          : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            testRunner            : "com.android.support.test:runner:${testVersion}",
+            anko                  : "org.jetbrains.anko:anko-commons:$anko_version",
+            calligraphy           : "uk.co.chrisjenx:calligraphy:${calligraphyVersion}",
+            fresco                : "com.facebook.fresco:fresco:${frescoVersion}",
+            stetho                : "com.facebook.stetho:stetho:${stethoVersion}",
+            stethoOkhttp          : "com.facebook.stetho:stetho-okhttp3:${stethoOkHttpVersion}"
+    ]
+
+    domainDependencies = [
+            kotlinStdLib   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            rxJava         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}",
+            junit          : "junit:junit:${junitVersion}"
+    ]
+
+    dataDependencies = [
+            kotlinStdLib      : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            okHttp            : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
+            rxJava            : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid         : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            retrofit          : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitConverter : "com.squareup.retrofit2:converter-moshi:${retrofitVersion}",
+            retrofitRxJava    : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            retrofitLogging   : "com.squareup.okhttp3:logging-interceptor:${retrofitLoggingVersion}",
+            javaxAnnotation   : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject       : "javax.inject:javax.inject:${javaxInjectVersion}",
+            androidAnnotations: "com.android.support:support-annotations:${supportLibVersion}",
+            moshi             : "com.squareup.moshi:moshi-kotlin:${moshiVersion}",
+            junit             : "junit:junit:${junitVersion}"
+    ]
+}

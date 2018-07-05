@@ -1,0 +1,6 @@
+ext {
+    NavigationActions =
+            [
+                    'ACTION_SPLASH'
+            ]
+}

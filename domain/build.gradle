@@ -1,0 +1,14 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    def dep = rootProject.ext.domainDependencies
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation dep.kotlinStdLib
+    implementation dep.rxJava
+    compileOnly dep.javaxAnnotation
+    implementation dep.javaxInject
+}
+
+sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
+targetCompatibility = rootProject.ext.targetCompatibilityVersion

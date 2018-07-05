@@ -1,33 +1,35 @@
 package com.crazyhitty.chdev.ks.news.di.components
 
+import android.app.Application
 import com.crazyhitty.chdev.ks.news.NewsApplication
-import com.crazyhitty.chdev.ks.news.data.DataStore
-import com.crazyhitty.chdev.ks.news.data.api.NewsApiService
 import com.crazyhitty.chdev.ks.news.di.modules.ApplicationModule
-import com.crazyhitty.chdev.ks.news.util.DateTimeFormatter
-import com.crazyhitty.chdev.ks.news.util.internet.InternetHelper
-import com.crazyhitty.chdev.ks.news.util.rx.SchedulerProvider
+import com.crazyhitty.chdev.ks.news.di.modules.DataModule
+import com.crazyhitty.chdev.ks.news.di.modules.NetworkModule
+import com.crazyhitty.chdev.ks.news.presentation.NewsListingModule
+import dagger.BindsInstance
 import dagger.Component
-import io.reactivex.disposables.CompositeDisposable
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 /**
  * @author  Kartik Sharma (cr42yh17m4n@gmail.com)
  */
 @Singleton
-@Component(modules = [ApplicationModule::class])
-interface ApplicationComponent {
-    fun inject(newsApplication: NewsApplication)
+@Component(modules = [
+    AndroidSupportInjectionModule::class,
+    ApplicationModule::class,
+    NetworkModule::class,
+    DataModule::class,
+    NewsListingModule::class
+])
+interface ApplicationComponent : AndroidInjector<NewsApplication> {
 
-    fun getCompositeDisposable(): CompositeDisposable
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun application(application: Application): Builder
 
-    fun getSchedulerProvider(): SchedulerProvider
-
-    fun getInternetHelper(): InternetHelper
-
-    fun getNewsApiService(): NewsApiService
-
-    fun getDateTimeFormatter(): DateTimeFormatter
-
-    fun getDataStore(): DataStore
+        fun build(): ApplicationComponent
+    }
 }
